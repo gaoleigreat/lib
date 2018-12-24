@@ -25,22 +25,22 @@ public class RespVOBuilder {
     /**
      * 成功
      *
-     * @param data
+     * @param info
      * @param <T> POJO
      * @return
      */
-    public static <T> RespVO<T> success(T data) {
-        return new RespVO<>(RespConsts.SUCCESS, "请求成功", data);
+    public static <T> RespVO<T> success(T info) {
+        return new RespVO<>(RespConsts.SUCCESS, "请求成功", info);
     }
 
     /**
      * 成功
-     * @param data
+     * @param info
      * @param <T> List
      * @return
      */
-    public static <T> RespVO<RespDataVO<T>> success(List<T> data) {
-        return new RespVO<>(RespConsts.SUCCESS, "请求成功", new RespDataVO<>(data));
+    public static <T> RespVO<RespDataVO<T>> success(List<T> info) {
+        return new RespVO<>(RespConsts.SUCCESS, "请求成功", new RespDataVO<>(info));
     }
 
     /**
@@ -79,12 +79,12 @@ public class RespVOBuilder {
     /**
      * 失败并返回数据
      * @param msg
-     * @param data
+     * @param info
      * @param <T>
      * @return
      */
-    public static <T> RespVO<T> failureData(String msg, T data) {
-        return new RespVO<>(RespConsts.FAILURE, msg, data);
+    public static <T> RespVO<T> failureData(String msg, T info) {
+        return new RespVO<>(RespConsts.FAILURE, msg, info);
     }
 
     /**
@@ -102,18 +102,18 @@ public class RespVOBuilder {
      * 失败
      *
      * @param clazz *Consts中定义的接口
-     * @param data  需要返回的业务数据
+     * @param info  需要返回的业务数据
      * @param <T>
      * @return
      */
-    public static <T> RespVO<T> failure(Class clazz, T data) {
-        String code = null;
+    public static <T> RespVO<T> failure(Class clazz, T info) {
+        String ret = null;
         String msg = null;
         Field[] fields = clazz.getDeclaredFields();
         try {
             for (Field field : fields) {
-                if (field.getName().equals("code")) {
-                    code = String.valueOf(field.get(clazz));
+                if (field.getName().equals("ret")) {
+                    ret = String.valueOf(field.get(clazz));
                 }
                 if (field.getName().equals("msg")) {
                     msg = String.valueOf(field.get(clazz));
@@ -122,6 +122,6 @@ public class RespVOBuilder {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new RespVO<>(code, msg, data);
+        return new RespVO<>(ret, msg, info);
     }
 }

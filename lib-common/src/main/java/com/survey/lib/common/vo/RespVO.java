@@ -19,5 +19,5 @@ import java.io.Serializable;
 public class RespVO<T> implements Serializable {
     private String ret;
     private String msg;
-    private T data;
+    private T info;
 }
