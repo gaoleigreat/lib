@@ -18,6 +18,7 @@ import java.io.Serializable;
 @ToString
 public class RespVO<T> implements Serializable {
     private String ret;
+    private int retCode;
     private String msg;
     private T info;
 }

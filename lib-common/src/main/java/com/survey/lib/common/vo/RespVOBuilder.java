@@ -5,6 +5,10 @@ import com.survey.lib.common.consts.RespConsts;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.survey.lib.common.consts.RespConsts.ERROR_RESULT;
+import static com.survey.lib.common.consts.RespConsts.SUCCESS_RESULT;
+
 /**
  * @author yanglf
  * @description
@@ -19,7 +23,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success() {
-        return new RespVO<>(RespConsts.SUCCESS, "请求成功", (T) new HashMap(0));
+        return new RespVO<>(RespConsts.SUCCESS, SUCCESS_RESULT ,"请求成功", (T) new HashMap(0));
     }
 
     /**
@@ -30,7 +34,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success(T info) {
-        return new RespVO<>(RespConsts.SUCCESS, "请求成功", info);
+        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT, "请求成功", info);
     }
 
     /**
@@ -40,7 +44,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<RespDataVO<T>> success(List<T> info) {
-        return new RespVO<>(RespConsts.SUCCESS, "请求成功", new RespDataVO<>(info));
+        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT, "请求成功", new RespDataVO<>(info));
     }
 
     /**
@@ -61,7 +65,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failure(String msg) {
-        return new RespVO<>(RespConsts.FAILURE, msg, (T) new HashMap(0));
+        return new RespVO<>(RespConsts.FAILURE, ERROR_RESULT,msg, (T) new HashMap(0));
     }
 
     /**
@@ -72,8 +76,8 @@ public class RespVOBuilder {
      * @param <T>
      * @return
      */
-    public static <T> RespVO<T> failure(String code, String msg) {
-        return new RespVO<>(code, msg, (T) new HashMap<>(0));
+    public static <T> RespVO<T> failure(String code,int retCode, String msg) {
+        return new RespVO<>(code,retCode ,msg, (T) new HashMap<>(0));
     }
 
     /**
@@ -84,7 +88,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failureData(String msg, T info) {
-        return new RespVO<>(RespConsts.FAILURE, msg, info);
+        return new RespVO<>(RespConsts.FAILURE,ERROR_RESULT, msg, info);
     }
 
     /**
@@ -109,11 +113,15 @@ public class RespVOBuilder {
     public static <T> RespVO<T> failure(Class clazz, T info) {
         String ret = null;
         String msg = null;
+        int retCode=-5;
         Field[] fields = clazz.getDeclaredFields();
         try {
             for (Field field : fields) {
                 if (field.getName().equals("ret")) {
                     ret = String.valueOf(field.get(clazz));
+                }
+                if(field.getName().equals("retCode")){
+                    retCode=Integer.valueOf(field.get(clazz)+"");
                 }
                 if (field.getName().equals("msg")) {
                     msg = String.valueOf(field.get(clazz));
@@ -122,6 +130,6 @@ public class RespVOBuilder {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new RespVO<>(ret, msg, info);
+        return new RespVO<>(ret,retCode, msg, info);
     }
 }
