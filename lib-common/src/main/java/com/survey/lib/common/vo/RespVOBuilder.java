@@ -47,6 +47,18 @@ public class RespVOBuilder {
         return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT, "请求成功", new RespDataVO<>(info));
     }
 
+
+    /**
+     * 成功
+     *
+     * @param <T> POJO
+     * @return
+     */
+    public static <T> RespVO<T> success(int retCode,String msg) {
+        return new RespVO<>(RespConsts.SUCCESS,retCode, msg,(T)new HashMap<>(10));
+    }
+
+
     /**
      * 失败
      *
@@ -65,19 +77,18 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failure(String msg) {
-        return new RespVO<>(RespConsts.FAILURE, ERROR_RESULT,msg, (T) new HashMap(0));
+        return new RespVO<>(RespConsts.SUCCESS, ERROR_RESULT,msg, (T) new HashMap(0));
     }
 
     /**
      * 失败
      *
-     * @param code
      * @param msg
      * @param <T>
      * @return
      */
-    public static <T> RespVO<T> failure(String code,int retCode, String msg) {
-        return new RespVO<>(code,retCode ,msg, (T) new HashMap<>(0));
+    public static <T> RespVO<T> failure(int retCode, String msg) {
+        return new RespVO<>(RespConsts.SUCCESS,retCode ,msg, (T) new HashMap<>(0));
     }
 
     /**
@@ -88,7 +99,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failureData(String msg, T info) {
-        return new RespVO<>(RespConsts.FAILURE,ERROR_RESULT, msg, info);
+        return new RespVO<>(RespConsts.SUCCESS,ERROR_RESULT, msg, info);
     }
 
     /**
@@ -101,6 +112,32 @@ public class RespVOBuilder {
     public static <T> RespVO<T> failure(Class clazz) {
         return failure(clazz, (T) new HashMap<>(0));
     }
+
+
+    /**
+     * 请求错误
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> RespVO<T> error(int retCode,String msg) {
+        return new RespVO<>(RespConsts.FAILURE,retCode, msg,(T) new HashMap<>(0));
+    }
+
+
+    /**
+     * 异常
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> RespVO<T> error(Class clazz) {
+        return failure(clazz,(T)new HashMap<>(10));
+    }
+
+
+
+
 
     /**
      * 失败

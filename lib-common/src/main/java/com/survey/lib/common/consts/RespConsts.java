@@ -41,7 +41,7 @@ public class RespConsts {
      * 失败
      */
     public interface Failure {
-        String ret = FAILURE;
+        String ret = SUCCESS;
         int retCode=ERROR_RESULT;
         String msg = "请求失败";
     }

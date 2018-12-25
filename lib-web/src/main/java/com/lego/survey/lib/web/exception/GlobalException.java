@@ -26,7 +26,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(ResourceNotFoundException ex){
         log.error("找不到资源:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        return RespVOBuilder.error(RespConsts.ERROR_OTHER,ex.getMessage());
     }
 
 
@@ -36,7 +36,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(SessionTimeoutException ex){
         log.error("登录超时:{}",ex);
-        return RespVOBuilder.failure(RespConsts.FAILURE,RespConsts.ERROR_NOPRESSION,ex.getMessage());
+        return RespVOBuilder.success(RespConsts.ERROR_NOPRESSION,ex.getMessage());
     }
 
 
@@ -45,7 +45,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(UnregisteredException ex){
         log.error("未注册:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        return RespVOBuilder.success(RespConsts.ERROR_NOPRESSION,ex.getMessage());
     }
 
     @ExceptionHandler(value = UnAuthorizationException.class)
@@ -53,7 +53,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(UnAuthorizationException ex){
         log.error("权限缺失:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        return RespVOBuilder.success(RespConsts.ERROR_NOPRESSION,ex.getMessage());
     }
 
 
@@ -63,7 +63,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(ServerException ex){
         log.error("服务异常:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        return RespVOBuilder.error(RespConsts.ERROR_SERVER_ERROR,ex.getMessage());
     }
 
 
@@ -72,6 +72,6 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(Exception ex){
         log.error("服务器异常:{}",ex);
-        return RespVOBuilder.failure("系统异常");
+        return RespVOBuilder.error(RespConsts.ERROR_OTHER,"系统异常");
     }
 }
