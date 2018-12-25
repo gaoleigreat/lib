@@ -70,12 +70,20 @@ public class SwaggerConfiguration {
         parameters.add(snPar.build());
 
         List<ResponseMessage> responseMessages=new ArrayList<>();
-        responseMessages.add(new ResponseMessageBuilder().code(500).message("系统异常").responseModel(new ModelRef("ApiError")).build());
+        responseMessages.add(new ResponseMessageBuilder().code(1).message("操作成功").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-1).message("权限校验失败").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-2).message("服务内部错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-3).message("调用超时错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-4).message("其他错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-5).message("结果错误").build());
 
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .globalOperationParameters(parameters)
                 .globalResponseMessage(RequestMethod.GET,responseMessages)
+                .globalResponseMessage(RequestMethod.POST,responseMessages)
+                .globalResponseMessage(RequestMethod.PUT,responseMessages)
+                .globalResponseMessage(RequestMethod.DELETE,responseMessages)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))

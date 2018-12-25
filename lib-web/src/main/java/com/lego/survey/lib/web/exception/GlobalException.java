@@ -1,9 +1,7 @@
 package com.lego.survey.lib.web.exception;
 
-import com.survey.lib.common.exception.ResourceNotFoundException;
-import com.survey.lib.common.exception.ServerException;
-import com.survey.lib.common.exception.SessionTimeoutException;
-import com.survey.lib.common.exception.UnregisteredException;
+import com.survey.lib.common.consts.RespConsts;
+import com.survey.lib.common.exception.*;
 import com.survey.lib.common.vo.RespVO;
 import com.survey.lib.common.vo.RespVOBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +36,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(SessionTimeoutException ex){
         log.error("登录超时:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.FAILURE,RespConsts.ERROR_NOPRESSION,ex.getMessage());
     }
 
 
@@ -49,6 +47,15 @@ public class GlobalException {
         log.error("未注册:{}",ex);
         return RespVOBuilder.failure(ex.getMessage());
     }
+
+    @ExceptionHandler(value = UnAuthorizationException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public RespVO handleException(UnAuthorizationException ex){
+        log.error("权限缺失:{}",ex);
+        return RespVOBuilder.failure(ex.getMessage());
+    }
+
 
 
     @ExceptionHandler(value = ServerException.class)

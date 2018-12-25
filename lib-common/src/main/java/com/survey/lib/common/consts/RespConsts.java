@@ -16,7 +16,7 @@ public class RespConsts {
     /**
      * 权限认证失败
      */
-    public  static  final  int FAIL_NOPRESSION=-1;
+    public  static  final  int ERROR_NOPRESSION=-1;
 
     /**
      * 服务内部错误

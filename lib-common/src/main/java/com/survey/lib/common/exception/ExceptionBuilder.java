@@ -41,6 +41,10 @@ public class ExceptionBuilder {
         throw new SessionTimeoutException("登录超时");
     }
 
+    public  static  void  unAuthorizationException(){
+        throw new UnAuthorizationException("权限缺失");
+    }
+
 
 
 

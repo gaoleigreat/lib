@@ -18,9 +18,9 @@ public class RequestInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info(String.format("Request from -> IP: %s, Method: %s, URL: %s, Params: %s",
+        log.info(String.format("Request from -> IP: %s, Method: %s, URL: %s, Params: %s, Headers: %s",
                 HttpUtils.getClientIp(request), request.getMethod(), request.getRequestURL().toString(),
-                HttpUtils.getRequestParams(request)));
+                HttpUtils.getRequestParams(request),HttpUtils.getRequestHeaders(request)));
         return true;
     }
 

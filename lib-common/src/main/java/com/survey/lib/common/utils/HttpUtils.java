@@ -3,6 +3,7 @@ package com.survey.lib.common.utils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -59,5 +60,24 @@ public class HttpUtils {
             k++;
         }
         return sb.toString();
+    }
+
+    public static String getRequestHeaders(HttpServletRequest request) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        StringBuilder sb = new StringBuilder();
+        int k = 0;
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            if (k != 0) {
+                sb.append(", ");
+            }
+            sb.append(headerName).append("=[");
+            String  headerValue = request.getHeader(headerName);
+            sb.append(headerValue);
+            sb.append("]");
+            k++;
+        }
+        return sb.toString();
+
     }
 }
