@@ -12,17 +12,34 @@ public class HttpConsts {
      */
     public static final String HEADER_TOKEN = "token";
 
-
-    /**
-     * 设备型号
-     */
-    public static final String HEADER_SN="sn";
-
-
     /**
      * 当前时间
      */
     public static final String HEADER_TIME="time";
+
+
+    /**
+     * 设备类型 (1- Android ; 2- web)
+     */
+    public  static final String DEVICE_TYPE="deviceType";
+
+
+    /**
+     * 设备系统版本
+     */
+    public static  final String OS_VERSION="osVersion";
+
+    /**
+     * 设备号
+     */
+    public static final String HEADER_SN="sn";
+
+
+
+    public  interface  DeviceType{
+        String DEVICE_ANDROID="1";
+        String DEVICE_WEB="2";
+    }
 
 
 
