@@ -5,6 +5,7 @@ import com.survey.lib.common.exception.*;
 import com.survey.lib.common.vo.RespVO;
 import com.survey.lib.common.vo.RespVOBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Slf4j
 @ControllerAdvice
 public class GlobalException {
+
+
+    @ExceptionHandler(value = ParameterMappingException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public RespVO handleException(ParameterMappingException ex){
+        log.error("参数缺失:{}",ex);
+        return RespVOBuilder.failure(RespConsts.ERROR_OTHER_CODE,"参数缺失");
+    }
+
 
     @ExceptionHandler(value = SessionTimeoutException.class)
     @ResponseStatus(value = HttpStatus.OK)
