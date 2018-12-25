@@ -12,37 +12,44 @@ public class RespConsts {
     public static final String FAILURE = "fail";
 
 
-    public  static  final int SUCCESS_RESULT=1;
+    public  static  final int SUCCESS_RESULT_CODE=1;
+    public static  final  String SUCCESS_RESULT_MSG="请求成功";
     /**
      * 权限认证失败
      */
-    public  static  final  int ERROR_NOPRESSION=-1;
+    public  static  final  int FAIL_NOPRESSION_CODE=-1;
+    public  static  final String FAIL_NOPRESSION_MSG=" 权限校验失败，请联系管理员";
+
+    /**
+     * 登录失败  msg 为详细错误原因
+     */
+    public  static  final int FAIL_LOGIN_CODE=-2;
 
     /**
      * 服务内部错误
      */
-    public  static  final int ERROR_SERVER_ERROR=-2;
-
+    public static  final int ERROR_SERVER_CODE=-3;
     /**
      * 调用超时
      */
-    public static  final int ERROR_TIMEOUT=-3;
-    /**
-     * 其他错误
-     */
-    public static final int ERROR_OTHER=-4;
+    public static final int ERROR_CALLTIMEOUT_CODE=-4;
 
     /**
      * 结果错误
      */
-    public static final int ERROR_RESULT=-5;
+    public static final int ERROR_OTHER_CODE=-5;
+
+    /**
+     * 结果错误
+     */
+    public static final int FAIL_RESULT_CODE=-6;
 
     /**
      * 失败
      */
     public interface Failure {
         String ret = SUCCESS;
-        int retCode=ERROR_RESULT;
+        int retCode=FAIL_RESULT_CODE;
         String msg = "请求失败";
     }
 
@@ -51,7 +58,7 @@ public class RespConsts {
      */
     public interface Success {
         String ret = SUCCESS;
-        int retCode=SUCCESS_RESULT;
+        int retCode=SUCCESS_RESULT_CODE;
         String msg = "请求成功";
     }
 }

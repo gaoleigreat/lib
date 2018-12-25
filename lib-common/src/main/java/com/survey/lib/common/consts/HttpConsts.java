@@ -10,7 +10,7 @@ public class HttpConsts {
     /**
      * token
      */
-    public static final String HEADER_TOKEN = "access-token";
+    public static final String HEADER_TOKEN = "token";
 
 
     /**

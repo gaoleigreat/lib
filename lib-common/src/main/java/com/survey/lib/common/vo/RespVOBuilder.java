@@ -6,8 +6,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.survey.lib.common.consts.RespConsts.ERROR_RESULT;
-import static com.survey.lib.common.consts.RespConsts.SUCCESS_RESULT;
+import static com.survey.lib.common.consts.RespConsts.*;
 
 /**
  * @author yanglf
@@ -23,7 +22,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success() {
-        return new RespVO<>(RespConsts.SUCCESS, SUCCESS_RESULT ,"请求成功", (T) new HashMap(0));
+        return new RespVO<>(RespConsts.SUCCESS, SUCCESS_RESULT_CODE ,SUCCESS_RESULT_MSG, (T) new HashMap(0));
     }
 
     /**
@@ -34,7 +33,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success(T info) {
-        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT, "请求成功", info);
+        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT_CODE, SUCCESS_RESULT_MSG, info);
     }
 
     /**
@@ -44,7 +43,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<RespDataVO<T>> success(List<T> info) {
-        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT, "请求成功", new RespDataVO<>(info));
+        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT_CODE, SUCCESS_RESULT_MSG, new RespDataVO<>(info));
     }
 
 
@@ -77,7 +76,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failure(String msg) {
-        return new RespVO<>(RespConsts.SUCCESS, ERROR_RESULT,msg, (T) new HashMap(0));
+        return new RespVO<>(RespConsts.SUCCESS, FAIL_RESULT_CODE,msg, (T) new HashMap(0));
     }
 
     /**
@@ -99,7 +98,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failureData(String msg, T info) {
-        return new RespVO<>(RespConsts.SUCCESS,ERROR_RESULT, msg, info);
+        return new RespVO<>(RespConsts.SUCCESS,FAIL_RESULT_CODE, msg, info);
     }
 
     /**

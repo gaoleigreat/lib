@@ -57,7 +57,7 @@ public class SwaggerConfiguration {
     public Docket docket() {
         List<Parameter> parameters=new ArrayList<>();
         ParameterBuilder tokenPar = new ParameterBuilder();
-        tokenPar.name("access-token").description("令牌").modelRef(new ModelRef("String")).parameterType("header").required(false).build();
+        tokenPar.name("token").description("令牌").modelRef(new ModelRef("String")).parameterType("header").required(false).build();
         ParameterBuilder versionPar = new ParameterBuilder();
         versionPar.name("version").description("版本号").modelRef(new ModelRef("String")).parameterType("header").required(true).build();
         ParameterBuilder timePar = new ParameterBuilder();
@@ -72,10 +72,11 @@ public class SwaggerConfiguration {
         List<ResponseMessage> responseMessages=new ArrayList<>();
         responseMessages.add(new ResponseMessageBuilder().code(1).message("操作成功").build());
         responseMessages.add(new ResponseMessageBuilder().code(-1).message("权限校验失败").build());
-        responseMessages.add(new ResponseMessageBuilder().code(-2).message("服务内部错误").build());
-        responseMessages.add(new ResponseMessageBuilder().code(-3).message("调用超时错误").build());
-        responseMessages.add(new ResponseMessageBuilder().code(-4).message("其他错误").build());
-        responseMessages.add(new ResponseMessageBuilder().code(-5).message("结果错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-2).message("登录错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-3).message("服务内部错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-4).message("调用超时错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-5).message("其他错误").build());
+        responseMessages.add(new ResponseMessageBuilder().code(-6).message("结果错误").build());
 
 
         return new Docket(DocumentationType.SWAGGER_2)

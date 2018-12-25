@@ -20,23 +20,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GlobalException {
 
-
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ResponseBody
-    public RespVO handleException(ResourceNotFoundException ex){
-        log.error("找不到资源:{}",ex);
-        return RespVOBuilder.error(RespConsts.ERROR_OTHER,ex.getMessage());
-    }
-
-
-
     @ExceptionHandler(value = SessionTimeoutException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public RespVO handleException(SessionTimeoutException ex){
         log.error("登录超时:{}",ex);
-        return RespVOBuilder.success(RespConsts.ERROR_NOPRESSION,ex.getMessage());
+        return RespVOBuilder.success(RespConsts.FAIL_LOGIN_CODE,ex.getMessage());
     }
 
 
@@ -45,7 +34,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(UnregisteredException ex){
         log.error("未注册:{}",ex);
-        return RespVOBuilder.success(RespConsts.ERROR_NOPRESSION,ex.getMessage());
+        return RespVOBuilder.success(RespConsts.FAIL_LOGIN_CODE,ex.getMessage());
     }
 
     @ExceptionHandler(value = UnAuthorizationException.class)
@@ -53,7 +42,16 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(UnAuthorizationException ex){
         log.error("权限缺失:{}",ex);
-        return RespVOBuilder.success(RespConsts.ERROR_NOPRESSION,ex.getMessage());
+        return RespVOBuilder.success(RespConsts.FAIL_NOPRESSION_CODE,RespConsts.FAIL_NOPRESSION_MSG);
+    }
+
+
+    @ExceptionHandler(value = CallTimeoutException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public RespVO handleException(CallTimeoutException ex){
+        log.error("调用失败:{}",ex);
+        return RespVOBuilder.success(RespConsts.ERROR_CALLTIMEOUT_CODE,ex.getMessage());
     }
 
 
@@ -63,7 +61,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(ServerException ex){
         log.error("服务异常:{}",ex);
-        return RespVOBuilder.error(RespConsts.ERROR_SERVER_ERROR,ex.getMessage());
+        return RespVOBuilder.error(RespConsts.ERROR_SERVER_CODE,ex.getMessage());
     }
 
 
@@ -72,6 +70,6 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(Exception ex){
         log.error("服务器异常:{}",ex);
-        return RespVOBuilder.error(RespConsts.ERROR_OTHER,"系统异常");
+        return RespVOBuilder.error(RespConsts.ERROR_OTHER_CODE,ex.getMessage());
     }
 }
