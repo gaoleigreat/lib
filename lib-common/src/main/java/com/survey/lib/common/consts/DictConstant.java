@@ -30,7 +30,7 @@ public class DictConstant {
      * url 映射
      */
     public interface Path {
-        String AUTH_URL="/survey/api-auth/auth";
+        String AUTH="/survey/api-auth/auth";
         String GROUP="/survey/api-project/group";
         String PROJECT="/survey/api-project/project";
         String SECTION="/survey/api-project/section";
