@@ -46,6 +46,11 @@ public class ExceptionBuilder {
     }
 
 
+    public static  void  unKnownException(){
+        throw new UnKnownException("未知异常");
+    }
+
+
 
 
 }
