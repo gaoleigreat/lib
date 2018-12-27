@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  **/
 public class HeaderUtils {
 
-    public HeaderVo parseHeader(HttpServletRequest request) {
+    public static HeaderVo parseHeader(HttpServletRequest request) {
         try {
             String deviceType = request.getHeader(HttpConsts.DEVICE_TYPE);
             String sn = request.getHeader(HttpConsts.HEADER_SN);
