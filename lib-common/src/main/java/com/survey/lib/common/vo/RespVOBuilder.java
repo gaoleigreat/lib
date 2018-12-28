@@ -3,7 +3,6 @@ package com.survey.lib.common.vo;
 import com.survey.lib.common.consts.RespConsts;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.survey.lib.common.consts.RespConsts.*;
@@ -22,7 +21,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success() {
-        return new RespVO<>(RespConsts.SUCCESS, SUCCESS_RESULT_CODE ,SUCCESS_RESULT_MSG, (T) new HashMap(0));
+        return new RespVO<>(SUCCESS, SUCCESS_RESULT_CODE ,SUCCESS_RESULT_MSG);
     }
 
     /**
@@ -33,7 +32,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success(T info) {
-        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT_CODE, SUCCESS_RESULT_MSG, info);
+        return new RespVO<>(SUCCESS,SUCCESS_RESULT_CODE, SUCCESS_RESULT_MSG, info);
     }
 
     /**
@@ -43,7 +42,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<RespDataVO<T>> success(List<T> info) {
-        return new RespVO<>(RespConsts.SUCCESS,SUCCESS_RESULT_CODE, SUCCESS_RESULT_MSG, new RespDataVO<>(info));
+        return new RespVO<>(SUCCESS,SUCCESS_RESULT_CODE, SUCCESS_RESULT_MSG, new RespDataVO<>(info));
     }
 
 
@@ -54,7 +53,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> success(int retCode,String msg) {
-        return new RespVO<>(RespConsts.SUCCESS,retCode, msg,(T)new HashMap<>(10));
+        return new RespVO<>(SUCCESS,retCode, msg);
     }
 
 
@@ -76,7 +75,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failure(String msg) {
-        return new RespVO<>(RespConsts.SUCCESS, FAIL_RESULT_CODE,msg, (T) new HashMap(0));
+        return new RespVO<>(FAILURE, FAIL_RESULT_CODE,msg);
     }
 
     /**
@@ -87,7 +86,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failure(int retCode, String msg) {
-        return new RespVO<>(RespConsts.SUCCESS,retCode ,msg, (T) new HashMap<>(0));
+        return new RespVO<>(FAILURE,retCode ,msg);
     }
 
     /**
@@ -98,7 +97,7 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failureData(String msg, T info) {
-        return new RespVO<>(RespConsts.SUCCESS,FAIL_RESULT_CODE, msg, info);
+        return new RespVO<>(FAILURE,FAIL_RESULT_CODE, msg, info);
     }
 
     /**
@@ -109,44 +108,18 @@ public class RespVOBuilder {
      * @return
      */
     public static <T> RespVO<T> failure(Class clazz) {
-        return failure(clazz, (T) new HashMap<>(0));
+        return fail(clazz);
     }
-
-
-    /**
-     * 请求错误
-     *
-     * @param <T>
-     * @return
-     */
-    public static <T> RespVO<T> error(int retCode,String msg) {
-        return new RespVO<>(RespConsts.FAILURE,retCode, msg,(T) new HashMap<>(0));
-    }
-
-
-    /**
-     * 异常
-     *
-     * @param <T>
-     * @return
-     */
-    public static <T> RespVO<T> error(Class clazz) {
-        return failure(clazz,(T)new HashMap<>(10));
-    }
-
-
-
 
 
     /**
      * 失败
      *
      * @param clazz *Consts中定义的接口
-     * @param info  需要返回的业务数据
      * @param <T>
      * @return
      */
-    public static <T> RespVO<T> failure(Class clazz, T info) {
+    public static <T> RespVO<T> fail(Class clazz) {
         String ret = null;
         String msg = null;
         int retCode=-5;
@@ -166,6 +139,6 @@ public class RespVOBuilder {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new RespVO<>(ret,retCode, msg, info);
+        return new RespVO<>(ret,retCode, msg);
     }
 }

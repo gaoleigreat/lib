@@ -48,7 +48,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(SessionTimeoutException ex){
         log.error("登录超时:{}",ex);
-        return RespVOBuilder.success(RespConsts.FAIL_LOGIN_CODE,ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.FAIL_LOGIN_CODE,ex.getMessage());
     }
 
 
@@ -57,7 +57,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(UnregisteredException ex){
         log.error("未注册:{}",ex);
-        return RespVOBuilder.success(RespConsts.FAIL_LOGIN_CODE,ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.FAIL_LOGIN_CODE,ex.getMessage());
     }
 
     @ExceptionHandler(value = UnAuthorizationException.class)
@@ -65,7 +65,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(UnAuthorizationException ex){
         log.error("权限缺失:{}",ex);
-        return RespVOBuilder.success(RespConsts.FAIL_NOPRESSION_CODE,RespConsts.FAIL_NOPRESSION_MSG);
+        return RespVOBuilder.failure(RespConsts.FAIL_NOPRESSION_CODE,RespConsts.FAIL_NOPRESSION_MSG);
     }
 
 
@@ -74,7 +74,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(CallTimeoutException ex){
         log.error("调用失败:{}",ex);
-        return RespVOBuilder.success(RespConsts.ERROR_CALLTIMEOUT_CODE,ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.ERROR_CALLTIMEOUT_CODE,ex.getMessage());
     }
 
 
@@ -84,7 +84,7 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(ServerException ex){
         log.error("服务异常:{}",ex);
-        return RespVOBuilder.error(RespConsts.ERROR_SERVER_CODE,ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.ERROR_SERVER_CODE,ex.getMessage());
     }
 
 
@@ -93,6 +93,6 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(Exception ex){
         log.error("服务器异常:{}",ex);
-        return RespVOBuilder.error(RespConsts.ERROR_OTHER_CODE,ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.ERROR_OTHER_CODE,ex.getMessage());
     }
 }

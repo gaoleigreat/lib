@@ -21,4 +21,10 @@ public class RespVO<T> implements Serializable {
     private int retCode;
     private String msg;
     private T info;
+
+    public RespVO(String ret, int retCode, String msg) {
+        this.ret = ret;
+        this.retCode = retCode;
+        this.msg = msg;
+    }
 }
