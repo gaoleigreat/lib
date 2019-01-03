@@ -35,7 +35,7 @@ public class RespConsts {
     public static final int ERROR_CALLTIMEOUT_CODE=-4;
 
     /**
-     * 结果错误
+     * 其他错误
      */
     public static final int ERROR_OTHER_CODE=-5;
 

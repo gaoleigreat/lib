@@ -7,11 +7,16 @@ import com.survey.lib.common.vo.RespVOBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.Set;
 
 /**
  * @author yanglf
@@ -42,6 +47,27 @@ public class GlobalException {
     }
 
 
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public RespVO handleException(ConstraintViolationException ex){
+        log.error("参数检验失败:{}",ex);
+        Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+        for (ConstraintViolation<?> violation : constraintViolations) {
+            return RespVOBuilder.failure(RespConsts.FAIL_RESULT_CODE,violation.getMessage());
+        }
+        return RespVOBuilder.failure(RespConsts.FAIL_RESULT_CODE,"参数校验失败");
+    }
+
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public RespVO handleException(MethodArgumentNotValidException ex){
+        log.error("参数校验失败:{}",ex);
+        String message = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        return RespVOBuilder.failure(RespConsts.FAIL_RESULT_CODE,message);
+    }
 
     @ExceptionHandler(value = SessionTimeoutException.class)
     @ResponseStatus(value = HttpStatus.OK)

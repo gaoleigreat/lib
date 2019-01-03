@@ -37,6 +37,7 @@ public class DictConstant {
         String WORKSPACE="/survey/api-project/workSpace";
         String USER="/survey/api-user/user";
         String LOG="/survey/api-user/log";
+        String CONFIG="/survey/api-user/config";
     }
 
 
