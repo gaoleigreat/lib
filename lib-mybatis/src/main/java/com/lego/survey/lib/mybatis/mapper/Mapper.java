@@ -1,5 +1,4 @@
 package com.lego.survey.lib.mybatis.mapper;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

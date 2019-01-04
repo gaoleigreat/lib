@@ -3,8 +3,12 @@ package com.lego.survey.lib.mybatis.config;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.lego.survey.lib.mybatis.injector.MySqlInjector;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,12 +19,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author yanglf
@@ -53,11 +57,26 @@ public class MybatisConfig {
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(MAPPER_LOCATION));
         sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
-        //plugs-  配置分页插件
+        //分页插件
         PaginationInterceptor paginationInterceptor=new PaginationInterceptor();
         paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
-        Interceptor[] list=new Interceptor[1];
+        Interceptor[] list=new Interceptor[4];
         list[0]=paginationInterceptor;
+        //TODO 性能分析插件
+        PerformanceInterceptor performanceInterceptor=new PerformanceInterceptor();
+        // 格式化sql
+        performanceInterceptor.setFormat(true);
+        performanceInterceptor.setMaxTime(2000);
+        list[1]=performanceInterceptor;
+        //TODO 执行分析插件  阻止删除整表
+        SqlExplainInterceptor sqlExplainInterceptor=new SqlExplainInterceptor();
+        Properties prop=new Properties();
+        prop.setProperty("stopProceed","true");
+        sqlExplainInterceptor.setProperties(prop);
+        list[2]=sqlExplainInterceptor;
+        // 乐观锁插件
+        OptimisticLockerInterceptor optimisticLockerInterceptor=new OptimisticLockerInterceptor();
+        list[3]=optimisticLockerInterceptor;
         sqlSessionFactoryBean.setPlugins(list);
         //plugs- 配置全局配置
         sqlSessionFactoryBean.setGlobalConfig(globalConfiguration());
@@ -77,6 +96,7 @@ public class MybatisConfig {
         config.setIdType(IdType.AUTO);
         config.setTableUnderline(true);
         globalConfiguration.setDbConfig(config);
+      //  globalConfiguration.setSqlInjector(mySqlInjector());
 
         //  MYSQL->`mysql`
         //  ORACLE->`oracle`
@@ -107,4 +127,12 @@ public class MybatisConfig {
         proxy.setTargetDataSources(targetDataSources);
         return proxy;
     }
+
+
+    @Bean
+    public MySqlInjector mySqlInjector(){
+        return new MySqlInjector();
+    }
+
+
 }

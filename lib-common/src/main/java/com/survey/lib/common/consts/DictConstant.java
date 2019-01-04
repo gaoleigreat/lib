@@ -30,14 +30,25 @@ public class DictConstant {
      * url 映射
      */
     public interface Path {
-        String AUTH="/survey/api-auth/auth";
-        String GROUP="/survey/api-project/group";
-        String PROJECT="/survey/api-project/project";
-        String SECTION="/survey/api-project/section";
-        String WORKSPACE="/survey/api-project/workSpace";
-        String USER="/survey/api-user/user";
-        String LOG="/survey/api-user/log";
-        String CONFIG="/survey/api-user/config";
+        String AUTH = "/survey/api-auth/auth";
+        String GROUP = "/survey/api-project/group";
+        String PROJECT = "/survey/api-project/project";
+        String SECTION = "/survey/api-project/section";
+        String WORKSPACE = "/survey/api-project/workSpace";
+        String USER = "/survey/api-user/user";
+        String LOG = "/survey/api-user/log";
+        String CONFIG = "/survey/api-user/config";
+    }
+
+
+    /**
+     * 角色
+     */
+    public interface Role {
+        String ADMIN = "admin";
+        String MASTER = "master";
+        String SECTION = "section";
+        String SURVEYER = "surveyer";
     }
 
 
