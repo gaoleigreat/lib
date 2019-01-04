@@ -1,6 +1,5 @@
-package com.lego.survey.druid;
+package com.lego.survey.lib.mybatis.config;
 
-import com.alibaba.druid.support.http.StatViewFilter;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,13 +7,14 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 /**
  * @author yanglf
  * @description  数据访问监控
  * @since 2018/12/22
  **/
 @Configuration
-public class WebConfiguration {
+public class DruidConfiguration {
 
     @Value("${define.druid.user.name:admin}")
     private String userName;
@@ -22,10 +22,10 @@ public class WebConfiguration {
     @Value("${define.druid.user.password:admin123}")
     private String password;
 
-    @Value("${define.druid.allow}")
+    @Value("${define.druid.allow:}")
     private String allow;
 
-    @Value("${define.druid.deny}")
+    @Value("${define.druid.deny:}")
     private String deny;
 
     @Value("${define.druid.url:/druid/*}")

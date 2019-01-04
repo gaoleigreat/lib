@@ -21,7 +21,6 @@
         <module>lib-mail</module>
         <module>lib-mybatis</module>
         <module>lib-sms</module>
-        <module>lib-druid</module>
         <module>lib-web</module>
     </modules>
 
