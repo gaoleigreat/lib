@@ -45,10 +45,27 @@ public class DictConstant {
      * 角色
      */
     public interface Role {
+        //超级管理员
         String ADMIN = "admin";
+        //公司管理员
         String MASTER = "master";
+        // 标段测量管理员
         String SECTION = "section";
+        // 测量员
         String SURVEYER = "surveyer";
+    }
+
+
+    /**
+     * 角色控制 url
+     */
+    public  interface RolePath{
+        //超级管理员  创建 标段测量管理员 以及公司管理员， 标段测量管理员创建测量员
+        String USER_CREATE="/user/create";
+        //超级管理员
+        String PROJECT_CREATE="/project/create";
+        //超级管理员
+        String PROJECT_DELETE="/project/delete";
     }
 
 
