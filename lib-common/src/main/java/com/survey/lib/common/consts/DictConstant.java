@@ -74,4 +74,17 @@ public class DictConstant {
     }
 
 
+
+    public  interface  TableNamePrefix{
+        //测量点表前缀
+        String SURVEY_POINT="survey_point_";
+        // 测量成果数据表前缀
+        String SURVEY_RESULT="survey_result_";
+        // 原始数据表前缀
+        String SURVEY_ORIGINAL="survey_original_";
+        // 任务表前缀
+        String SURVEY_TASK="survey_task_";
+    }
+
+
 }
