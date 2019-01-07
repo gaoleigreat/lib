@@ -22,6 +22,7 @@
         <module>lib-mybatis</module>
         <module>lib-sms</module>
         <module>lib-web</module>
+        <module>lib-parent</module>
     </modules>
 
     <dependencies>
@@ -41,8 +42,6 @@
             <version>1.18.2</version>
             <scope>provided</scope>
         </dependency>
-
-
     </dependencies>
 
 

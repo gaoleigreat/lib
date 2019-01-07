@@ -14,6 +14,8 @@ public class DictConstant {
         String USER = "user-service";
         String AUTH = "auth-service";
         String PROJECT = "project-service";
+        String SETTLEMENT="settlement-service";
+        String REPORT="report-service";
     }
 
 
@@ -38,6 +40,9 @@ public class DictConstant {
         String USER = "/survey/api-user/user";
         String LOG = "/survey/api-user/log";
         String CONFIG = "/survey/api-user/config";
+        String BASE_POINT="/survey/api-settlement/base_point";
+        String TEMPLATE_REPORT="/survey/api-report/template_report";
+
     }
 
 
