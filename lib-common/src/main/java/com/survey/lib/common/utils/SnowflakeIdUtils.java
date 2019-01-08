@@ -126,7 +126,7 @@ public class SnowflakeIdUtils {
      *
      * @return SnowflakeId long
      */
-    public synchronized long nextId() {
+    private synchronized long nextId() {
         long timestamp = timeGen();
 
         //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
@@ -165,7 +165,7 @@ public class SnowflakeIdUtils {
      * @param lastTimestamp 上次生成ID的时间截
      * @return 当前时间戳 long
      */
-    protected long tilNextMillis(long lastTimestamp) {
+    private long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
         while (timestamp <= lastTimestamp) {
             timestamp = timeGen();
@@ -178,7 +178,7 @@ public class SnowflakeIdUtils {
      *
      * @return 当前时间(毫秒) long
      */
-    protected long timeGen() {
+    private long timeGen() {
         return System.currentTimeMillis();
     }
 

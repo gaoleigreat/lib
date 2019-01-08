@@ -19,7 +19,6 @@ public class UuidUtils {
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z"};
 
-
     /**
      * 生成8位UUID.
      *
