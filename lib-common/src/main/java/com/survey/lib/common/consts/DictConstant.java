@@ -14,8 +14,8 @@ public class DictConstant {
         String USER = "user-service";
         String AUTH = "auth-service";
         String PROJECT = "project-service";
-        String SETTLEMENT="settlement-service";
-        String REPORT="report-service";
+        String SETTLEMENT = "settlement-service";
+        String REPORT = "report-service";
     }
 
 
@@ -40,8 +40,9 @@ public class DictConstant {
         String USER = "/survey/api-user/user";
         String LOG = "/survey/api-user/log";
         String CONFIG = "/survey/api-user/config";
-        String BASE_POINT="/survey/api-settlement/base_point";
-        String TEMPLATE_REPORT="/survey/api-report/template_report";
+        String BASE_POINT = "/survey/api-settlement/base_point";
+        String SURVEY_POINT_TYPE = "/survey/api-settlement/survey_point_type";
+        String TEMPLATE_REPORT = "/survey/api-report/template_report";
 
     }
 
@@ -64,26 +65,25 @@ public class DictConstant {
     /**
      * 角色控制 url
      */
-    public  interface RolePath{
+    public interface RolePath {
         //超级管理员  创建 标段测量管理员 以及公司管理员， 标段测量管理员创建测量员
-        String USER_CREATE="/user/create";
+        String USER_CREATE = "/user/create";
         //超级管理员
-        String PROJECT_CREATE="/project/create";
+        String PROJECT_CREATE = "/project/create";
         //超级管理员
-        String PROJECT_DELETE="/project/delete";
+        String PROJECT_DELETE = "/project/delete";
     }
 
 
-
-    public  interface  TableNamePrefix{
+    public interface TableNamePrefix {
         //测量点表前缀
-        String SURVEY_POINT="survey_point_";
+        String SURVEY_POINT = "survey_point_";
         // 测量成果数据表前缀
-        String SURVEY_RESULT="survey_result_";
+        String SURVEY_RESULT = "survey_result_";
         // 原始数据表前缀
-        String SURVEY_ORIGINAL="survey_original_";
+        String SURVEY_ORIGINAL = "survey_original_";
         // 任务表前缀
-        String SURVEY_TASK="survey_task_";
+        String SURVEY_TASK = "survey_task_";
     }
 
 
