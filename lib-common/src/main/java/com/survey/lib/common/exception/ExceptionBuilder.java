@@ -51,6 +51,15 @@ public class ExceptionBuilder {
     }
 
 
+    /**
+     * 操作失败异常
+     * @param message
+     */
+    public static  void  operateFailException(String message){
+        throw new OperateFailException(message);
+    }
+
+
 
 
 }

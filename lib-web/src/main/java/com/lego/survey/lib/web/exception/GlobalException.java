@@ -69,6 +69,16 @@ public class GlobalException {
         return RespVOBuilder.failure(RespConsts.FAIL_RESULT_CODE,message);
     }
 
+
+    @ExceptionHandler(value = OperateFailException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public RespVO handleException(OperateFailException ex){
+        log.error("操作失败:{}",ex);
+        return RespVOBuilder.failure(RespConsts.FAIL_RESULT_CODE,ex.getMessage());
+    }
+
+
     @ExceptionHandler(value = SessionTimeoutException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
