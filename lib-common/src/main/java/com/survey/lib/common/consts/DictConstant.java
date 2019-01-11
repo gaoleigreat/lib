@@ -40,14 +40,14 @@ public class DictConstant {
         String USER = "/survey/api-user/user";
         String LOG = "/survey/api-user/log";
         String CONFIG = "/survey/api-user/config";
-        String BASE_POINT="/survey/api-settlement/base_point";
-        String TEMPLATE_REPORT="/survey/api-report/template_report";
-        String SURVEY_POINT="/survey/api-settlement/survey_point";
-        String SURVEY_RESULT="/survey/api-settlement/survey_result";
-        String SURVEY_ORIGINAL="/survey/api-settlement/survey_original";
-        String SURVEY_TASK="/survey/api-settlement/survey_task";
-        String SURVEY_POINT_TYPE="/survey/api-settlement/survey_point_type";
-        String SURVEY_POINT_EXCEPTION="/survey/api-settlement/survey_point_exception";
+        String BASE_POINT="/survey/api-settlement/basePoint";
+        String TEMPLATE_REPORT="/survey/api-report/templateReport";
+        String SURVEY_POINT="/survey/api-settlement/surveyPoint";
+        String SURVEY_RESULT="/survey/api-settlement/surveyResult";
+        String SURVEY_ORIGINAL="/survey/api-settlement/surveyOriginal";
+        String SURVEY_TASK="/survey/api-settlement/surveyTask";
+        String SURVEY_POINT_TYPE="/survey/api-settlement/surveyPointType";
+        String SURVEY_POINT_EXCEPTION="/survey/api-settlement/surveyPointException";
 
     }
 
