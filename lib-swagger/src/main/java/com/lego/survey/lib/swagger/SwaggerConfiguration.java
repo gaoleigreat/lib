@@ -56,9 +56,9 @@ public class SwaggerConfiguration {
         ParameterBuilder tokenPar = new ParameterBuilder();
         tokenPar.name("token").description("令牌").modelRef(new ModelRef("String")).parameterType("header").required(false).build();
         ParameterBuilder versionPar = new ParameterBuilder();
-        versionPar.name("version").description("版本号").modelRef(new ModelRef("String")).parameterType("header").required(true).build();
+        versionPar.name("version").description("应用版本号").modelRef(new ModelRef("String")).parameterType("header").required(true).build();
         ParameterBuilder timePar = new ParameterBuilder();
-        timePar.name("time").description("当前时间").modelRef(new ModelRef("String")).parameterType("header").required(true).build();
+        timePar.name("timeStamp").description("当前时间戳").modelRef(new ModelRef("Long")).parameterType("header").required(true).build();
         ParameterBuilder snPar = new ParameterBuilder();
         snPar.name("sn").description("设备序列号").modelRef(new ModelRef("String")).parameterType("header").required(true).build();
         ParameterBuilder deviceTypePar = new ParameterBuilder();

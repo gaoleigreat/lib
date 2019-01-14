@@ -23,6 +23,9 @@
         <module>lib-sms</module>
         <module>lib-web</module>
         <module>lib-parent</module>
+        <module>lib-excel</module>
+        <module>lib-pdf</module>
+        <module>lib-word</module>
     </modules>
 
     <dependencies>

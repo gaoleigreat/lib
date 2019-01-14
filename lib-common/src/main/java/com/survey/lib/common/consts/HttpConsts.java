@@ -15,7 +15,7 @@ public class HttpConsts {
     /**
      * 当前时间
      */
-    public static final String HEADER_TIME="time";
+    public static final String HEADER_TIME="timeStamp";
 
 
     /**
