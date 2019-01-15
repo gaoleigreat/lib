@@ -60,7 +60,7 @@ public class SwaggerConfiguration {
         ParameterBuilder timePar = new ParameterBuilder();
         timePar.name("timeStamp").description("当前时间戳").modelRef(new ModelRef("Long")).parameterType("header").required(true).build();
         ParameterBuilder snPar = new ParameterBuilder();
-        snPar.name("sn").description("设备序列号").modelRef(new ModelRef("String")).parameterType("header").required(true).build();
+        snPar.name("sn").description("设备序列号").modelRef(new ModelRef("String")).parameterType("header").required(false).build();
         ParameterBuilder deviceTypePar = new ParameterBuilder();
         deviceTypePar.name("deviceType").description("设备类型(1-Android;2-WEB)").modelRef(new ModelRef("String")).parameterType("header").allowableValues(new AllowableRangeValues("1","2")).required(true).build();
         ParameterBuilder osVersionPar = new ParameterBuilder();
@@ -68,11 +68,11 @@ public class SwaggerConfiguration {
 
 
         parameters.add(tokenPar.build());
-        parameters.add(versionPar.build());
+     //   parameters.add(versionPar.build());
         parameters.add(timePar.build());
         parameters.add(snPar.build());
         parameters.add(deviceTypePar.build());
-        parameters.add(osVersionPar.build());
+       // parameters.add(osVersionPar.build());
 
         List<ResponseMessage> responseMessages=new ArrayList<>();
         responseMessages.add(new ResponseMessageBuilder().code(1).message("操作成功").build());
