@@ -93,7 +93,7 @@ public class MybatisConfig {
         // UUID->`3`("全局唯一ID")
         GlobalConfig.DbConfig config=new GlobalConfig.DbConfig();
         config.setDbType(DbType.MYSQL);
-        config.setIdType(IdType.AUTO);
+        config.setIdType(IdType.INPUT);
         config.setTableUnderline(true);
         globalConfiguration.setDbConfig(config);
       //  globalConfiguration.setSqlInjector(mySqlInjector());
