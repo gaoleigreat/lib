@@ -38,7 +38,7 @@ public class ExceptionBuilder {
      *  登录超时异常
      */
     public static void sessionTimeoutException(){
-        throw new SessionTimeoutException("登录超时");
+        throw new SessionTimeoutException("登录失败");
     }
 
     public  static  void  unAuthorizationException(){
