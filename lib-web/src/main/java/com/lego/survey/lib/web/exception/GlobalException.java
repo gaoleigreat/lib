@@ -5,6 +5,7 @@ import com.survey.lib.common.exception.*;
 import com.survey.lib.common.vo.RespVO;
 import com.survey.lib.common.vo.RespVOBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.omg.CosNaming.NamingContextPackage.NotFoundReasonHolder;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
