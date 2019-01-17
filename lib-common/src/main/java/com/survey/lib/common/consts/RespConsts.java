@@ -18,7 +18,7 @@ public class RespConsts {
      * 权限认证失败
      */
     public  static  final  int FAIL_NOPRESSION_CODE=-1;
-    public  static  final String FAIL_NOPRESSION_MSG=" 权限校验失败，请联系管理员";
+    public  static  final String FAIL_NOPRESSION_MSG="权限校验失败，请联系管理员";
 
     /**
      * 登录失败  msg 为详细错误原因

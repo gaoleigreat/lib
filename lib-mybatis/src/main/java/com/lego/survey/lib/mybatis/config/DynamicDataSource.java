@@ -15,7 +15,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     private final int readDataSourceSize;
     private AtomicInteger count = new AtomicInteger(0);
 
-    public DynamicDataSource(int readDataSourceSize) {
+    DynamicDataSource(int readDataSourceSize) {
         this.readDataSourceSize = readDataSourceSize;
     }
 

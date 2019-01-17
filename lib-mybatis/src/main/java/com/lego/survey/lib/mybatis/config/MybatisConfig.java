@@ -49,7 +49,7 @@ public class MybatisConfig {
     private List<DataSource> readDataSources;
 
     @Bean
-    public MybatisSqlSessionFactoryBean sqlSessionFactorys() throws Exception {
+    public MybatisSqlSessionFactoryBean sqlSessionFactory() throws Exception {
         log.debug("-----------------------sqlSessionFactory init.-----------------------");
         MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(roundRobinDataSouceProxy());

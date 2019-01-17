@@ -131,6 +131,6 @@ public class GlobalException {
     @ResponseBody
     public RespVO handleException(Exception ex){
         log.error("服务器异常:{}",ex);
-        return RespVOBuilder.failure(RespConsts.ERROR_OTHER_CODE,ex.getMessage());
+        return RespVOBuilder.failure(RespConsts.ERROR_SERVER_CODE,ex.getMessage());
     }
 }

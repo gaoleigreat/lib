@@ -40,14 +40,15 @@ public class DictConstant {
         String USER = "/survey/api-user/user";
         String LOG = "/survey/api-user/log";
         String CONFIG = "/survey/api-user/config";
-        String BASE_POINT="/survey/api-settlement/basePoint";
-        String TEMPLATE_REPORT="/survey/api-report/templateReport";
-        String SURVEY_POINT="/survey/api-settlement/surveyPoint";
-        String SURVEY_RESULT="/survey/api-settlement/surveyResult";
-        String SURVEY_ORIGINAL="/survey/api-settlement/surveyOriginal";
-        String SURVEY_TASK="/survey/api-settlement/surveyTask";
-        String SURVEY_POINT_TYPE="/survey/api-settlement/surveyPointType";
-        String SURVEY_POINT_EXCEPTION="/survey/api-settlement/surveyPointException";
+        String BASE_POINT = "/survey/api-settlement/basePoint";
+        String TEMPLATE_REPORT = "/survey/api-report/templateReport";
+        String REPORT = "/survey/api-report/report";
+        String SURVEY_POINT = "/survey/api-settlement/surveyPoint";
+        String SURVEY_RESULT = "/survey/api-settlement/surveyResult";
+        String SURVEY_ORIGINAL = "/survey/api-settlement/surveyOriginal";
+        String SURVEY_TASK = "/survey/api-settlement/surveyTask";
+        String SURVEY_POINT_TYPE = "/survey/api-settlement/surveyPointType";
+        String SURVEY_POINT_EXCEPTION = "/survey/api-settlement/surveyPointException";
 
     }
 
@@ -70,43 +71,42 @@ public class DictConstant {
     /**
      * 角色控制 url
      */
-    public  interface RolePath{
+    public interface RolePath {
         //超级管理员  创建 标段测量管理员 以及公司管理员， 标段测量管理员创建测量员
-        String USER_CREATE="/user/create";
+        String USER_CREATE = "/user/create";
         //超级管理员
-        String PROJECT_CREATE="/project/create";
+        String PROJECT_CREATE = "/project/create";
         //超级管理员
-        String PROJECT_DELETE="/project/delete";
+        String PROJECT_DELETE = "/project/delete";
     }
 
 
-
-    public  interface  TableNamePrefix{
+    public interface TableNamePrefix {
         //测量点表前缀
-        String SURVEY_POINT="survey_point_";
+        String SURVEY_POINT = "survey_point_";
         // 测量成果数据表前缀
-        String SURVEY_RESULT="survey_result_";
+        String SURVEY_RESULT = "survey_result_";
         // 原始数据表前缀
-        String SURVEY_ORIGINAL="survey_original_";
+        String SURVEY_ORIGINAL = "survey_original_";
         // 任务表前缀
-        String SURVEY_TASK="survey_task_";
+        String SURVEY_TASK = "survey_task_";
     }
 
 
     /**
      * 场景
      */
-    public interface  Scenes{
+    public interface Scenes {
         // 基础服务
-        String JCFW="jcfw";
+        String JCFW = "jcfw";
         // 沉降服务
-        String CJFW="cjfw";
+        String CJFW = "cjfw";
         // 管片服务
-        String GPFW="gpfw";
+        String GPFW = "gpfw";
         //数据推送服务
-        String SJFW="sjfw";
+        String SJFW = "sjfw";
         // 成果分享服务
-        String CGFW="cgfw";
+        String CGFW = "cgfw";
 
     }
 

@@ -74,10 +74,10 @@ public class GenerateCodePlugin {
         globalConfig.setOutputDir(outputDir);
         //覆盖已有文件
         globalConfig.setFileOverride(true);
-        //是否需要 ActiveRecord 属性
+        //是否需要 ActiveRecord(AR模式) 属性
         globalConfig.setActiveRecord(true);
         // XML 二级缓存
-        globalConfig.setEnableCache(true);
+        globalConfig.setEnableCache(false);
         // XML ResultMap
         globalConfig.setBaseResultMap(true);
         // XML ColumnList
