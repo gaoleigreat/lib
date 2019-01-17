@@ -1,5 +1,6 @@
 package com.lego.survey.lib.web.exception;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.survey.lib.common.consts.RespConsts;
 import com.survey.lib.common.exception.*;
 import com.survey.lib.common.vo.RespVO;
@@ -10,14 +11,12 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingExceptio
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Set;
 
 /**
@@ -70,6 +69,25 @@ public class GlobalException {
         String message = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         return RespVOBuilder.failure(RespConsts.FAIL_RESULT_CODE,message);
     }
+
+
+    @ExceptionHandler(value = ClassCastException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public  RespVO handleException(ClassCastException ex){
+        log.error("类型转换:{}",ex);
+        return RespVOBuilder.failure(ex.getMessage());
+    }
+
+
+    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public  RespVO handleException(SQLIntegrityConstraintViolationException ex){
+        log.error("插入数据主键重复异常:{}",ex);
+        return RespVOBuilder.failure(ex.getMessage());
+    }
+
 
 
     @ExceptionHandler(value = OperateFailException.class)
