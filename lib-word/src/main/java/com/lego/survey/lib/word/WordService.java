@@ -3,6 +3,7 @@ import org.apache.poi.POIXMLDocument;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.CTPImpl;
 import org.springframework.stereotype.Component;
 import java.io.*;
 import java.util.List;

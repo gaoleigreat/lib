@@ -42,7 +42,9 @@ public class DictConstant {
         String CONFIG = "/survey/api-user/config";
         String BASE_POINT = "/survey/api-settlement/basePoint";
         String TEMPLATE_REPORT = "/survey/api-report/templateReport";
-        String REPORT = "/survey/api-report/report";
+        String EXCEL_REPORT = "/survey/api-report/excelReport";
+        String WORD_REPORT="/survey/api-report/wordReport";
+        String PDF_REPORT="/survey/api-report/pdfReport";
         String SURVEY_POINT = "/survey/api-settlement/surveyPoint";
         String SURVEY_RESULT = "/survey/api-settlement/surveyResult";
         String SURVEY_ORIGINAL = "/survey/api-settlement/surveyOriginal";
