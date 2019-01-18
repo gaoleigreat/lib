@@ -4,11 +4,8 @@ import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
-import com.alibaba.excel.metadata.TableStyle;
-import com.alibaba.excel.read.context.AnalysisContext;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.lego.survey.lib.excel.listener.ExcelListener;
-import com.lego.survey.lib.excel.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,22 +21,24 @@ import java.util.List;
 @Component
 public class ExcelService {
 
-    @Value("${define.report.excel.storePath}")
+    @Value("${define.report.excel.storePath:/app/survey/report/}")
     private String excelStorePath;
+
 
     /**
      * write  excel
      * @param baseRowModels  pojo
      * @param excelFileName  excel name
      */
-    public void writeExcel(List<? extends BaseRowModel> baseRowModels, String excelFileName,String sheetName) {
+    public  void writeExcel(List<? extends BaseRowModel> baseRowModels, String excelFileName,String sheetName) {
         OutputStream out = null;
         try {
             out = new FileOutputStream(excelStorePath + excelFileName + ".xlsx");
-            ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX,false);
-            Sheet sheet = new Sheet(1, 1,baseRowModels.get(0).getClass());
+            ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX,true);
+            Sheet sheet = new Sheet(1, 1);
+            sheet.setClazz(baseRowModels.get(0).getClass());
             sheet.setSheetName(sheetName);
-            sheet.setHead(getSheetHead());
+           // sheet.setHead(getSheetHead());
             excelWriter.write(baseRowModels, sheet);
             excelWriter.finish();
         } catch (Exception e) {
@@ -58,9 +57,6 @@ public class ExcelService {
     private static List<List<String>> getSheetHead() {
         List<List<String>> headList=new ArrayList<>();
         List<String> heads1=new ArrayList<>();
-        heads1.add("ID");
-        heads1.add("姓名");
-        heads1.add("年龄");
         headList.add(heads1);
         return headList;
     }

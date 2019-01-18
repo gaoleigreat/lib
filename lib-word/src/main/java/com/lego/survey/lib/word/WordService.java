@@ -15,14 +15,19 @@ import java.util.Map;
 @Component
 public class WordService {
 
+    public static void main(String []args){
+      writeWord("D:\\JavaWeb\\report\\test.docs");
+    }
+
     /**
      * write   word
      * @param reportName  report name
-     * @param xwpfDocument  xwpfDocument
      */
-    public static void writeWord(String reportName, XWPFDocument xwpfDocument) {
+    public static void writeWord(String reportName) {
         FileOutputStream stream;
+        XWPFDocument xwpfDocument;
         try {
+            xwpfDocument=new XWPFDocument();
             stream = new FileOutputStream(new File(reportName));
             xwpfDocument.write(stream);
             stream.close();
