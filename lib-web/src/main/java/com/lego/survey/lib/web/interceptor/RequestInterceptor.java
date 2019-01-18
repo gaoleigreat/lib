@@ -17,10 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 public class RequestInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         log.info(String.format("Request from -> IP: %s, Method: %s, URL: %s, Params: %s, Headers: %s",
-                HttpUtils.getClientIp(request), request.getMethod(), request.getRequestURL().toString(),
-                HttpUtils.getRequestParams(request),HttpUtils.getRequestHeaders(request)));
+                HttpUtils.getClientIp(request),
+                request.getMethod(),
+                request.getRequestURL().toString(),
+                HttpUtils.getRequestParams(request),
+                HttpUtils.getHeaderVo(request)));
         return true;
     }
 

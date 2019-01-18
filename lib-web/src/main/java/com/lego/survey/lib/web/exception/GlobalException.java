@@ -78,10 +78,10 @@ public class GlobalException {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public  RespVO handleException(HttpMessageNotReadableException ex){
-        log.error("类型转换:{}",ex);
+        log.error("数据解析异常:{}",ex);
         DataErrorVo dataErrorVo=new DataErrorVo();
         dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
-        dataErrorVo.setDesc(ex.getCause().getMessage());
+        dataErrorVo.setDesc(ex.getCause().getCause().getMessage());
         return RespVOBuilder.failure(RespConsts.DATA_ERROR,dataErrorVo.toJsonObject());
     }
 

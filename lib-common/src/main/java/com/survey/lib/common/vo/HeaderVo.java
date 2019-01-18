@@ -1,5 +1,6 @@
 package com.survey.lib.common.vo;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,8 @@ public class HeaderVo {
     private String deviceType;
     private String osVersion;
     private String sn;
+
+    public String toJsonObject(){
+        return JSONObject.toJSONString(this);
+    }
 }

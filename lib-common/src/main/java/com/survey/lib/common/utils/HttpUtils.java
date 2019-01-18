@@ -1,5 +1,7 @@
 package com.survey.lib.common.utils;
 
+import com.survey.lib.common.consts.HttpConsts;
+import com.survey.lib.common.vo.HeaderVo;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import java.util.Map;
  * @since 2018/12/22
  **/
 public class HttpUtils {
+
 
     /**
      * @param request
@@ -62,6 +65,17 @@ public class HttpUtils {
         return sb.toString();
     }
 
+
+    public static String getHeaderVo(HttpServletRequest request) {
+        HeaderVo headerVo = HeaderUtils.parseHeader(request);
+        if (headerVo == null) {
+            return null;
+        }
+        return headerVo.toJsonObject();
+
+    }
+
+
     public static String getRequestHeaders(HttpServletRequest request) {
         Enumeration<String> headerNames = request.getHeaderNames();
         StringBuilder sb = new StringBuilder();
@@ -72,7 +86,7 @@ public class HttpUtils {
                 sb.append(", ");
             }
             sb.append(headerName).append("=[");
-            String  headerValue = request.getHeader(headerName);
+            String headerValue = request.getHeader(headerName);
             sb.append(headerValue);
             sb.append("]");
             k++;

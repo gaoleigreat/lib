@@ -1,5 +1,4 @@
 package com.survey.lib.common.consts;
-
 /**
  * @author yanglf
  * @description  header 定义
