@@ -3,12 +3,15 @@ package com.lego.survey.lib.web.exception;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.survey.lib.common.consts.RespConsts;
 import com.survey.lib.common.exception.*;
+import com.survey.lib.common.vo.DataErrorVo;
 import com.survey.lib.common.vo.RespVO;
 import com.survey.lib.common.vo.RespVOBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CosNaming.NamingContextPackage.NotFoundReasonHolder;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
@@ -71,21 +74,28 @@ public class GlobalException {
     }
 
 
-    @ExceptionHandler(value = ClassCastException.class)
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public  RespVO handleException(ClassCastException ex){
+    public  RespVO handleException(HttpMessageNotReadableException ex){
         log.error("类型转换:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        DataErrorVo dataErrorVo=new DataErrorVo();
+        dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
+        dataErrorVo.setDesc(ex.getCause().getMessage());
+        return RespVOBuilder.failure(RespConsts.DATA_ERROR,dataErrorVo.toJsonObject());
     }
 
 
-    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    @ExceptionHandler(value = DuplicateKeyException.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public  RespVO handleException(SQLIntegrityConstraintViolationException ex){
+    public  RespVO handleException(DuplicateKeyException ex){
         log.error("插入数据主键重复异常:{}",ex);
-        return RespVOBuilder.failure(ex.getMessage());
+        DataErrorVo dataErrorVo=new DataErrorVo();
+        dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
+        dataErrorVo.setDesc(ex.getCause().getMessage());
+        dataErrorVo.setId(1L);
+        return RespVOBuilder.failure(RespConsts.DATA_ERROR,dataErrorVo.toJsonObject());
     }
 
 

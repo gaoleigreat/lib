@@ -107,7 +107,6 @@ public class DictConstant {
         String SJFW = "sjfw";
         // 成果分享服务
         String CGFW = "cgfw";
-
     }
 
 

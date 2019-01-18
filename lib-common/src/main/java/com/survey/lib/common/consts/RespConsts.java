@@ -45,6 +45,11 @@ public class RespConsts {
     public static final int FAIL_RESULT_CODE=-6;
 
     /**
+     *  数据异常
+     */
+    public  static  final int DATA_ERROR=-7;
+
+    /**
      * 失败
      */
     public interface Failure {
@@ -61,4 +66,17 @@ public class RespConsts {
         int retCode=SUCCESS_RESULT_CODE;
         String msg = "请求成功";
     }
+
+
+    public interface  DataErrorType{
+        /**
+         *   id 重复  异常
+         */
+        int REPEAT_ID_ERROR=1;
+        /**
+         * 数据类型异常
+         */
+        int DATA_TYPE_ERROR=2;
+    }
+
 }

@@ -11,6 +11,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>lib-common</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+    </dependencies>
+
     <build>
       <plugins>
           <plugin>
