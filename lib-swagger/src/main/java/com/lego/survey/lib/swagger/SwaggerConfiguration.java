@@ -82,7 +82,7 @@ public class SwaggerConfiguration {
         responseMessages.add(new ResponseMessageBuilder().code(-4).message("调用超时错误").build());
         responseMessages.add(new ResponseMessageBuilder().code(-5).message("其他错误").build());
         responseMessages.add(new ResponseMessageBuilder().code(-6).message("结果错误").build());
-
+        responseMessages.add(new ResponseMessageBuilder().code(-7).message("数据处理异常").build());
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .globalOperationParameters(parameters)
