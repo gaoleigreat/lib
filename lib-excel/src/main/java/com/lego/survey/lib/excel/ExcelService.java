@@ -86,4 +86,23 @@ public class ExcelService {
     }
 
 
+    /**
+     * read   excel to  any
+     * @param excelFileName
+     * @param eventListener
+     */
+    public  void  readExcel(String excelFileName,ExcelListener eventListener){
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(excelFileName);
+            ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, eventListener);
+            excelReader.read();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
 }
