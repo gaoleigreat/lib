@@ -112,4 +112,14 @@ public class DictConstant {
     }
 
 
+    /**
+     *
+     * 数据是否有效
+     */
+    public interface  IsValid{
+        int YES=0;
+        int NO=1;
+    }
+
+
 }

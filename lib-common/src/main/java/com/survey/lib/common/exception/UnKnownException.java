@@ -7,7 +7,7 @@ package com.survey.lib.common.exception;
  **/
 public class UnKnownException extends BaseException {
 
-    UnKnownException(String message) {
+   public UnKnownException(String message) {
         super(message);
     }
 

@@ -13,18 +13,14 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2019/1/16
  **/
 @Slf4j
-public abstract class ExcelListener extends AnalysisEventListener {
+public abstract class ExcelListener<T> extends AnalysisEventListener<T> {
 
 
 
     @Override
-    public void invoke(Object o, AnalysisContext analysisContext) {
+    public void invoke(T t, AnalysisContext analysisContext) {
         // 解析  excel sheet
         Integer currentRowNum = analysisContext.getCurrentRowNum();
-        if(o instanceof  User){
-            User user= (User) o;
-            log.info("当前行:{},data:{}",currentRowNum,user);
-        }
 
     }
 

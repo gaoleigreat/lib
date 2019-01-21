@@ -1,10 +1,7 @@
 package com.survey.lib.common.utils;
-
 import com.survey.lib.common.consts.HttpConsts;
-import com.survey.lib.common.exception.ExceptionBuilder;
 import com.survey.lib.common.vo.HeaderVo;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -31,7 +28,6 @@ public class HeaderUtils {
                     .build();
         } catch (Exception ex) {
             log.error("header参数解析失败:{}",ex);
-            ExceptionBuilder.serviceException("header参数解析失败");
             return null;
         }
     }

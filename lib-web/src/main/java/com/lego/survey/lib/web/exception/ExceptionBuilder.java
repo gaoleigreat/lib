@@ -1,5 +1,10 @@
-package com.survey.lib.common.exception;
+package com.lego.survey.lib.web.exception;
 
+import com.survey.lib.common.consts.RespConsts;
+import com.survey.lib.common.exception.*;
+import com.survey.lib.common.vo.DataErrorVo;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 /**
  * @author yanglf
  * @description
@@ -57,6 +62,35 @@ public class ExceptionBuilder {
      */
     public static  void  operateFailException(String message){
         throw new OperateFailException(message);
+    }
+
+
+    /**
+     * 主键重复异常
+     * @param message
+     * @param id
+     */
+    public  static  void  duplicateKeyException(String message,Long id){
+        DataErrorVo dataErrorVo=new DataErrorVo();
+        dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
+        dataErrorVo.setDesc(message);
+        dataErrorVo.setId(id);
+        throw new DuplicateKeyException(dataErrorVo.toJsonObject());
+
+    }
+
+
+    /**
+     * 数据格式异常
+     * @param message
+     * @param id
+     */
+    public static void httpMessageNotReadableException(String message,Long id){
+        DataErrorVo dataErrorVo=new DataErrorVo();
+        dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
+        dataErrorVo.setDesc(message);
+        dataErrorVo.setId(id);
+        throw new HttpMessageNotReadableException(dataErrorVo.toJsonObject());
     }
 
 

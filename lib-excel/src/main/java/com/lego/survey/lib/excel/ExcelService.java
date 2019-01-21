@@ -73,13 +73,13 @@ public class ExcelService {
      */
     public  void readExcel(String excelFileName,
                            ExcelListener eventListener,
-                           BaseRowModel baseRowModel,
+                           Class<? extends  BaseRowModel> baseRowModel,
                            int sheetNo) {
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(excelFileName);
             ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, eventListener);
-            excelReader.read(new Sheet(sheetNo, 1, baseRowModel.getClass()));
+            excelReader.read(new Sheet(sheetNo, 1, baseRowModel));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

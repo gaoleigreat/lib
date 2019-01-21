@@ -7,7 +7,7 @@ package com.survey.lib.common.exception;
  **/
 public class ResourceNotFoundException extends ServerException {
 
-    ResourceNotFoundException(String message) {
+    public  ResourceNotFoundException(String message) {
         super(message);
     }
 

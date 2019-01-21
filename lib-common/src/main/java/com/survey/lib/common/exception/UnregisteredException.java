@@ -7,7 +7,7 @@ package com.survey.lib.common.exception;
  **/
 public class UnregisteredException extends ApiException {
 
-    UnregisteredException(String message) {
+    public UnregisteredException(String message) {
         super(message);
     }
 

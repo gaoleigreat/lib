@@ -7,7 +7,7 @@ package com.survey.lib.common.exception;
  **/
 public class ServerException extends BaseException {
 
-    ServerException(String message) {
+    public ServerException(String message) {
         super(message);
     }
 

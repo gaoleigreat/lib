@@ -79,10 +79,7 @@ public class GlobalException {
     @ResponseBody
     public  RespVO handleException(HttpMessageNotReadableException ex){
         log.error("数据解析异常:{}",ex);
-        DataErrorVo dataErrorVo=new DataErrorVo();
-        dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
-        dataErrorVo.setDesc(ex.getCause().getCause().getMessage());
-        return RespVOBuilder.failure(RespConsts.DATA_ERROR,dataErrorVo.toJsonObject());
+        return RespVOBuilder.failure(RespConsts.DATA_ERROR,ex.getMessage());
     }
 
 
@@ -91,11 +88,7 @@ public class GlobalException {
     @ResponseBody
     public  RespVO handleException(DuplicateKeyException ex){
         log.error("插入数据主键重复异常:{}",ex);
-        DataErrorVo dataErrorVo=new DataErrorVo();
-        dataErrorVo.setType(RespConsts.DataErrorType.DATA_TYPE_ERROR);
-        dataErrorVo.setDesc(ex.getCause().getMessage());
-        dataErrorVo.setId(1L);
-        return RespVOBuilder.failure(RespConsts.DATA_ERROR,dataErrorVo.toJsonObject());
+        return RespVOBuilder.failure(RespConsts.DATA_ERROR,ex.getMessage());
     }
 
 
