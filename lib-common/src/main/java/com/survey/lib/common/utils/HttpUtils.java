@@ -1,10 +1,12 @@
 package com.survey.lib.common.utils;
-
-import com.survey.lib.common.consts.HttpConsts;
 import com.survey.lib.common.vo.HeaderVo;
 import org.springframework.util.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -50,7 +52,7 @@ public class HttpUtils {
             if (k != 0) {
                 sb.append(", ");
             }
-            sb.append(key).append("=[");
+            sb.append(key).append(" = ");
             String[] vals = paramMap.get(key);
             for (int i = 0; i < vals.length; i++) {
                 String val = vals[i];
@@ -59,8 +61,39 @@ public class HttpUtils {
                 }
                 sb.append(val);
             }
-            sb.append("]");
+            sb.append(" ");
             k++;
+        }
+        return sb.toString();
+    }
+
+
+    /**
+     * requestBody
+     *
+     * @param request
+     * @return
+     */
+    public static String getRequestBody(HttpServletRequest request) {
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder("");
+        try {
+            br = request.getReader();
+            String str;
+            while ((str = br.readLine()) != null) {
+                sb.append(str);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != br) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return sb.toString();
     }
@@ -93,5 +126,37 @@ public class HttpUtils {
         }
         return sb.toString();
 
+    }
+
+    public static  String getBodyString(HttpServletRequest request) {
+        StringBuilder sb = new StringBuilder();
+        InputStream inputStream = null;
+        BufferedReader reader = null;
+        try {
+            inputStream = request.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sb.toString().trim();
     }
 }

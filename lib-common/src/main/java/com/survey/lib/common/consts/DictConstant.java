@@ -59,7 +59,7 @@ public class DictConstant {
      * 角色
      */
     public interface Role {
-        //超级管理员
+        //系统管理员
         String ADMIN = "admin";
         //公司管理员
         String MASTER = "master";
@@ -76,10 +76,26 @@ public class DictConstant {
     public interface RolePath {
         //超级管理员  创建 标段测量管理员 以及公司管理员， 标段测量管理员创建测量员
         String USER_CREATE = "/user/create";
-        //超级管理员
+        // 删除用户
+        String USER_DELETE="/user/delete";
+        //系统管理员
         String PROJECT_CREATE = "/project/create";
+        // 修改工程信息
+        String PROJECT_MODIFY="/project/modify";
         //超级管理员
         String PROJECT_DELETE = "/project/delete";
+        //标段创建
+        String SECTION_CREATE="/section/create";
+        // 删除标段
+        String SECTION_DELETE="/section/delete";
+        // 修改标段信息
+        String SECTION_MODIFY="/section/modify";
+        // 创建工区
+        String WORKSPACE_CREATE="/workspace/create";
+        // 删除工区
+        String WORKSPACE_DELETE="/workspace/delete";
+        // 修改工区
+        String WORKSPACE_MODIFY="/workspace/modify";
     }
 
 

@@ -11,12 +11,25 @@
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>lib-common</artifactId>
 
+    <properties>
+        <jjwt.version>0.9.1</jjwt.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+
+        <!-- jwt 权限依赖 -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

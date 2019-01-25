@@ -15,8 +15,8 @@ public class CalculationUtils {
     /**
      * 计算  单次沉降量
      * 单位 毫米 mm
-     * @param currElevation 本次沉降量
-     * @param preElevation  上次沉降量
+     * @param currElevation 本次沉降量    m
+     * @param preElevation  上次沉降量    m
      * @return 单次沉降量
      */
     public static double settlementDiff(double currElevation, double preElevation) {
@@ -28,8 +28,8 @@ public class CalculationUtils {
     /**
      * 计算  累积沉降量
      * 单位 mm
-     * @param currElevation 本次高程
-     * @param initElevation 初始高程
+     * @param currElevation 本次高程     m
+     * @param initElevation 初始高程     m
      * @return 累积沉降量
      */
     public static double totalSettlement(double currElevation, double initElevation) {
@@ -41,7 +41,7 @@ public class CalculationUtils {
     /**
      * 计算  沉降速率
      * 单位 mm/d
-     * @param totalSettlement 累积沉降量
+     * @param totalSettlement 累积沉降量   m
      * @param currDate        当前时间
      * @param initDate        初始时间
      * @return 沉降速率
