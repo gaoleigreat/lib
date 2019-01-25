@@ -49,7 +49,7 @@ public class CalculationUtils {
     public static double settlementRate(double totalSettlement, Date currDate, Date initDate) {
         //沉降速率超限  沉降速率 = 累积沉降量 / 历经的天数（自然天数）
         int days = DateUtils.betweenDays(initDate, currDate);
-        return doubleDivide(totalSettlement,  days + 1) * 1000;
+        return doubleDivide(totalSettlement,  days + 1);
     }
 
 
