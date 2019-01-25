@@ -1,3 +1,4 @@
+/*
 package com.survey.lib.common.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.survey.lib.common.vo.AuthVo;
@@ -8,22 +9,26 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 
+*/
 /**
  * @author yanglf
  * @description
  * @since 2019/1/24
- **/
+ **//*
+
 @Slf4j
 public class JWTUtils {
 
     private static String securityKey = "ijweuiwherewiurhw9890u9jhi";
 
-    /**
+    */
+/**
      * 获取Token
      *
      * @param authVo
      * @return
-     */
+     *//*
+
     public static String getToken(AuthVo authVo) {
         // 使用加密算法  HS256
         long nowMillis = System.currentTimeMillis();
@@ -56,12 +61,14 @@ public class JWTUtils {
         return jwtBuilder.compact();
     }
 
-    /**
+    */
+/**
      * 检查Token是否合法
      *
      * @param token
      * @return JWTResult
-     */
+     *//*
+
     public static void checkToken(String token) {
         try {
             Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(securityKey)).parseClaimsJws(token).getBody();
@@ -80,3 +87,4 @@ public class JWTUtils {
     }
 }
 
+*/

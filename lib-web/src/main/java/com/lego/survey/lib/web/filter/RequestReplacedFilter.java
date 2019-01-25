@@ -1,3 +1,4 @@
+/*
 package com.lego.survey.lib.web.filter;
 
 import org.springframework.core.annotation.Order;
@@ -6,11 +7,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+*/
 /**
  * @author yanglf
  * @description
  * @since 2019/1/25
- **/
+ **//*
+
 @Order(1)
 @WebFilter(filterName = "requestReplacedFilter", urlPatterns = "/**")
 public class RequestReplacedFilter implements Filter {
@@ -41,3 +44,4 @@ public class RequestReplacedFilter implements Filter {
 
     }
 }
+*/
