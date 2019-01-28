@@ -2,6 +2,7 @@ package com.lego.survey.lib.swagger;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,6 +60,7 @@ public class SwaggerConfiguration {
 
 
     @Bean
+    @ConditionalOnExpression(value = "${swagger.enable:true}")
     public Docket docket() {
         List<Parameter> parameters=new ArrayList<>();
         ParameterBuilder tokenPar = new ParameterBuilder();
