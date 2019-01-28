@@ -26,6 +26,7 @@ import java.util.List;
  * @descript
  * @since 2018/12/20
  **/
+@ConditionalOnExpression(value = "${swagger.enable:false}")
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
@@ -60,7 +61,6 @@ public class SwaggerConfiguration {
 
 
     @Bean
-    @ConditionalOnExpression(value = "${swagger.enable:true}")
     public Docket docket() {
         List<Parameter> parameters=new ArrayList<>();
         ParameterBuilder tokenPar = new ParameterBuilder();
