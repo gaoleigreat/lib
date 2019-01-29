@@ -26,7 +26,7 @@ import java.util.List;
  * @descript
  * @since 2018/12/20
  **/
-@ConditionalOnExpression(value = "${swagger.enable:false}")
+@ConditionalOnExpression(value = "${swagger.enabled:false}")
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
