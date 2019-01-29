@@ -1,12 +1,7 @@
 package com.lego.survey.lib.excel.listener;
-
-import com.alibaba.excel.metadata.BaseRowModel;
-import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.read.context.AnalysisContext;
 import com.alibaba.excel.read.event.AnalysisEventListener;
-import com.lego.survey.lib.excel.model.User;
 import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author yanglf
  * @description

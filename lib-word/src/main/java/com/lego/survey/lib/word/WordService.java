@@ -34,7 +34,7 @@ public class WordService {
 
 
     /**
-     * 读取  excel  信息
+     * 读取  word  信息
      *
      * @param templateName
      * @return
