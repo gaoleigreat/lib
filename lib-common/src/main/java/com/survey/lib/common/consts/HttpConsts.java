@@ -33,6 +33,8 @@ public class HttpConsts {
      */
     public static final String HEADER_SN="sn";
 
+    public static final String FROM_NAME="fromName";
+
 
 
     public  interface  DeviceType{

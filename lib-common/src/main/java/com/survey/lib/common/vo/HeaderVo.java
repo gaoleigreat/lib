@@ -21,6 +21,7 @@ public class HeaderVo {
     private String deviceType;
     private String osVersion;
     private String sn;
+    private String fromName;
 
     public String toJsonObject(){
         return JSONObject.toJSONString(this);
