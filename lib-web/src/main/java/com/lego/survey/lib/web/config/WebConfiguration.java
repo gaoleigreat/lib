@@ -1,8 +1,8 @@
 package com.lego.survey.lib.web.config;
 
+import com.lego.survey.lib.web.interceptor.AccessInterceptor;
 import com.lego.survey.lib.web.interceptor.AuthInterceptor;
-import com.lego.survey.lib.web.interceptor.ParamterInterceptor;
-import com.lego.survey.lib.web.interceptor.RequestInterceptor;
+import com.lego.survey.lib.web.interceptor.ParameterInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -18,11 +18,11 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestInterceptor())
+        registry.addInterceptor(new AccessInterceptor())
                 .addPathPatterns("/**");
         registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/**");
-        registry.addInterceptor(new ParamterInterceptor())
+        registry.addInterceptor(new ParameterInterceptor())
                 .addPathPatterns("/**");
     }
 

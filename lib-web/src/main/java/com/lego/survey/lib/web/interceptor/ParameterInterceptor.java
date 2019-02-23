@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
  * @description   请求参数验证
  * @since 2018/12/22
  **/
-public class ParamterInterceptor implements HandlerInterceptor {
+public class ParameterInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

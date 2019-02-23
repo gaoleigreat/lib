@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
  * @description 日志拦截器
  * @since 2018/12/22
  **/
-@Slf4j
-public class RequestInterceptor implements HandlerInterceptor {
+@Slf4j(topic = "access")
+public class AccessInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
