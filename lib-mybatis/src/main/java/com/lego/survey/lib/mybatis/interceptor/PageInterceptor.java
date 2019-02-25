@@ -1,17 +1,29 @@
 package com.lego.survey.lib.mybatis.interceptor;
-import com.survey.lib.common.utils.ReflectUtil;
+import com.lego.survey.lib.mybatis.boundsql.SurveyBoundSql;
+import com.survey.lib.common.page.Page;
+import com.survey.lib.common.page.PagedResult;
 import com.survey.lib.common.vo.PageVo;
+import lombok.Data;
+import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
-import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
+import org.apache.ibatis.logging.jdbc.ConnectionLogger;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -21,12 +33,15 @@ import java.util.Properties;
  **/
 @Intercepts( {
         @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class}) })
+@Data
 public class PageInterceptor implements Interceptor {
+
+    private Log log= LogFactory.getLog(PageInterceptor.class);
 
     //数据库类型，不同的数据库有不同的分页方法
     private String databaseType;
 
-    @Override
+  /*  @Override
     public Object intercept(Invocation invocation) throws Throwable {
         //对于StatementHandler其实只有两个实现类，一个是RoutingStatementHandler，另一个是抽象类BaseStatementHandler，
         //BaseStatementHandler有三个子类，分别是SimpleStatementHandler，PreparedStatementHandler和CallableStatementHandler，
@@ -62,8 +77,98 @@ public class PageInterceptor implements Interceptor {
             ReflectUtil.setFieldValue(boundSql, "sql", pageSql);
         }
         return invocation.proceed();
-    }
+    }*/
 
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        Object[] args = invocation.getArgs();
+        Executor executor = (Executor) invocation.getTarget();
+
+        MappedStatement mappedStatement = (MappedStatement) args[0];
+        Object parameter = args[1];
+        String sqlId = mappedStatement.getId();
+        if (sqlId.endsWith("Count")) {
+
+            return invocation.proceed();
+        }
+
+        Page page = null;
+        if (parameter instanceof Map) {
+            Map paraMap = (Map) parameter;
+            for (Object obj : paraMap.values()) {
+                if (obj instanceof Page) {
+                    page = (Page) obj;
+                    break;
+                }
+            }
+        }
+
+        if (parameter instanceof Page) {
+            page = (Page) parameter;
+        }
+
+        if (null == page) {
+            return invocation.proceed();
+        }
+
+        Configuration configuration = mappedStatement.getConfiguration();
+        String countSqlId = sqlId + "Count";
+        MappedStatement countMappedStatement = configuration.getMappedStatement(countSqlId);
+
+        final RowBounds rowBounds = (RowBounds) args[2];
+        final ResultHandler resultHandler = (ResultHandler) args[3];
+        BoundSql boundSqlCount = countMappedStatement.getBoundSql(parameter);
+        boundSqlCount = new SurveyBoundSql(configuration,boundSqlCount);
+        StatementHandler statementHandlerCount = configuration.newStatementHandler(executor, countMappedStatement,
+                parameter, rowBounds, resultHandler, boundSqlCount);
+        Connection conn = ConnectionLogger.newInstance(executor.getTransaction().getConnection(), log, 1);
+
+        Statement stat = null;
+        List resultList = null;
+        try {
+            stat = statementHandlerCount.prepare(conn, 120);
+            statementHandlerCount.parameterize(stat);
+            resultList = statementHandlerCount.query(stat, resultHandler);
+        } catch (Exception e) {
+            log.error("page interceptor error|", e);
+        } finally {
+            if (null != stat) {
+                stat.close();
+            }
+        }
+        Long totalCount = 0L;
+        if (!CollectionUtils.isEmpty(resultList)) {
+            totalCount = (Long) resultList.get(0);
+        }
+        page.setTotalCount(totalCount);
+        PagedResult pagedResult = new PagedResult();
+        pagedResult.setPage(page);
+
+        if (null == totalCount || 0 == totalCount || totalCount <= page.getStartIndex()) {
+            pagedResult.setResultList(new ArrayList<>());
+            List result = new ArrayList<>();
+            result.add(pagedResult);
+            return result;
+        }
+
+        BoundSql boundSql = mappedStatement.getBoundSql(parameter);
+        StatementHandler statementHandler = configuration.newStatementHandler(executor, mappedStatement, parameter,
+                rowBounds, resultHandler, boundSql);
+
+        Statement stat1 = null;
+        try {
+            stat1 = statementHandler.prepare(conn, 120);
+            statementHandler.parameterize(stat1);
+            resultList = statementHandler.query(stat1, resultHandler);
+            pagedResult.setResultList(resultList);
+        } catch (Exception e) {
+            log.error("page interceptor error|", e);
+        }
+        List result = new ArrayList<>();
+        result.add(pagedResult);
+        return result;
+    }
 
     /**
      * 根据page对象获取对应的分页查询Sql语句，这里只做了两种数据库类型，Mysql和Oracle

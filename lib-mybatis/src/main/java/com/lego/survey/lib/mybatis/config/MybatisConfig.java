@@ -88,6 +88,8 @@ public class MybatisConfig {
     }
 
 
+
+
     @Bean
     public GlobalConfig globalConfiguration(){
         GlobalConfig globalConfiguration=new GlobalConfig();

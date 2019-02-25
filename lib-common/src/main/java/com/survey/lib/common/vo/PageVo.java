@@ -20,7 +20,7 @@ public class PageVo<T> {
     //对应的当前页记录
     private List<T> results;
     //其他的参数我们把它分装成一个Map对象
-    private Map<String, Object> params = new HashMap<String, Object>();
+    private Map<String, Object> params = new HashMap<>();
 
     public int getPageNo() {
         return pageNo;
