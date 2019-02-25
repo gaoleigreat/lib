@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.lego.survey.lib.mybatis.injector.MySqlInjector;
+import com.lego.survey.lib.mybatis.interceptor.ProgramInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -60,7 +61,7 @@ public class MybatisConfig {
         //分页插件
         PaginationInterceptor paginationInterceptor=new PaginationInterceptor();
         paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
-        Interceptor[] list=new Interceptor[4];
+        Interceptor[] list=new Interceptor[5];
         list[0]=paginationInterceptor;
         //TODO 性能分析插件
         PerformanceInterceptor performanceInterceptor=new PerformanceInterceptor();
@@ -77,6 +78,9 @@ public class MybatisConfig {
         // 乐观锁插件
         OptimisticLockerInterceptor optimisticLockerInterceptor=new OptimisticLockerInterceptor();
         list[3]=optimisticLockerInterceptor;
+        //TODO
+        ProgramInterceptor programInterceptor=new ProgramInterceptor();
+        list[4]=programInterceptor;
         sqlSessionFactoryBean.setPlugins(list);
         //plugs- 配置全局配置
         sqlSessionFactoryBean.setGlobalConfig(globalConfiguration());
