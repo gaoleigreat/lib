@@ -12,7 +12,9 @@ import java.util.Properties;
 
 /**
  * @author yanglf
- * @description
+ * @description    Mybatis拦截器只能拦截四种类型的接口：Executor、StatementHandler、ParameterHandler和ResultSetHandler。
+ *                 这是在Mybatis的Configuration中写死了的，如果要支持拦截其他接口就需要我们重写Mybatis的Configuration。
+ *                 Mybatis可以对这四个接口中所有的方法进行拦截。
  * @since 2019/2/25
  **/
 @Intercepts({ @Signature(type = Executor.class, method = "query",
