@@ -124,30 +124,24 @@ public class PageInterceptor implements Interceptor {
                 parameter, rowBounds, resultHandler, boundSqlCount);
         Connection conn = ConnectionLogger.newInstance(executor.getTransaction().getConnection(), log, 1);
 
-        Statement stat = null;
         List resultList = null;
-        try {
-            stat = statementHandlerCount.prepare(conn, 120);
+        try (Statement stat = statementHandlerCount.prepare(conn, 120)) {
             statementHandlerCount.parameterize(stat);
             resultList = statementHandlerCount.query(stat, resultHandler);
         } catch (Exception e) {
             log.error("page interceptor error|", e);
-        } finally {
-            if (null != stat) {
-                stat.close();
-            }
         }
         Long totalCount = 0L;
         if (!CollectionUtils.isEmpty(resultList)) {
             totalCount = (Long) resultList.get(0);
         }
         page.setTotalCount(totalCount);
-        PagedResult pagedResult = new PagedResult();
+        PagedResult<List> pagedResult = new PagedResult<>();
         pagedResult.setPage(page);
 
         if (null == totalCount || 0 == totalCount || totalCount <= page.getStartIndex()) {
             pagedResult.setResultList(new ArrayList<>());
-            List result = new ArrayList<>();
+            List<PagedResult> result = new ArrayList<>();
             result.add(pagedResult);
             return result;
         }
@@ -165,7 +159,7 @@ public class PageInterceptor implements Interceptor {
         } catch (Exception e) {
             log.error("page interceptor error|", e);
         }
-        List result = new ArrayList<>();
+        List<PagedResult>  result = new ArrayList<>();
         result.add(pagedResult);
         return result;
     }
