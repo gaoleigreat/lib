@@ -41,6 +41,10 @@ public class CephResourceService {
     @Value("${define.resource.deph.pool}")
     private String pool;
 
+
+
+
+
     /**
      * 连接 CEPH
      *
