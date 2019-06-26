@@ -96,7 +96,7 @@ public class SessionFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        log.info("sessionFilter destory... ...");
     }
 
     private void accessLog() {
@@ -171,8 +171,12 @@ public class SessionFilter implements Filter {
 
     private void setServiceKey() {
         // 设置  feign 拦截器  service-key
-        // 设置  service-key
-        // 删除旧的 service-key
+        // 删除权限校验  service-key
+        // 设置新的权限校验key service-key
+       // String key = UUIDHelper.getUUID();
+        //FeignRequestInterceptor.setServerKey(key);
+       // authCheckService.delServiceKey(serviceName);
+        //authCheckService.setServiceKey(serviceName, key);
     }
 
 }
