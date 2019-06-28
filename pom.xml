@@ -27,7 +27,6 @@
         <module>lib-pdf</module>
         <module>lib-word</module>
         <module>lib-feign</module>
-        <module>lib-resource-ceph</module>
     </modules>
 
     <dependencies>
