@@ -26,7 +26,7 @@ public class SurveyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        log.info("response:{}", JSON.toJSONString(body));
+       // log.info("response:{}", JSON.toJSONString(body));
         return body;
     }
 }

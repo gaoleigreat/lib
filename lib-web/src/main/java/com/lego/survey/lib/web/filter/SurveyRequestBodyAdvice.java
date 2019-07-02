@@ -32,7 +32,7 @@ public class SurveyRequestBodyAdvice implements RequestBodyAdvice {
 
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-        log.info("requestBody:{}", JSON.toJSONString(body));
+        //log.info("requestBody:{}", JSON.toJSONString(body));
         return body;
     }
 

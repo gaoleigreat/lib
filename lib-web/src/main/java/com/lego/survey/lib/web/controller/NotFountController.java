@@ -16,7 +16,7 @@ import java.util.Map;
  * @description
  * @since 2019/1/16
  **/
-@Controller
+/*@Controller
 public class NotFountController implements ErrorController {
 
     @Override
@@ -30,4 +30,4 @@ public class NotFountController implements ErrorController {
         return RespVOBuilder.failure(RespConsts.ERROR_OTHER_CODE,"resource not found");
     }
 
-}
+}*/
