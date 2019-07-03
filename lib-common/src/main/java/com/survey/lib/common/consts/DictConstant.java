@@ -32,25 +32,25 @@ public class DictConstant {
      * url 映射
      */
     public interface Path {
-        String AUTH = "/auth";
-        String GROUP = "/group";
-        String PROJECT = "/project";
-        String SECTION = "/section";
-        String WORKSPACE = "/workSpace";
-        String USER = "/user";
-        String LOG = "/log";
-        String CONFIG = "/config";
-        String BASE_POINT = "/basePoint";
-        String TEMPLATE_REPORT = "/templateReport";
-        String EXCEL_REPORT = "/excelReport";
-        String WORD_REPORT="/wordReport";
-        String PDF_REPORT="/pdfReport";
-        String SURVEY_POINT = "/surveyPoint";
-        String SURVEY_RESULT = "/surveyResult";
-        String SURVEY_ORIGINAL = "/surveyOriginal";
-        String SURVEY_TASK = "/surveyTask";
-        String SURVEY_POINT_TYPE = "/surveyPointType";
-        String SURVEY_POINT_EXCEPTION = "/surveyPointException";
+        String AUTH = "/api-auth/auth";
+        String GROUP = "/api-project/group";
+        String PROJECT = "/api-project/project";
+        String SECTION = "/api-project/section";
+        String WORKSPACE = "/api-project/workSpace";
+        String USER = "/api-user/user";
+        String LOG = "/api-user/log";
+        String CONFIG = "/api-user/config";
+        String BASE_POINT = "/api-settlement/basePoint";
+        String TEMPLATE_REPORT = "/api-report/templateReport";
+        String EXCEL_REPORT = "/api-report/excelReport";
+        String WORD_REPORT="/api-report/wordReport";
+        String PDF_REPORT="/api-report/pdfReport";
+        String SURVEY_POINT = "/api-settlement/surveyPoint";
+        String SURVEY_RESULT = "/api-settlement/surveyResult";
+        String SURVEY_ORIGINAL = "/api-settlement/surveyOriginal";
+        String SURVEY_TASK = "/api-settlement/surveyTask";
+        String SURVEY_POINT_TYPE = "/api-settlement/surveyPointType";
+        String SURVEY_POINT_EXCEPTION = "/api-settlement/surveyPointException";
 
     }
 
