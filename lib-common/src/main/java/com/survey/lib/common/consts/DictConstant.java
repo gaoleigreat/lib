@@ -32,25 +32,25 @@ public class DictConstant {
      * url 映射
      */
     public interface Path {
-        String AUTH = "/survey/api-auth/auth";
-        String GROUP = "/survey/api-project/group";
-        String PROJECT = "/survey/api-project/project";
-        String SECTION = "/survey/api-project/section";
-        String WORKSPACE = "/survey/api-project/workSpace";
-        String USER = "/survey/api-user/user";
-        String LOG = "/survey/api-user/log";
-        String CONFIG = "/survey/api-user/config";
-        String BASE_POINT = "/survey/api-settlement/basePoint";
-        String TEMPLATE_REPORT = "/survey/api-report/templateReport";
-        String EXCEL_REPORT = "/survey/api-report/excelReport";
-        String WORD_REPORT="/survey/api-report/wordReport";
-        String PDF_REPORT="/survey/api-report/pdfReport";
-        String SURVEY_POINT = "/survey/api-settlement/surveyPoint";
-        String SURVEY_RESULT = "/survey/api-settlement/surveyResult";
-        String SURVEY_ORIGINAL = "/survey/api-settlement/surveyOriginal";
-        String SURVEY_TASK = "/survey/api-settlement/surveyTask";
-        String SURVEY_POINT_TYPE = "/survey/api-settlement/surveyPointType";
-        String SURVEY_POINT_EXCEPTION = "/survey/api-settlement/surveyPointException";
+        String AUTH = "/auth";
+        String GROUP = "/group";
+        String PROJECT = "/project";
+        String SECTION = "/section";
+        String WORKSPACE = "/workSpace";
+        String USER = "/user";
+        String LOG = "/log";
+        String CONFIG = "/config";
+        String BASE_POINT = "/basePoint";
+        String TEMPLATE_REPORT = "/templateReport";
+        String EXCEL_REPORT = "/excelReport";
+        String WORD_REPORT="/wordReport";
+        String PDF_REPORT="/pdfReport";
+        String SURVEY_POINT = "/surveyPoint";
+        String SURVEY_RESULT = "/surveyResult";
+        String SURVEY_ORIGINAL = "/surveyOriginal";
+        String SURVEY_TASK = "/surveyTask";
+        String SURVEY_POINT_TYPE = "/surveyPointType";
+        String SURVEY_POINT_EXCEPTION = "/surveyPointException";
 
     }
 

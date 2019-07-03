@@ -13,7 +13,7 @@
     <artifactId>lib-swagger</artifactId>
 
     <properties>
-        <spring.swagger.version>2.8.0</spring.swagger.version>
+        <spring.swagger.version>2.6.1</spring.swagger.version>
     </properties>
     <dependencies>
 

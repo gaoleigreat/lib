@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -159,4 +161,29 @@ public class HttpUtils {
         }
         return sb.toString().trim();
     }
+
+
+    public static String generatePVID(HttpServletRequest req, String remoteIP,String localIp) throws NoSuchAlgorithmException {
+        String now = String.valueOf(System.currentTimeMillis());
+        String uri = req.getRequestURI();
+
+        // md5 加密
+        byte[] btInput = (remoteIP + now + uri + localIp).getBytes();
+        MessageDigest mdInst = MessageDigest.getInstance("MD5");
+        mdInst.update(btInput);
+        byte[] md = mdInst.digest();
+
+        // 把密文转换成十六进制的字符串形式
+        int j = md.length;
+        char str[] = new char[j * 2];
+        int k = 0;
+        char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        for (int i = 0; i < j; i++) {
+            byte byte0 = md[i];
+            str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+            str[k++] = hexDigits[byte0 & 0xf];
+        }
+        return new String(str);
+    }
+
 }
