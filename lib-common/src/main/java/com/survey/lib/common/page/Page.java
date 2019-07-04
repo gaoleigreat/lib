@@ -6,7 +6,7 @@ public class Page implements Serializable {
 
 	private static final long serialVersionUID = 4121168324340189627L;
 
-	private Integer curPage;
+	private Integer pageIndex;
 
 	private Integer pageSize;
 
@@ -16,12 +16,12 @@ public class Page implements Serializable {
 
 	private Integer totalPages;
 
-	public Integer getCurPage() {
-		return curPage;
+	public Integer getPageIndex() {
+		return pageIndex;
 	}
 
-	public void setCurPage(Integer curPage) {
-		this.curPage = curPage;
+	public void setPageIndex(Integer pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 
 	public Integer getPageSize() {
@@ -33,7 +33,7 @@ public class Page implements Serializable {
 	}
 
 	public Integer getStartIndex() {
-		return (this.curPage - 1) * this.pageSize;
+		return (this.pageIndex - 1) * this.pageSize;
 	}
 
 	public void setStartIndex(Integer startIndex) {
