@@ -23,4 +23,5 @@ public class AuthVo {
     private Date notBefore;
     private Date issuedAt;
     private CurrentVo currentVo;
+    private String token;
 }
