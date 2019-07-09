@@ -1,0 +1,41 @@
+package com.survey.lib.common.vo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+/**
+ * @author yanglf
+ * @description
+ * @since 2019/7/9
+ **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CurrentVo {
+    // 用户ID
+    private String userId;
+    // 用户角色
+    private String role;
+    // 用户名
+    private String userName;
+    // 用户权限
+    private List<String> permissions;
+    // 手机号
+    private String phone;
+    // 昵称
+    private String name;
+    // 所属单位ID
+    private String groupId;
+    // 所属单位名称
+    private String groupName;
+    // 工程
+    private List<String> projectIds;
+    // 标段
+    private List<UserSectionVo> userSections;
+    // 所属工区
+    private List<String> workspaceIds;
+
+}

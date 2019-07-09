@@ -14,14 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 public class AuthVo {
     private String issUer;
+    // 设备类型
     private String subject;
     private String audience;
+    // 过期时间
     private Date expiration;
+    // 当前时间
     private Date notBefore;
     private Date issuedAt;
-    private String id;
-    private String role;
-    private String userName;
-    private String userId;
-    private List<String> permissions;
+    private CurrentVo currentVo;
 }
