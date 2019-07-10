@@ -39,5 +39,8 @@ public class CurrentVo {
     private List<String> workspaceIds;
     // 访问资源点
     private List<String>  resourcesScopes;
+    private String token;
+    private String deviceType;
+    private boolean permissionChecked;
 
 }
