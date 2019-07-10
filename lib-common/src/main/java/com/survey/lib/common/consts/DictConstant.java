@@ -33,6 +33,7 @@ public class DictConstant {
      */
     public interface Path {
         String AUTH = "/auth";
+        String RESOURCES="/resources";
         String GROUP = "/group";
         String PROJECT = "/project";
         String SECTION = "/section";

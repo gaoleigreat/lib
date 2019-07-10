@@ -37,5 +37,7 @@ public class CurrentVo {
     private List<UserSectionVo> userSections;
     // 所属工区
     private List<String> workspaceIds;
+    // 访问资源点
+    private List<String>  resourcesScopes;
 
 }
