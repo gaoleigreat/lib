@@ -1,10 +1,12 @@
 package com.lego.survey.lib.swagger;
 
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.*;
 import springfox.documentation.schema.ModelRef;
@@ -36,7 +38,7 @@ public class SwaggerConfiguration {
     @Value("${define.swagger.basePackage:com.lego}")
     private String basePackage;
 
-    @Value("${define.swagger.title:API文档}")
+    @Value("${define.swagger.title:后台接口api文档}")
     private String swaggerTitle;
 
     @Value("${define.swagger.contactName:lego}")
@@ -48,14 +50,17 @@ public class SwaggerConfiguration {
     @Value("${define.swagger.contactEmail:survey@legocloud.cn}")
     private String contactEmail;
 
-    @Value("${define.swagger.description:survey}")
+    @Value("${spring.application.name}")
     private String swaggerDescription;
 
     @Value("${define.swagger.serviceUrl:lego.cn}")
     private String swaggerServiceUrl;
 
-    @Value("${define.swagger.version:v1.0}")
+    @Value("${define.swagger.version:1.0}")
     private String swaggerVersion;
+
+    @Autowired
+    private Environment environment;
 
 
     @Bean
@@ -110,9 +115,9 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(swaggerTitle)
-                .contact(new Contact(contactName,contactUrl,contactEmail))
-                .description(swaggerDescription)
-                .termsOfServiceUrl(swaggerServiceUrl)
+              //  .contact(new Contact(contactName,contactUrl,contactEmail))
+                .description("restful风格接口，服务名称："+environment.getProperty("application.description")+"</br>路由标识："+environment.getProperty("spring.application.name")).version("1.0")
+             //   .termsOfServiceUrl(swaggerServiceUrl)
                 .version(swaggerVersion)
                 .build();
     }
