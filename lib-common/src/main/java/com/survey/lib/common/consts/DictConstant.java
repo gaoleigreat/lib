@@ -63,9 +63,9 @@ public class DictConstant {
         //系统管理员
         String ADMIN = "admin";
         //公司管理员
-        String MASTER = "master";
+        String MASTER = "companyAdmin";
         // 标段测量管理员
-        String SECTION = "section";
+        String SECTION = "master";
         // 测量员
         String SURVEYER = "surveyer";
     }
@@ -116,16 +116,14 @@ public class DictConstant {
      * 场景
      */
     public interface Scenes {
-        // 基础服务
-        String JCFW = "jcfw";
-        // 沉降服务
-        String CJFW = "cjfw";
-        // 管片服务
-        String GPFW = "gpfw";
-        //数据推送服务
-        String SJFW = "sjfw";
-        // 成果分享服务
-        String CGFW = "cgfw";
+        // 沉降监测
+        String CJFW = "cjjc";
+        // 管片姿态
+        String GPFW = "gpzt";
+        //拱顶底部
+        String GDDB = "gddb";
+        // 收敛测量
+        String SLCL = "slcl";
     }
 
 
