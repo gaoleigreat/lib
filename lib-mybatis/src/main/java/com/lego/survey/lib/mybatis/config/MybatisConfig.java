@@ -12,6 +12,7 @@ import com.lego.survey.lib.mybatis.injector.MySqlInjector;
 import com.lego.survey.lib.mybatis.interceptor.ProgramInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -58,6 +59,7 @@ public class MybatisConfig {
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(MAPPER_LOCATION));
         sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
+        sqlSessionFactoryBean.getObject().getConfiguration().setJdbcTypeForNull(JdbcType.NULL);
         //分页插件
         PaginationInterceptor paginationInterceptor=new PaginationInterceptor();
         paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
