@@ -102,6 +102,7 @@ public class MybatisConfig {
         config.setIdType(IdType.INPUT);
         config.setTableUnderline(true);
         globalConfiguration.setDbConfig(config);
+        globalConfiguration.setBanner(false);
       //  globalConfiguration.setSqlInjector(mySqlInjector());
 
         //  MYSQL->`mysql`
