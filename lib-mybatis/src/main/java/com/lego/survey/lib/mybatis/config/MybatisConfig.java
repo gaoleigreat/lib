@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.github.pagehelper.PageHelper;
 import com.lego.survey.lib.mybatis.injector.MySqlInjector;
-import com.lego.survey.lib.mybatis.interceptor.ProgramInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.type.JdbcType;
@@ -21,12 +21,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author yanglf
@@ -39,7 +37,7 @@ import java.util.Properties;
 @MapperScan(basePackages = {MybatisConfig.PACKAGE})
 public class MybatisConfig {
 
-    static final   String PACKAGE = "com.lego.**.mapper";
+    static final String PACKAGE = "com.lego.**.mapper";
     static final String DOMAIN = "com.lego.**.entity";
     static final String MAPPER_LOCATION = "classpath:mapper/**/*.xml";
 
@@ -58,31 +56,29 @@ public class MybatisConfig {
         sqlSessionFactoryBean.setTypeAliasesPackage(DOMAIN);
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(MAPPER_LOCATION));
-        sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
-        sqlSessionFactoryBean.getObject().getConfiguration().setJdbcTypeForNull(JdbcType.NULL);
+        org.apache.ibatis.session.Configuration configuration = Objects.requireNonNull(sqlSessionFactoryBean.getObject()).getConfiguration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        configuration.setJdbcTypeForNull(JdbcType.NULL);
+        Interceptor[] list = new Interceptor[4];
         //分页插件
-        PaginationInterceptor paginationInterceptor=new PaginationInterceptor();
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
-        Interceptor[] list=new Interceptor[5];
-        list[0]=paginationInterceptor;
+        list[0] = paginationInterceptor;
         //TODO 性能分析插件
-        PerformanceInterceptor performanceInterceptor=new PerformanceInterceptor();
+        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
         // 格式化sql
         performanceInterceptor.setFormat(true);
         performanceInterceptor.setMaxTime(2000);
-        list[1]=performanceInterceptor;
+        list[1] = performanceInterceptor;
         //TODO 执行分析插件  阻止删除整表
-        SqlExplainInterceptor sqlExplainInterceptor=new SqlExplainInterceptor();
-        Properties prop=new Properties();
-        prop.setProperty("stopProceed","true");
+        SqlExplainInterceptor sqlExplainInterceptor = new SqlExplainInterceptor();
+        Properties prop = new Properties();
+        prop.setProperty("stopProceed", "true");
         sqlExplainInterceptor.setProperties(prop);
-        list[2]=sqlExplainInterceptor;
+        list[2] = sqlExplainInterceptor;
         // 乐观锁插件
-        OptimisticLockerInterceptor optimisticLockerInterceptor=new OptimisticLockerInterceptor();
-        list[3]=optimisticLockerInterceptor;
-        //TODO
-        ProgramInterceptor programInterceptor=new ProgramInterceptor();
-        list[4]=programInterceptor;
+        OptimisticLockerInterceptor optimisticLockerInterceptor = new OptimisticLockerInterceptor();
+        list[3] = optimisticLockerInterceptor;
         sqlSessionFactoryBean.setPlugins(list);
         //plugs- 配置全局配置
         sqlSessionFactoryBean.setGlobalConfig(globalConfiguration());
@@ -90,22 +86,35 @@ public class MybatisConfig {
     }
 
 
+    @Bean
+    public PageHelper pageHelper() {
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("reasonable", "true");
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("params", "count=countSql");
+        properties.setProperty("rowBoundsWithCount", "true");
+        properties.setProperty("helperDialect", "mysql");
+        pageHelper.setProperties(properties);
+        return pageHelper;
+    }
 
 
     @Bean
-    public GlobalConfig globalConfiguration(){
-        GlobalConfig globalConfiguration=new GlobalConfig();
+    public GlobalConfig globalConfiguration() {
+        GlobalConfig globalConfiguration = new GlobalConfig();
         // AUTO->`0`("数据库ID自增")
         // INPUT->`1`(用户输入ID")
         // ID_WORKER->`2`("全局唯一ID")
         // UUID->`3`("全局唯一ID")
-        GlobalConfig.DbConfig config=new GlobalConfig.DbConfig();
+        GlobalConfig.DbConfig config = new GlobalConfig.DbConfig();
         config.setDbType(DbType.MYSQL);
+        // 主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
         config.setIdType(IdType.INPUT);
         config.setTableUnderline(true);
         globalConfiguration.setDbConfig(config);
         globalConfiguration.setBanner(false);
-      //  globalConfiguration.setSqlInjector(mySqlInjector());
+        //  globalConfiguration.setSqlInjector(mySqlInjector());
 
         //  MYSQL->`mysql`
         //  ORACLE->`oracle`
@@ -119,7 +128,7 @@ public class MybatisConfig {
         // Oracle需要添加该项
         //  <property name="dbType" value="oracle" />
         //  全局表为下划线命名设置 true
-        return  globalConfiguration;
+        return globalConfiguration;
     }
 
 
@@ -139,7 +148,7 @@ public class MybatisConfig {
 
 
     @Bean
-    public MySqlInjector mySqlInjector(){
+    public MySqlInjector mySqlInjector() {
         return new MySqlInjector();
     }
 
