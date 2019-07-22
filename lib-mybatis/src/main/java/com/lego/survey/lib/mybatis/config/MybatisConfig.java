@@ -139,13 +139,12 @@ public class MybatisConfig {
         targetDataSources.put(DataSourceType.write.getType(), writeDataSource);
         //多个读数据库
         for (int i = 0; i < readDataSources.size(); i++) {
-            targetDataSources.put(i, readDataSources.get(i));
+            targetDataSources.put(DataSourceType.read.getType()+i, readDataSources.get(i));
         }
         proxy.setDefaultTargetDataSource(writeDataSource);
         proxy.setTargetDataSources(targetDataSources);
         return proxy;
     }
-
 
     @Bean
     public MySqlInjector mySqlInjector() {
