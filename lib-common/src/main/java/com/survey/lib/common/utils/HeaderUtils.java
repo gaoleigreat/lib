@@ -20,12 +20,16 @@ public class HeaderUtils {
             String token = request.getHeader(HEADER_TOKEN);
             String osVersion = request.getHeader(OS_VERSION);
             String fromName = request.getHeader(FROM_NAME);
+            String userId = request.getHeader(USER_ID);
+            String userName = request.getHeader(USER_NAME);
             return HeaderVo.builder()
                     .deviceType(deviceType)
                     .osVersion(osVersion)
                     .sn(sn)
                     .time(time)
                     .token(token)
+                    .userId(userId)
+                    .userName(userName)
                     .fromName(fromName)
                     .build();
         } catch (Exception ex) {

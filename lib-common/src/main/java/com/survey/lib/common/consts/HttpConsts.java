@@ -35,6 +35,12 @@ public class HttpConsts {
 
     public static final String FROM_NAME="fromName";
 
+    public static final String USER_ID="userId";
+
+    public static final String USER_NAME="userName";
+
+
+
 
 
     public  interface  DeviceType{

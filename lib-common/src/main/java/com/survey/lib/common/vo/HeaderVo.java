@@ -23,6 +23,9 @@ public class HeaderVo {
     private String sn;
     private String fromName;
 
+    private String userId;
+    private String userName;
+
     public String toJsonObject(){
         return JSONObject.toJSONString(this);
     }

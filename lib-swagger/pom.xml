@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <version>0.0.1-SNAPSHOT</version>
     <description>lib-swagger</description>
+    <groupId>com.lego.swagger</groupId>
     <artifactId>lib-swagger</artifactId>
 
     <properties>

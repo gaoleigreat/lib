@@ -7,6 +7,7 @@
         <groupId>com.lego.survey</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <groupId>com.lego.common</groupId>
     <modelVersion>4.0.0</modelVersion>
     <version>0.0.1-SNAPSHOT</version>
     <artifactId>lib-common</artifactId>

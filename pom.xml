@@ -25,7 +25,6 @@
         <module>lib-excel</module>
         <module>lib-pdf</module>
         <module>lib-word</module>
-        <module>lib-feign</module>
     </modules>
 
     <dependencies>
