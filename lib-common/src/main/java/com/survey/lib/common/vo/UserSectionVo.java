@@ -13,10 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSectionVo {
-    // 标段ID
+    // ID
     private String id;
     // 标段名称
-    private String sectionName;
+    private String name;
+    // code
+    private String code;
     // 角色
     private String role;
 }

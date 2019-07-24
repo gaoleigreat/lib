@@ -31,12 +31,12 @@ public class CurrentVo {
     private String groupId;
     // 所属单位名称
     private String groupName;
-    // 工程
-    private List<String> projectIds;
+    // 工程 code
+    private List<UserSectionVo> projects;
     // 标段
     private List<UserSectionVo> userSections;
     // 所属工区
-    private List<String> workspaceIds;
+    private List<UserSectionVo> workspaces;
     // 访问资源点
     private List<String>  resourcesScopes;
     private String token;
