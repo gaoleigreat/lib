@@ -23,6 +23,10 @@ public class TokenVo {
      */
     private String userName;
     /**
+     * userId
+     */
+    private String userId;
+    /**
      * 登录 token
      */
     private String token;
