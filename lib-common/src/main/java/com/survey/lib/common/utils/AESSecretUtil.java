@@ -1,3 +1,4 @@
+/*
 package com.survey.lib.common.utils;
 
 import org.springframework.util.StringUtils;
@@ -7,26 +8,32 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
+*/
 /**
  * @author yanglf
  * @description
  * @since 2019/8/1
- **/
+ **//*
+
 public class AESSecretUtil {
 
-    /**
+    */
+/**
      * 秘钥的大小
-     */
+     *//*
+
     private static final int KEYSIZE = 128;
 
-    /**
+    */
+/**
      * @param data - 待加密内容
      * @param key  - 加密秘钥
      * @Author: Helon
      * @Description: AES加密
      * @Data: 2018/7/28 18:42
      * @Modified By:
-     */
+     *//*
+
     public static byte[] encrypt(String data, String key) {
         if (!StringUtils.isEmpty(data)) {
             try {
@@ -50,28 +57,32 @@ public class AESSecretUtil {
         return null;
     }
 
-    /**
+    */
+/**
      * @param data - 待加密内容
      * @param key  - 加密秘钥
      * @Author: Helon
      * @Description: AES加密，返回String
      * @Data: 2018/7/28 18:59
      * @Modified By:
-     */
+     *//*
+
     public static String encryptToStr(String data, String key) {
 
         return !StringUtils.isEmpty(data) ? parseByte2HexStr(encrypt(data, key)) : null;
     }
 
 
-    /**
+    */
+/**
      * @param data - 待解密字节数组
      * @param key  - 秘钥
      * @Author: Helon
      * @Description: AES解密
      * @Data: 2018/7/28 19:01
      * @Modified By:
-     */
+     *//*
+
     public static byte[] decrypt(byte[] data, String key) {
         if (data != null && data.length > 0) {
             try {
@@ -94,25 +105,29 @@ public class AESSecretUtil {
         return null;
     }
 
-    /**
+    */
+/**
      * @param enCryptdata - 待解密字节数组
      * @param key         - 秘钥
      * @Author: Helon
      * @Description: AES解密，返回String
      * @Data: 2018/7/28 19:01
      * @Modified By:
-     */
+     *//*
+
     public static String decryptToStr(String enCryptdata, String key) {
         return !StringUtils.isEmpty(enCryptdata) ? new String(decrypt(parseHexStr2Byte(enCryptdata), key)) : null;
     }
 
-    /**
+    */
+/**
      * @param buf - 二进制数组
      * @Author: Helon
      * @Description: 将二进制转换成16进制
      * @Data: 2018/7/28 19:12
      * @Modified By:
-     */
+     *//*
+
     public static String parseByte2HexStr(byte buf[]) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < buf.length; i++) {
@@ -125,13 +140,15 @@ public class AESSecretUtil {
         return sb.toString();
     }
 
-    /**
+    */
+/**
      * @param hexStr - 16进制字符串
      * @Author: Helon
      * @Description: 将16进制转换为二进制
      * @Data: 2018/7/28 19:13
      * @Modified By:
-     */
+     *//*
+
     public static byte[] parseHexStr2Byte(String hexStr) {
         if (hexStr.length() < 1) {
             return null;
@@ -147,3 +164,4 @@ public class AESSecretUtil {
 
 
 }
+*/

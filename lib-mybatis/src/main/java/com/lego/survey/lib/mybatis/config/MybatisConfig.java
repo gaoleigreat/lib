@@ -3,12 +3,11 @@ package com.lego.survey.lib.mybatis.config;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
+import com.baomidou.mybatisplus.core.parser.ISqlParser;
+import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.github.pagehelper.PageHelper;
 import com.lego.survey.lib.mybatis.injector.MySqlInjector;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.plugin.Interceptor;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -57,28 +57,18 @@ public class MybatisConfig {
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(MAPPER_LOCATION));
         org.apache.ibatis.session.Configuration configuration = Objects.requireNonNull(sqlSessionFactoryBean.getObject()).getConfiguration();
+        // 开启自动驼峰规则
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setJdbcTypeForNull(JdbcType.NULL);
-        Interceptor[] list = new Interceptor[4];
+        configuration.setCallSettersOnNulls(false);
+        Interceptor[] list = new Interceptor[2];
         //分页插件
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
-        list[0] = paginationInterceptor;
-        //TODO 性能分析插件
-        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
-        // 格式化sql
-        performanceInterceptor.setFormat(true);
-        performanceInterceptor.setMaxTime(2000);
-        list[1] = performanceInterceptor;
-        //TODO 执行分析插件  阻止删除整表
-        SqlExplainInterceptor sqlExplainInterceptor = new SqlExplainInterceptor();
-        Properties prop = new Properties();
-        prop.setProperty("stopProceed", "true");
-        sqlExplainInterceptor.setProperties(prop);
-        list[2] = sqlExplainInterceptor;
+        list[0] = paginationInterceptor();
+        list[1] = performanceInterceptor();
+        // 执行分析插件  阻止删除整表
+        // list[2] = sqlExplainInterceptor();
         // 乐观锁插件
-        OptimisticLockerInterceptor optimisticLockerInterceptor = new OptimisticLockerInterceptor();
-        list[3] = optimisticLockerInterceptor;
+        // list[3] = optimisticLockerInterceptor();
         sqlSessionFactoryBean.setPlugins(list);
         //plugs- 配置全局配置
         sqlSessionFactoryBean.setGlobalConfig(globalConfiguration());
@@ -87,6 +77,45 @@ public class MybatisConfig {
 
 
     @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        paginationInterceptor.setDialectType(DbType.MYSQL.getDb());
+        List<ISqlParser> parserList = new ArrayList<>();
+        parserList.add(new BlockAttackSqlParser());
+
+        paginationInterceptor.setSqlParserList(parserList);
+        return paginationInterceptor;
+    }
+
+
+    @Bean
+    @Profile({"dev", "local", "sit"})
+    public PerformanceInterceptor performanceInterceptor() {
+        PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
+        // 格式化sql
+        performanceInterceptor.setFormat(true);
+        performanceInterceptor.setMaxTime(500);
+        return performanceInterceptor;
+    }
+
+
+    /*@Bean
+    public  OptimisticLockerInterceptor optimisticLockerInterceptor(){
+        return new OptimisticLockerInterceptor();
+    }*/
+
+
+    /*@Bean
+    public SqlExplainInterceptor sqlExplainInterceptor() {
+        SqlExplainInterceptor sqlExplainInterceptor = new SqlExplainInterceptor();
+        Properties prop = new Properties();
+        prop.setProperty("stopProceed", "true");
+        sqlExplainInterceptor.setProperties(prop);
+        return sqlExplainInterceptor;
+    }*/
+
+
+ /*   @Bean
     public PageHelper pageHelper() {
         PageHelper pageHelper = new PageHelper();
         Properties properties = new Properties();
@@ -97,7 +126,7 @@ public class MybatisConfig {
         properties.setProperty("helperDialect", "mysql");
         pageHelper.setProperties(properties);
         return pageHelper;
-    }
+    }*/
 
 
     @Bean
@@ -139,7 +168,7 @@ public class MybatisConfig {
         targetDataSources.put(DataSourceType.write.getType(), writeDataSource);
         //多个读数据库
         for (int i = 0; i < readDataSources.size(); i++) {
-            targetDataSources.put(DataSourceType.read.getType()+i, readDataSources.get(i));
+            targetDataSources.put(DataSourceType.read.getType() + i, readDataSources.get(i));
         }
         proxy.setDefaultTargetDataSource(writeDataSource);
         proxy.setTargetDataSources(targetDataSources);
