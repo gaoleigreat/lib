@@ -33,7 +33,7 @@ public class DictConstant {
      */
     public interface Path {
         String AUTH = "/auth";
-        String RESOURCES="/resources";
+        String RESOURCES = "/resources";
         String GROUP = "/group";
         String PROJECT = "/project";
         String SECTION = "/section";
@@ -44,8 +44,8 @@ public class DictConstant {
         String BASE_POINT = "/basePoint";
         String TEMPLATE_REPORT = "/templateReport";
         String EXCEL_REPORT = "/excelReport";
-        String WORD_REPORT="/wordReport";
-        String PDF_REPORT="/pdfReport";
+        String WORD_REPORT = "/wordReport";
+        String PDF_REPORT = "/pdfReport";
         String SURVEY_POINT = "/surveyPoint";
         String SURVEY_RESULT = "/surveyResult";
         String SURVEY_ORIGINAL = "/surveyOriginal";
@@ -78,25 +78,25 @@ public class DictConstant {
         //超级管理员  创建 标段测量管理员 以及公司管理员， 标段测量管理员创建测量员
         String USER_CREATE = "/user/create";
         // 删除用户
-        String USER_DELETE="/user/delete";
+        String USER_DELETE = "/user/delete";
         //系统管理员
         String PROJECT_CREATE = "/project/create";
         // 修改工程信息
-        String PROJECT_MODIFY="/project/modify";
+        String PROJECT_MODIFY = "/project/modify";
         //超级管理员
         String PROJECT_DELETE = "/project/delete";
         //标段创建
-        String SECTION_CREATE="/section/create";
+        String SECTION_CREATE = "/section/create";
         // 删除标段
-        String SECTION_DELETE="/section/delete";
+        String SECTION_DELETE = "/section/delete";
         // 修改标段信息
-        String SECTION_MODIFY="/section/modify";
+        String SECTION_MODIFY = "/section/modify";
         // 创建工区
-        String WORKSPACE_CREATE="/workspace/create";
+        String WORKSPACE_CREATE = "/workspace/create";
         // 删除工区
-        String WORKSPACE_DELETE="/workspace/delete";
+        String WORKSPACE_DELETE = "/workspace/delete";
         // 修改工区
-        String WORKSPACE_MODIFY="/workspace/modify";
+        String WORKSPACE_MODIFY = "/workspace/modify";
     }
 
 
@@ -128,12 +128,18 @@ public class DictConstant {
 
 
     /**
-     *
      * 数据是否有效
      */
-    public interface  IsValid{
-        int YES=0;
-        int NO=1;
+    public interface IsValid {
+        int YES = 0;
+        int NO = 1;
+    }
+
+
+    public interface ConfigName {
+        String ROLE = "角色配置";
+        String SENCE = "场景配置";
+        String PERMISSION = "权限配置";
     }
 
 
