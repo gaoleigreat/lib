@@ -12,14 +12,14 @@ public class Page implements Serializable {
 
 	private Integer startIndex;
 
-	private Long totalCount = 0L;
+	private Integer totalCount = 0;
 
 	private Integer totalPages;
 
 	public Page() {
 	}
 
-	public Page(Integer pageIndex, Integer pageSize, Integer startIndex, Long totalCount, Integer totalPages) {
+	public Page(Integer pageIndex, Integer pageSize, Integer startIndex, Integer totalCount, Integer totalPages) {
 		this.pageIndex = pageIndex;
 		this.pageSize = pageSize;
 		this.startIndex = startIndex;
@@ -51,11 +51,11 @@ public class Page implements Serializable {
 		this.startIndex = startIndex;
 	}
 
-	public Long getTotalCount() {
+	public Integer getTotalCount() {
 		return totalCount;
 	}
 
-	public void setTotalCount(Long totalCount) {
+	public void setTotalCount(Integer totalCount) {
 		this.totalCount = totalCount;
 	}
 

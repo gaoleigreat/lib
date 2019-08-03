@@ -135,7 +135,6 @@ public class DictConstant {
         int NO = 1;
     }
 
-
     public interface ConfigName {
         String ROLE = "角色配置";
         String SENCE = "场景配置";
