@@ -1,4 +1,5 @@
 package com.lego.survey.lib.mybatis.interceptor;
+
 import com.lego.survey.lib.mybatis.boundsql.SurveyBoundSql;
 import com.survey.lib.common.page.Page;
 import com.survey.lib.common.page.PagedResult;
@@ -31,12 +32,12 @@ import java.util.Properties;
  * @description
  * @since 2019/2/25
  **/
-@Intercepts( {
-        @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class}) })
+@Intercepts({
+        @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class})})
 @Data
 public class PageInterceptor implements Interceptor {
 
-    private Log log= LogFactory.getLog(PageInterceptor.class);
+    private Log log = LogFactory.getLog(PageInterceptor.class);
 
     //数据库类型，不同的数据库有不同的分页方法
     private String databaseType;
@@ -119,7 +120,7 @@ public class PageInterceptor implements Interceptor {
         final RowBounds rowBounds = (RowBounds) args[2];
         final ResultHandler resultHandler = (ResultHandler) args[3];
         BoundSql boundSqlCount = countMappedStatement.getBoundSql(parameter);
-        boundSqlCount = new SurveyBoundSql(configuration,boundSqlCount);
+        boundSqlCount = new SurveyBoundSql(configuration, boundSqlCount);
         StatementHandler statementHandlerCount = configuration.newStatementHandler(executor, countMappedStatement,
                 parameter, rowBounds, resultHandler, boundSqlCount);
         Connection conn = ConnectionLogger.newInstance(executor.getTransaction().getConnection(), log, 1);
@@ -131,9 +132,9 @@ public class PageInterceptor implements Interceptor {
         } catch (Exception e) {
             log.error("page interceptor error|", e);
         }
-        Long totalCount = 0L;
+        Integer totalCount = 0;
         if (!CollectionUtils.isEmpty(resultList)) {
-            totalCount = (Long) resultList.get(0);
+            totalCount = Integer.parseInt(resultList.get(0)+"");
         }
         page.setTotalCount(totalCount);
         PagedResult<List> pagedResult = new PagedResult<>();
@@ -159,7 +160,7 @@ public class PageInterceptor implements Interceptor {
         } catch (Exception e) {
             log.error("page interceptor error|", e);
         }
-        List<PagedResult>  result = new ArrayList<>();
+        List<PagedResult> result = new ArrayList<>();
         result.add(pagedResult);
         return result;
     }
@@ -169,7 +170,7 @@ public class PageInterceptor implements Interceptor {
      * 其它的数据库都 没有进行分页
      *
      * @param page 分页对象
-     * @param sql 原sql语句
+     * @param sql  原sql语句
      * @return
      */
     private String getPageSql(PageVo<?> page, String sql) {
@@ -185,7 +186,8 @@ public class PageInterceptor implements Interceptor {
 
     /**
      * 获取Mysql数据库的分页查询语句
-     * @param page 分页对象
+     *
+     * @param page      分页对象
      * @param sqlBuffer 包含原sql语句的StringBuffer对象
      * @return Mysql数据库分页语句
      */
@@ -198,7 +200,8 @@ public class PageInterceptor implements Interceptor {
 
     /**
      * 获取Oracle数据库的分页查询语句
-     * @param page 分页对象
+     *
+     * @param page      分页对象
      * @param sqlBuffer 包含原sql语句的StringBuffer对象
      * @return Oracle数据库的分页查询语句
      */
@@ -213,13 +216,12 @@ public class PageInterceptor implements Interceptor {
     }
 
 
-
     /**
      * 给当前的参数对象page设置总记录数
      *
-     * @param page Mapper映射语句对应的参数对象
+     * @param page            Mapper映射语句对应的参数对象
      * @param mappedStatement Mapper映射语句
-     * @param connection 当前的数据库连接
+     * @param connection      当前的数据库连接
      */
     private void setTotalRecord(PageVo page,
                                 MappedStatement mappedStatement, Connection connection) {
@@ -268,6 +270,7 @@ public class PageInterceptor implements Interceptor {
 
     /**
      * 根据原Sql语句获取对应的查询总记录数的Sql语句
+     *
      * @param sql
      * @return
      */
@@ -275,7 +278,6 @@ public class PageInterceptor implements Interceptor {
         int index = sql.indexOf("from");
         return "select count(*) " + sql.substring(index);
     }
-
 
 
     @Override
