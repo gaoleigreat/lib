@@ -1,6 +1,6 @@
 package com.lego.survey.lib.excel.listener;
-import com.alibaba.excel.read.context.AnalysisContext;
-import com.alibaba.excel.read.event.AnalysisEventListener;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import lombok.extern.slf4j.Slf4j;
 /**
  * @author yanglf
@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2019/1/16
  **/
 @Slf4j
-public abstract class ExcelListener<T> extends AnalysisEventListener<T> {
+public abstract class ExcelReadListener<T> extends AnalysisEventListener<T> {
 
 
 

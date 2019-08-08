@@ -1,13 +1,17 @@
 package com.lego.survey.lib.excel;
 
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.event.WriteHandler;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
-import com.lego.survey.lib.excel.listener.ExcelListener;
+import com.lego.survey.lib.excel.listener.ExcelReadListener;
+import com.lego.survey.lib.excel.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,8 +25,10 @@ import java.util.List;
 @Component
 public class ExcelService {
 
+
     @Value("${define.report.excel.storePath:/app/survey/report/}")
     private String excelStorePath;
+
 
 
     /**
@@ -30,15 +36,22 @@ public class ExcelService {
      * @param baseRowModels  pojo
      * @param excelFileName  excel name
      */
-    public  void writeExcel(List<? extends BaseRowModel> baseRowModels, String excelFileName,String sheetName) {
+    public  void writeExcel(List<? extends BaseRowModel> baseRowModels,
+                            String excelFileName,
+                            String sheetName,
+                            List<List<String>> headers) {
         OutputStream out = null;
         try {
             out = new FileOutputStream(excelStorePath + excelFileName + ".xlsx");
             ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX,true);
             Sheet sheet = new Sheet(1, 1);
+            sheet.setAutoWidth(Boolean.TRUE);
+            sheet.setTableStyle(DataUtil.createTableStyle());
             sheet.setClazz(baseRowModels.get(0).getClass());
             sheet.setSheetName(sheetName);
-           // sheet.setHead(getSheetHead());
+            if(!CollectionUtils.isEmpty(headers)){
+                sheet.setHead(headers);
+            }
             excelWriter.write(baseRowModels, sheet);
             excelWriter.finish();
         } catch (Exception e) {
@@ -72,7 +85,7 @@ public class ExcelService {
      * @param baseRowModel  pojo
      */
     public  void readExcel(String excelFileName,
-                           ExcelListener eventListener,
+                           ExcelReadListener eventListener,
                            Class<? extends  BaseRowModel> baseRowModel,
                            int sheetNo) {
         InputStream inputStream;
@@ -95,7 +108,7 @@ public class ExcelService {
      * @param excelFileName
      * @param eventListener
      */
-    public  void  readExcel(String excelFileName,ExcelListener eventListener){
+    public  void  readExcel(String excelFileName, ExcelReadListener eventListener){
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(excelFileName);
