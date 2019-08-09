@@ -1,4 +1,4 @@
-package com.lego.survey.lib.excel.util;
+package com.lego.survey.lib.excel.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
