@@ -3,8 +3,9 @@ package com.lego.survey.lib.excel;
 import com.lego.survey.lib.excel.element.EObject;
 import com.lego.survey.lib.excel.element.EPic;
 import com.lego.survey.lib.excel.model.Coordinate;
-import com.lego.survey.lib.excel.util.ExcelUtil;
+import com.lego.survey.lib.excel.utils.ExcelUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.xssf.usermodel.*;
@@ -123,10 +124,10 @@ public class ExcelReport {
         int totalLineNumber = row.getPhysicalNumberOfCells();
         xsf.getSheetAt(sheetNumber).shiftRows(rowNumber + 1, xsf.getSheetAt(sheetNumber).getLastRowNum(), eObjects.size() - 1, true, false);
         CellStyle style = xsf.createCellStyle();
-        style.setBorderBottom(CellStyle.BORDER_THIN); // 下边框
-        style.setBorderLeft(CellStyle.BORDER_THIN);// 左边框
-        style.setBorderTop(CellStyle.BORDER_THIN);// 上边框
-        style.setBorderRight(CellStyle.BORDER_THIN);// 右边框
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
         for (int i = 0; i < eObjects.size() - 1; i++) {
             xsf.getSheetAt(sheetNumber).createRow(rowNumber + i + 1);
             if (hasBorder) {
@@ -193,10 +194,9 @@ public class ExcelReport {
             } catch (Exception e) {
                 log.error("插入图片失败：{}", e.getMessage());
             }
-        } else if (value instanceof Date){
-            xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue((Date)value);
-        }
-        else {
+        } else if (value instanceof Date) {
+            xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue((Date) value);
+        } else {
             xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue(value.toString());
         }
 
