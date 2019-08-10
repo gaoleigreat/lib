@@ -1,7 +1,9 @@
 package com.survey.lib.common.utils;
 import com.survey.lib.common.vo.HeaderVo;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +11,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -125,6 +128,26 @@ public class HttpUtils {
             sb.append(headerValue);
             sb.append("]");
             k++;
+        }
+        return sb.toString();
+
+    }
+
+
+
+    public static String getResponseHeaders(HttpServletResponse response) {
+        Collection<String> headerNames = response.getHeaderNames();
+        StringBuilder sb = new StringBuilder();
+        int k = 0;
+        if (!CollectionUtils.isEmpty(headerNames)) {
+            sb.append(", ");
+            for (String headerName : headerNames) {
+                sb.append(headerName).append("=[");
+                String headerValue = response.getHeader(headerName);
+                sb.append(headerValue);
+                sb.append("]");
+                k++;
+            }
         }
         return sb.toString();
 
