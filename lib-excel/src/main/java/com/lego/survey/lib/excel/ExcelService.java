@@ -88,10 +88,10 @@ public class ExcelService {
                            ExcelReadListener eventListener,
                            Class<? extends  BaseRowModel> baseRowModel,
                            int sheetNo) {
-        InputStream inputStream;
+        BufferedInputStream stream;
         try {
-            inputStream = new FileInputStream(excelFileName);
-            ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, eventListener);
+            stream = new BufferedInputStream(new FileInputStream(excelFileName));
+            ExcelReader excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
             excelReader.read(new Sheet(sheetNo, 1, baseRowModel));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -109,10 +109,10 @@ public class ExcelService {
      * @param eventListener
      */
     public  void  readExcel(String excelFileName, ExcelReadListener eventListener){
-        InputStream inputStream;
+        BufferedInputStream stream;
         try {
-            inputStream = new FileInputStream(excelFileName);
-            ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, eventListener);
+            stream=new BufferedInputStream(new FileInputStream(excelFileName));
+            ExcelReader excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
             excelReader.read();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
