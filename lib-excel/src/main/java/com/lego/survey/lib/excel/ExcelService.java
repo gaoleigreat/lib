@@ -86,8 +86,7 @@ public class ExcelService {
                           ExcelReadListener eventListener,
                           Class<? extends BaseRowModel> baseRowModel,
                           int sheetNo) throws Exception {
-        BufferedInputStream stream;
-        stream = new BufferedInputStream(new FileInputStream(excelFileName));
+        BufferedInputStream stream = new BufferedInputStream(new FileInputStream(new File(excelFileName)));
         ExcelReader excelReader;
         if (excelFileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
             excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
@@ -107,8 +106,7 @@ public class ExcelService {
      * @param eventListener
      */
     public void readExcel(String excelFileName, ExcelReadListener eventListener) throws Exception {
-        BufferedInputStream stream;
-        stream = new BufferedInputStream(new FileInputStream(excelFileName));
+        BufferedInputStream stream = new BufferedInputStream(new FileInputStream(new File(excelFileName)));
         ExcelReader excelReader;
         if (excelFileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
             excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
