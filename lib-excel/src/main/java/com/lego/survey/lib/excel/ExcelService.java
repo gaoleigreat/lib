@@ -30,26 +30,26 @@ public class ExcelService {
     private String excelStorePath;
 
 
-
     /**
      * write  excel
-     * @param baseRowModels  pojo
-     * @param excelFileName  excel name
+     *
+     * @param baseRowModels pojo
+     * @param excelFileName excel name
      */
-    public  void writeExcel(List<? extends BaseRowModel> baseRowModels,
-                            String excelFileName,
-                            String sheetName,
-                            List<List<String>> headers) {
+    public void writeExcel(List<? extends BaseRowModel> baseRowModels,
+                           String excelFileName,
+                           String sheetName,
+                           List<List<String>> headers) {
         OutputStream out = null;
         try {
             out = new FileOutputStream(excelStorePath + excelFileName + ".xlsx");
-            ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX,true);
+            ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX, true);
             Sheet sheet = new Sheet(1, 1);
             sheet.setAutoWidth(Boolean.TRUE);
             sheet.setTableStyle(DataUtil.createTableStyle());
             sheet.setClazz(baseRowModels.get(0).getClass());
             sheet.setSheetName(sheetName);
-            if(!CollectionUtils.isEmpty(headers)){
+            if (!CollectionUtils.isEmpty(headers)) {
                 sheet.setHead(headers);
             }
             excelWriter.write(baseRowModels, sheet);
@@ -68,58 +68,58 @@ public class ExcelService {
     }
 
     private static List<List<String>> getSheetHead() {
-        List<List<String>> headList=new ArrayList<>();
-        List<String> heads1=new ArrayList<>();
+        List<List<String>> headList = new ArrayList<>();
+        List<String> heads1 = new ArrayList<>();
         headList.add(heads1);
         return headList;
     }
 
 
-
-
-
     /**
      * read excel to pojo
-     * @param excelFileName  excel name
-     * @param eventListener  read listener
+     *
+     * @param excelFileName excel name
+     * @param eventListener read listener
      * @param baseRowModel  pojo
      */
-    public  void readExcel(String excelFileName,
-                           ExcelReadListener eventListener,
-                           Class<? extends  BaseRowModel> baseRowModel,
-                           int sheetNo) {
+    public void readExcel(String excelFileName,
+                          ExcelReadListener eventListener,
+                          Class<? extends BaseRowModel> baseRowModel,
+                          int sheetNo) throws Exception {
         BufferedInputStream stream;
-        try {
-            stream = new BufferedInputStream(new FileInputStream(excelFileName));
-            ExcelReader excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
-            excelReader.read(new Sheet(sheetNo, 1, baseRowModel));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        stream = new BufferedInputStream(new FileInputStream(excelFileName));
+        ExcelReader excelReader;
+        if (excelFileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
+            excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
+        } else if (excelFileName.endsWith(ExcelTypeEnum.XLS.getValue())) {
+            excelReader = new ExcelReader(stream, ExcelTypeEnum.XLS, null, eventListener);
+        } else {
+            throw new Exception();
         }
+        excelReader.read(new Sheet(sheetNo, 1, baseRowModel));
     }
-
-
-
-
 
 
     /**
      * read   excel to  any
+     *
      * @param excelFileName
      * @param eventListener
      */
-    public  void  readExcel(String excelFileName, ExcelReadListener eventListener){
+    public void readExcel(String excelFileName, ExcelReadListener eventListener) throws Exception {
         BufferedInputStream stream;
-        try {
-            stream=new BufferedInputStream(new FileInputStream(excelFileName));
-            ExcelReader excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
-            excelReader.read();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        stream = new BufferedInputStream(new FileInputStream(excelFileName));
+        ExcelReader excelReader;
+        if (excelFileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
+            excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
+        } else if (excelFileName.endsWith(ExcelTypeEnum.XLS.getValue())) {
+            excelReader = new ExcelReader(stream, ExcelTypeEnum.XLS, null, eventListener);
+        } else {
+            throw new Exception();
         }
+        excelReader.read();
 
     }
-
 
 
 }
