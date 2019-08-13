@@ -130,9 +130,10 @@ public class ExcelReport {
         style.setBorderRight(BorderStyle.THIN);
         for (int i = 0; i < eObjects.size() - 1; i++) {
             xsf.getSheetAt(sheetNumber).createRow(rowNumber + i + 1);
-            if (hasBorder) {
-                for (int j = 0; j < totalLineNumber; j++) {
-                    xsf.getSheetAt(sheetNumber).getRow(rowNumber + i + 1).createCell(j);
+
+            for (int j = 0; j < totalLineNumber; j++) {
+                xsf.getSheetAt(sheetNumber).getRow(rowNumber + i + 1).createCell(j);
+                if (hasBorder) {
                     xsf.getSheetAt(sheetNumber).getRow(rowNumber + i + 1).getCell(j).setCellStyle(style);
                 }
             }
@@ -185,7 +186,9 @@ public class ExcelReport {
      */
 
     private void setCellValue(int sheetNumber, int rowNumber, int lineNumber, Object value) {
-        if (value instanceof Integer || value instanceof Double) {
+        if (null == value) {
+            xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue("");
+        } else if (value instanceof Integer || value instanceof Double) {
             xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue(Double.valueOf(value.toString()));
         } else if (value instanceof EPic) {
             try {
