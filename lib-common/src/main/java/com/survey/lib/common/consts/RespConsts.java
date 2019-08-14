@@ -8,8 +8,8 @@ package com.survey.lib.common.consts;
 public class RespConsts {
 
 
-    public static final String SUCCESS = "操作成功";
-    public static final String FAILURE = "操作失败";
+    public static final String SUCCESS = "success";
+    public static final String FAILURE = "fail";
 
 
     public static final int SUCCESS_RESULT_CODE = 1;
