@@ -94,7 +94,7 @@ public class ExcelReport {
         List<Coordinate> coordinates = getReplaceParam();
         for (Coordinate coordinate : coordinates) {
             Object value = eObject.getValByKey(coordinate.getValue().toString());
-            if (value instanceof Integer || value instanceof Double) {
+           /* if (value instanceof Integer || value instanceof Double) {
                 xsf.getSheetAt(coordinate.getSheetNumber()).getRow(coordinate.getRowNumber()).getCell(coordinate.getLineNumber()).setCellValue(Double.valueOf(value.toString()));
             } else if (value instanceof EPic) {
                 try {
@@ -105,7 +105,8 @@ public class ExcelReport {
                 }
             } else {
                 xsf.getSheetAt(coordinate.getSheetNumber()).getRow(coordinate.getRowNumber()).getCell(coordinate.getLineNumber()).setCellValue(value.toString());
-            }
+            }*/
+           setCellValue(coordinate.getSheetNumber(),coordinate.getRowNumber(),coordinate.getLineNumber(),eObject.getValByKey(coordinate.getValue().toString()),null);
         }
     }
 
@@ -119,8 +120,10 @@ public class ExcelReport {
      */
 
     public void insertIntoTable(int sheetNumber, int rowNumber, List<EObject> eObjects, boolean hasBorder) {
+
         List<Coordinate> coordinates = new ArrayList<>();
         XSSFRow row = xsf.getSheetAt(sheetNumber).getRow(rowNumber);
+        XSSFRow formatRow = xsf.getSheetAt(sheetNumber).getRow(rowNumber-1);
         int totalLineNumber = row.getPhysicalNumberOfCells();
         xsf.getSheetAt(sheetNumber).shiftRows(rowNumber + 1, xsf.getSheetAt(sheetNumber).getLastRowNum(), eObjects.size() - 1, true, false);
         CellStyle style = xsf.createCellStyle();
@@ -132,10 +135,12 @@ public class ExcelReport {
             xsf.getSheetAt(sheetNumber).createRow(rowNumber + i + 1);
 
             for (int j = 0; j < totalLineNumber; j++) {
+
                 xsf.getSheetAt(sheetNumber).getRow(rowNumber + i + 1).createCell(j);
                 if (hasBorder) {
                     xsf.getSheetAt(sheetNumber).getRow(rowNumber + i + 1).getCell(j).setCellStyle(style);
                 }
+
             }
         }
 
@@ -151,12 +156,13 @@ public class ExcelReport {
             if (hasBorder) {
                 xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellStyle(style);
             }
+            xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).getCellStyle().setDataFormat( formatRow.getCell(lineNumber).getCellStyle().getDataFormat());
         }
 
         for (int i = 0; i < eObjects.size(); i++) {
 
             for (Coordinate coordinate : coordinates) {
-                setCellValue(coordinate.getSheetNumber(), coordinate.getRowNumber() + i, coordinate.getLineNumber(), eObjects.get(i).getValByKey(coordinate.getValue().toString()));
+                setCellValue(coordinate.getSheetNumber(), coordinate.getRowNumber() + i, coordinate.getLineNumber(), eObjects.get(i).getValByKey(coordinate.getValue().toString()),formatRow.getCell(coordinate.getLineNumber()).getCellStyle().getDataFormat());
             }
         }
 
@@ -185,11 +191,16 @@ public class ExcelReport {
      * @param value       插入值
      */
 
-    private void setCellValue(int sheetNumber, int rowNumber, int lineNumber, Object value) {
+    private void setCellValue(int sheetNumber, int rowNumber, int lineNumber, Object value,Short format) {
         if (null == value) {
             xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue("");
-        } else if (value instanceof Integer || value instanceof Double) {
+        } else if (value instanceof Double) {
             xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue(Double.valueOf(value.toString()));
+            if (null !=format){
+                xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).getCellStyle().setDataFormat(format);
+            }
+        }else if(value instanceof Integer) {
+            xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue(Integer.valueOf(value.toString()));
         } else if (value instanceof EPic) {
             try {
                 xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue("");
