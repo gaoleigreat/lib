@@ -125,7 +125,8 @@ public class ExcelReport {
         XSSFRow row = xsf.getSheetAt(sheetNumber).getRow(rowNumber);
         XSSFRow formatRow = xsf.getSheetAt(sheetNumber).getRow(rowNumber-1);
         int totalLineNumber = row.getPhysicalNumberOfCells();
-        xsf.getSheetAt(sheetNumber).shiftRows(rowNumber + 1, xsf.getSheetAt(sheetNumber).getLastRowNum(), eObjects.size() - 1, true, false);
+        if (eObjects.size()>1){
+        xsf.getSheetAt(sheetNumber).shiftRows(rowNumber + 1, xsf.getSheetAt(sheetNumber).getLastRowNum(), eObjects.size() - 1, true, false);}
         CellStyle style = xsf.createCellStyle();
         style.setBorderBottom(BorderStyle.THIN);
         style.setBorderLeft(BorderStyle.THIN);
