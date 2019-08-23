@@ -10,20 +10,20 @@
         <version>2.0.4.RELEASE</version>
     </parent>
 
-    <groupId>com.lego.lib</groupId>
-    <artifactId>lib</artifactId>
+    <groupId>com.framework</groupId>
+    <artifactId>framework</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>lib-swagger</module>
-        <module>lib-common</module>
-        <module>lib-log</module>
-        <module>lib-mail</module>
-        <module>lib-mybatis</module>
-        <module>lib-sms</module>
-        <module>lib-excel</module>
-        <module>lib-pdf</module>
-        <module>lib-word</module>
+        <module>framework-swagger</module>
+        <module>framework-common</module>
+        <module>framework-log</module>
+        <module>framework-mail</module>
+        <module>framework-mybatis</module>
+        <module>framework-sms</module>
+        <module>framework-excel</module>
+        <module>framework-pdf</module>
+        <module>framework-word</module>
     </modules>
 
     <dependencies>
