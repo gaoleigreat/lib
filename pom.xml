@@ -24,6 +24,7 @@
         <module>framework-excel</module>
         <module>framework-pdf</module>
         <module>framework-word</module>
+        <module>framework-jodconverter</module>
     </modules>
 
     <dependencies>
