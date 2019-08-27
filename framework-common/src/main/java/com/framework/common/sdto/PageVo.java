@@ -1,4 +1,4 @@
-package com.framework.common.vo;
+package com.framework.common.sdto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

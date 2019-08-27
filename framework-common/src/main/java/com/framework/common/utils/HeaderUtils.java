@@ -1,6 +1,6 @@
 package com.framework.common.utils;
 import com.framework.common.consts.HttpConsts;
-import com.framework.common.vo.HeaderVo;
+import com.framework.common.sdto.HeaderVo;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 

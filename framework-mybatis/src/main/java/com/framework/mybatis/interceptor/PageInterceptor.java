@@ -1,9 +1,9 @@
 package com.framework.mybatis.interceptor;
 
+import com.framework.common.sdto.PageVo;
 import com.framework.mybatis.boundsql.SurveyBoundSql;
 import com.framework.common.page.Page;
 import com.framework.common.page.PagedResult;
-import com.framework.common.vo.PageVo;
 import lombok.Data;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.parameter.ParameterHandler;

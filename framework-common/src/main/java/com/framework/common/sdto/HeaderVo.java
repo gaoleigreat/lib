@@ -1,4 +1,4 @@
-package com.framework.common.vo;
+package com.framework.common.sdto;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.AllArgsConstructor;

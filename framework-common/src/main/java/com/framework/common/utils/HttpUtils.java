@@ -1,5 +1,5 @@
 package com.framework.common.utils;
-import com.framework.common.vo.HeaderVo;
+import com.framework.common.sdto.HeaderVo;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;

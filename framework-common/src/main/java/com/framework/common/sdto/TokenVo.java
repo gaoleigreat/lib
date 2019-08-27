@@ -1,4 +1,4 @@
-package com.framework.common.vo;
+package com.framework.common.sdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class TokenVo {
     /**
      * userId
      */
-    private String userId;
+    private Long userId;
     /**
      * 登录 token
      */
@@ -49,7 +49,7 @@ public class TokenVo {
     /**
      * 角色
      */
-    private String role;
+    private List<ProjectRole> projectRoles;
     /**
      * 权限
      */
