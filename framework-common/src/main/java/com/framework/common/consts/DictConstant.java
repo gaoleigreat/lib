@@ -13,9 +13,10 @@ public class DictConstant {
     public interface Service {
         String USER = "user-service";
         String AUTH = "auth-service";
-        String PROJECT = "project-service";
-        String SETTLEMENT = "settlement-service";
-        String REPORT = "report-service";
+        String FILE = "file-service";
+        String LOG = "log-service";
+        String SYSTEM = "system-service";
+        String PREVIEW = "preview-service";
     }
 
 

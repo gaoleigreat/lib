@@ -68,6 +68,12 @@ public class RespConsts {
     }
 
 
+    public interface ParameterError {
+        String ret = FAILURE;
+        int retCode = FAIL_RESULT_CODE;
+        String msg = "参数异常";
+    }
+
     public interface DataErrorType {
         /**
          * id 重复  异常
