@@ -10,6 +10,7 @@ public class RespConsts {
 
     public static final String SUCCESS = "success";
     public static final String FAILURE = "fail";
+    public static final String FAILURE_MSG = "请求失败";
 
 
     public static final int SUCCESS_RESULT_CODE = 1;
@@ -55,7 +56,7 @@ public class RespConsts {
     public interface Failure {
         String ret = FAILURE;
         int retCode = FAIL_RESULT_CODE;
-        String msg = "请求失败";
+        String msg = FAILURE_MSG;
     }
 
     /**
@@ -64,7 +65,7 @@ public class RespConsts {
     public interface Success {
         String ret = SUCCESS;
         int retCode = SUCCESS_RESULT_CODE;
-        String msg = "请求成功";
+        String msg = SUCCESS_RESULT_MSG;
     }
 
 
@@ -72,6 +73,12 @@ public class RespConsts {
         String ret = FAILURE;
         int retCode = FAIL_RESULT_CODE;
         String msg = "参数异常";
+    }
+
+    public interface ServiceError {
+        String ret = FAILURE;
+        int retCode = ERROR_SERVER_CODE;
+        String msg = "服务异常";
     }
 
     public interface DataErrorType {

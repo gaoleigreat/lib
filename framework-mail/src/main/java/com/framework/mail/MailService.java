@@ -13,6 +13,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Map;
 
 /**
  * @author yanglf
@@ -33,6 +34,7 @@ public class MailService {
 
     /**
      * 发送 文本邮件
+     *
      * @param mailBean
      */
     public void sendTxtMail(MailBean mailBean) {
@@ -68,7 +70,6 @@ public class MailService {
     }
 
 
-
     public void sendAttachmentMail(MailBean mailBean) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
@@ -81,8 +82,8 @@ public class MailService {
             mimeMessageHelper.setSubject(mailBean.getSubject());
             //邮件内容
             mimeMessageHelper.setText("<h1>attachment file</h1>");
-            FileSystemResource file=new FileSystemResource("src/main/resource/1.png");
-            mimeMessageHelper.addAttachment("1.png",file);
+            FileSystemResource file = new FileSystemResource("src/main/resource/1.png");
+            mimeMessageHelper.addAttachment("1.png", file);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -90,12 +91,19 @@ public class MailService {
     }
 
 
-
-    public void  sendTemplateMail(String name,String recipient,String subject){
-        Context context=new Context();
-        context.setVariable("name",name);
-        String process = templateEngine.process("", context);
-        MailBean mailBean=new MailBean();
+    /**
+     * @param variables 模板参数
+     * @param template  html 模板
+     * @param recipient 接收人
+     * @param subject   主体
+     */
+    public void sendTemplateMail(Map<String, Object> variables, String template, String recipient, String subject) {
+        Context context = new Context();
+        if (variables != null) {
+            context.setVariables(variables);
+        }
+        String process = templateEngine.process(template, context);
+        MailBean mailBean = new MailBean();
         mailBean.setContent(process);
         mailBean.setSubject(subject);
         mailBean.setRecipient(recipient);

@@ -7,11 +7,17 @@ import lombok.Data;
  **/
 @Data
 public class MailBean {
-    //邮件接收人
+    /**
+     * 邮件接收人
+     */
     private String recipient;
-    //邮件主题
+    /**
+     * 邮件主题
+     */
     private String subject;
-    //邮件内容
+    /**
+     * 邮件内容
+     */
     private String content;
 
 }
