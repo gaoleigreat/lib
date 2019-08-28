@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class UnKnownException extends BaseException {
 
    public UnKnownException(String message) {
-        super(message);
+       this.msg = message;
     }
 
     public UnKnownException(String message, Throwable cause) {

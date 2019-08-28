@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class UnregisteredException extends ApiException {
 
     public UnregisteredException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public UnregisteredException(String message, Throwable cause) {

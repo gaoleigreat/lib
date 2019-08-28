@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class SessionTimeoutException extends  ApiException{
 
     public SessionTimeoutException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public SessionTimeoutException(String message, Throwable cause) {

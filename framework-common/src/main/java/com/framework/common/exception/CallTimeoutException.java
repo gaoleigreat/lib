@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class CallTimeoutException extends  ApiException{
 
     public CallTimeoutException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public CallTimeoutException(String message, Throwable cause) {

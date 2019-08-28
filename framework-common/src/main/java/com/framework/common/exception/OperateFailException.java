@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class OperateFailException extends ApiException {
 
     public OperateFailException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public OperateFailException(String message, Throwable cause) {

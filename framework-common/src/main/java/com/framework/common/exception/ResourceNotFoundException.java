@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class ResourceNotFoundException extends ServerException {
 
     public  ResourceNotFoundException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public ResourceNotFoundException(String message, Throwable cause) {

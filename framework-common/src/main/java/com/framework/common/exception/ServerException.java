@@ -7,8 +7,11 @@ package com.framework.common.exception;
  **/
 public class ServerException extends BaseException {
 
+    public ServerException() {
+    }
+
     public ServerException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     ServerException(String message, Throwable cause) {

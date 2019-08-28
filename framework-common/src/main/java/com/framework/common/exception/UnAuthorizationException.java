@@ -8,7 +8,7 @@ package com.framework.common.exception;
 public class UnAuthorizationException extends ApiException {
 
     public UnAuthorizationException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public UnAuthorizationException(String message, Throwable cause) {

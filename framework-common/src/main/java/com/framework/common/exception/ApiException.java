@@ -5,10 +5,14 @@ package com.framework.common.exception;
  * @description
  * @since 2018/12/22
  **/
-public class ApiException extends BaseException{
+public class ApiException extends BaseException {
+
+    public ApiException() {
+
+    }
 
     public ApiException(String message) {
-        super(message);
+        this.msg = message;
     }
 
     public ApiException(String message, Throwable cause) {
