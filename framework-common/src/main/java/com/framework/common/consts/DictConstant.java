@@ -143,4 +143,22 @@ public class DictConstant {
     }
 
 
+    /**
+     * 日志类型
+     */
+    public  interface  LogType{
+
+
+
+    }
+
+
+    /**
+     * 日志  TAG
+     */
+    public  interface  LogTag{
+
+    }
+
+
 }
