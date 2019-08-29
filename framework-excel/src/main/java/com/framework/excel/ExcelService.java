@@ -1,5 +1,6 @@
 package com.framework.excel;
 
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
@@ -11,7 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +27,6 @@ import java.util.List;
 @Component
 public class ExcelService {
 
-
-    @Value("${define.report.excel.storePath:/app/survey/report/}")
-    private String excelStorePath;
-
-
     /**
      * write  excel
      *
@@ -37,14 +36,24 @@ public class ExcelService {
     public void writeExcel(List<? extends BaseRowModel> baseRowModels,
                            String excelFileName,
                            String sheetName,
-                           List<List<String>> headers) {
+                           List<List<String>> headers,
+                           HttpServletResponse response) {
         OutputStream out = null;
         try {
-            out = new FileOutputStream(excelStorePath + excelFileName + ".xlsx");
+            if (response != null) {
+                response.setContentType("application/force-download");
+                response.setCharacterEncoding("utf-8");
+                response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelFileName, "UTF-8"));
+                out = response.getOutputStream();
+            } else {
+                out = new FileOutputStream(excelFileName + ".xlsx");
+            }
             ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX, true);
+           /* ExcelWriter writer = EasyExcelFactory.getWriterWithTempAndHandler(inputStream,out,ExcelTypeEnum.XLSX,true,
+                    new AfterWriteHandlerImpl());*/
             Sheet sheet = new Sheet(1, 1);
-            sheet.setAutoWidth(Boolean.TRUE);
-            sheet.setTableStyle(DataUtil.createTableStyle());
+            //sheet.setAutoWidth(Boolean.TRUE);
+            //sheet.setTableStyle(DataUtil.createTableStyle());
             sheet.setClazz(baseRowModels.get(0).getClass());
             sheet.setSheetName(sheetName);
             if (!CollectionUtils.isEmpty(headers)) {
@@ -52,6 +61,7 @@ public class ExcelService {
             }
             excelWriter.write(baseRowModels, sheet);
             excelWriter.finish();
+            out.flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -64,6 +74,7 @@ public class ExcelService {
             }
         }
     }
+
 
     private static List<List<String>> getSheetHead() {
         List<List<String>> headList = new ArrayList<>();
