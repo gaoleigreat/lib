@@ -1,8 +1,8 @@
 package com.framework.excel;
 
-import com.framework.excel.element.EObject;
-import com.framework.excel.element.EPic;
-import com.framework.excel.model.Coordinate;
+import com.framework.common.element.Coordinate;
+import com.framework.common.element.OObject;
+import com.framework.common.element.OPic;
 import com.framework.excel.utils.ExcelUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -90,22 +90,11 @@ public class ExcelReport {
      * 对Excel中的值进行替换
      */
 
-    public void replaceParame(EObject eObject) {
+    public void replaceParame(OObject eObject) {
         List<Coordinate> coordinates = getReplaceParam();
         for (Coordinate coordinate : coordinates) {
             Object value = eObject.getValByKey(coordinate.getValue().toString());
-           /* if (value instanceof Integer || value instanceof Double) {
-                xsf.getSheetAt(coordinate.getSheetNumber()).getRow(coordinate.getRowNumber()).getCell(coordinate.getLineNumber()).setCellValue(Double.valueOf(value.toString()));
-            } else if (value instanceof EPic) {
-                try {
-                    xsf.getSheetAt(coordinate.getSheetNumber()).getRow(coordinate.getRowNumber()).getCell(coordinate.getLineNumber()).setCellValue("");
-                    insertPicture(coordinate.getSheetNumber(), coordinate.getRowNumber(), coordinate.getLineNumber(), value);
-                } catch (Exception e) {
-                    log.error("插入图片失败：{}", e.getMessage());
-                }
-            } else {
-                xsf.getSheetAt(coordinate.getSheetNumber()).getRow(coordinate.getRowNumber()).getCell(coordinate.getLineNumber()).setCellValue(value.toString());
-            }*/
+
            setCellValue(coordinate.getSheetNumber(),coordinate.getRowNumber(),coordinate.getLineNumber(),eObject.getValByKey(coordinate.getValue().toString()),null);
         }
     }
@@ -119,7 +108,7 @@ public class ExcelReport {
      * @param hasBorder   是否带有border
      */
 
-    public void insertIntoTable(int sheetNumber, int rowNumber, List<EObject> eObjects, boolean hasBorder) {
+    public void insertIntoTable(int sheetNumber, int rowNumber, List<OObject> eObjects, boolean hasBorder) {
 
         List<Coordinate> coordinates = new ArrayList<>();
         XSSFRow row = xsf.getSheetAt(sheetNumber).getRow(rowNumber);
@@ -201,7 +190,7 @@ public class ExcelReport {
             }
         }else if(value instanceof Integer) {
             xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue(Integer.valueOf(value.toString()));
-        } else if (value instanceof EPic) {
+        } else if (value instanceof OPic) {
             try {
                 xsf.getSheetAt(sheetNumber).getRow(rowNumber).getCell(lineNumber).setCellValue("");
                 insertPicture(sheetNumber, rowNumber, lineNumber, value);
@@ -224,9 +213,9 @@ public class ExcelReport {
      */
 
     private void insertPicture(int sheetNumber, int rowNumber, int lineNumber, Object value) {
-        EPic ePic;
-        if (value instanceof EPic) {
-            ePic = (EPic) value;
+        OPic ePic;
+        if (value instanceof OPic) {
+            ePic = (OPic) value;
         } else {
             return;
         }

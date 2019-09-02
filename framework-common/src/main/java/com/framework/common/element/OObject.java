@@ -1,14 +1,15 @@
-package com.framework.excel.element;
+package com.framework.common.element;
 
 /**
- * @author xiaodao
+ *
+ * office 替换数据模板
  */
-public abstract class EObject {
+public abstract class OObject {
 
     public abstract Object getValByKey(String key);
 
     public boolean isPic(String key) {
-        return this.getValByKey(key) instanceof EPic;
+        return this.getValByKey(key) instanceof OPic;
     }
 
     public String getTextByKey(String key) {
@@ -19,9 +20,9 @@ public abstract class EObject {
         }
     }
 
-    public EPic getPicByKey(String key) {
+    public OPic getPicByKey(String key) {
         if (isPic(key)) {
-            return (EPic) this.getValByKey(key);
+            return (OPic) this.getValByKey(key);
         } else {
             return null;
         }

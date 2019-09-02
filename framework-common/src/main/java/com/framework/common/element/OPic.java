@@ -1,9 +1,9 @@
-package com.framework.excel.element;
+package com.framework.common.element;
 
 /**
- * @author xiaodao
+ * 图片模板
  */
-public class EPic {
+public class OPic {
     public Integer getWidth() {
         return width;
     }
