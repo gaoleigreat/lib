@@ -140,6 +140,7 @@ public class MybatisConfig {
         config.setDbType(DbType.MYSQL);
         // 主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
         config.setIdType(IdType.INPUT);
+        config.setTablePrefix("tpl_");
         config.setTableUnderline(true);
         globalConfiguration.setDbConfig(config);
         globalConfiguration.setBanner(false);
