@@ -3,17 +3,18 @@ package com.framework.word.util;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.util.CollectionUtils;
 
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @auther xiaodao
  * @date 2019/9/5 11:30
  */
-public class WordUtilT {
+public class WordTemplateUtil {
     /**
      * 获取word表格里面的数据
      *
@@ -52,11 +53,16 @@ public class WordUtilT {
 
         List<String> headerList = convvertRowValueToList(header);
         if (keys != null) {
+            int headerSize = getHeaderSize(keys);
+            for (int i = 0; i < headerSize; i++) {
+                rows.remove(0);
+            }
+
             rows.forEach(r -> {
-                Map<String, Object> rowValueMap = convvertRowValueToMap(r, convertKeys(keys));
+                Map<String, Object> rowValueMap = convvertRowValueToMap(r, keys);
                 resultList.add(rowValueMap);
             });
-        }else {
+        } else {
             rows.forEach(r -> {
                 Map<String, Object> rowValueMap = convvertRowValueToMap(r, headerList);
                 resultList.add(rowValueMap);
@@ -89,24 +95,32 @@ public class WordUtilT {
      * @return
      */
     public Map<String, Object> convvertRowValueToMap(XWPFTableRow row, List<String> keys) {
+        List<String> key = new ArrayList<>(keys);
+
         Map<String, Object> resultMap = new HashMap<>();
         if (row == null || CollectionUtils.isEmpty(keys) || row.getTableCells().size() != keys.size()) {
             return resultMap;
         }
         List<XWPFTableCell> tableCells = row.getTableCells();
         tableCells.forEach(t -> {
-            resultMap.put(keys.remove(0), t.getText());
+            resultMap.put(key.remove(0), t.getText());
         });
         return resultMap;
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FileNotFoundException {
         new FileInputStream("C:/Users/xiaodao/Desktop/word.docx");
         XWPFDocument doc = new XWPFDocument(new FileInputStream("C:/Users/xiaodao/Desktop/word.docx"));
-        WordUtilT wordUtilT = new WordUtilT();
-        List<String> ke = Arrays.asList("姓名","年龄","address","work","生日");
-        List<Map<String, Object>> excelData = wordUtilT.getExcelData(doc, null, ke);
+        WordTemplateUtil wordUtilT = new WordTemplateUtil();
+        List<String> ke = Arrays.asList();
+        String[] as = {"基本信息.姓名", "基本信息.年龄", "学历信息.学校", "学历信息.专业", "住址"};
+
+
+
+        List<String> transferedList = new ArrayList<>();
+        Arrays.stream(as).forEach(arr -> transferedList.add(arr));
+        List<Map<String, Object>> excelData = wordUtilT.getExcelData(doc, null, null);
         System.out.println(excelData);
     }
 
@@ -126,5 +140,50 @@ public class WordUtilT {
         });
         return resultKeys;
     }
+
+    public int getHeaderSize(List<String> keys) {
+        AtomicInteger result = new AtomicInteger();
+
+        keys.forEach(k -> {
+            result.set(getBiggerNumber(getSubCount(k, "."), result.get()));
+        });
+        return result.get();
+
+    }
+
+    /**
+     * 获取字符串中含有多少个其他字符串
+     *
+     * @param str
+     * @param key
+     * @return
+     */
+    public int getSubCount(String str, String key) {
+        int count = 0;
+        int index = 0;
+        while ((index = str.indexOf(key, index)) != -1) {
+            index = index + key.length();
+
+            count++;
+        }
+        return count;
+    }
+
+    /**
+     * 获取两个数字中的大数
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public int getBiggerNumber(int a, int b) {
+        if (a >= b) {
+            return a;
+        } else {
+            return b;
+        }
+
+    }
+
 
 }
