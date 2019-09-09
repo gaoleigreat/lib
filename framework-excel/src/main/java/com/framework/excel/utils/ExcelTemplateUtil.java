@@ -87,46 +87,6 @@ public class ExcelTemplateUtil {
 
     public List<Map<String, Object>> getSheetValue(Sheet sheet, List<String> keys) {
 
-       /* List<Map<String, Object>> resultMapList = new ArrayList<>();
-        int firstRowIndex = 0;
-        List<String> headerList = new ArrayList<>();
-        if (CollectionUtils.isEmpty(keys)) {
-            Row rowHeader = sheet.getRow(0);
-            int firstCellIndex = rowHeader.getFirstCellNum();
-            int lastCellIndex = rowHeader.getLastCellNum();
-            for (int cIndex = firstCellIndex; cIndex < lastCellIndex; cIndex++) {
-                Cell cell = rowHeader.getCell(cIndex);
-                if (cell != null) {
-                    headerList.add(cell.toString());
-                }
-            }
-        } else {
-            AtomicInteger number = new AtomicInteger();
-            keys.forEach(k -> {
-                number.set(getBiggerNumber(getSubCount(k, "."), number.get()));
-            });
-            firstRowIndex = number.get() + 1;
-
-        }
-
-        int lastRowIndex = sheet.getLastRowNum();
-        for (int rIndex = firstRowIndex; rIndex <= lastRowIndex; rIndex++) {
-            Row row = sheet.getRow(rIndex);
-            if (row != null) {
-                int firstCellIndex = row.getFirstCellNum();
-                int lastCellIndex = row.getLastCellNum();
-                Map<String, Object> rowMAP = new HashMap<>();
-                for (int cIndex = firstCellIndex; cIndex < lastCellIndex; cIndex++) {
-                    List<String> key = new ArrayList<>(keys);
-                    Cell cell = row.getCell(cIndex);
-                    if (cell != null) {
-                        rowMAP.put(key.remove(0), cell.toString());
-                    }
-                }
-                resultMapList.add(rowMAP);
-            }
-        }
-        return resultMapList;*/
         List<Map<String, Object>> resultList = new ArrayList<>();
         if (sheet == null) {
             return resultList;
