@@ -1,5 +1,6 @@
 package com.framework.common.sdto;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CurrentVo {
+
+    @JSONField(serialize = false)
+    private Boolean isInit;
     /**
      * 用户ID
      */
