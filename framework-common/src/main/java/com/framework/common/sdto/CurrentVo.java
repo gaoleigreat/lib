@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author yanglf
@@ -50,7 +51,7 @@ public class CurrentVo {
     /**
      * 权限点
      */
-    private List<String> permissions;
+    private Set<String> permissions;
     private String token;
     private String deviceType;
     /**
