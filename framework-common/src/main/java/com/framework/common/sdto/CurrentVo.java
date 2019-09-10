@@ -18,7 +18,7 @@ import java.util.List;
 public class CurrentVo {
 
     @JSONField(serialize = false)
-    private Boolean isInit;
+    private Boolean isInit = false;
     /**
      * 用户ID
      */
