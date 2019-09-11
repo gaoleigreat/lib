@@ -12,13 +12,13 @@ import org.apache.ibatis.session.Configuration;
  * @since 2019/2/25
  **/
 @Data
-public class SurveySqlSource implements SqlSource {
+public class LegoSqlSource implements SqlSource {
 
     private SqlSource sqlSource;
 
     private Configuration configuration;
 
-    public SurveySqlSource(SqlSource sqlSource, Configuration configuration) {
+    public LegoSqlSource(SqlSource sqlSource, Configuration configuration) {
         this.sqlSource = sqlSource;
         this.configuration = configuration;
     }

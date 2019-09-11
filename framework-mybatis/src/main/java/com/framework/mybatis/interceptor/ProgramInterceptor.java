@@ -1,6 +1,6 @@
 package com.framework.mybatis.interceptor;
 
-import com.framework.mybatis.sqlsource.SurveySqlSource;
+import com.framework.mybatis.sqlsource.LegoSqlSource;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
@@ -24,7 +24,7 @@ public class ProgramInterceptor implements Interceptor {
         Object[] args = invocation.getArgs();
         MappedStatement mappedStatement = (MappedStatement) args[0];
 
-        SurveySqlSource surveySqlSource = new SurveySqlSource(mappedStatement.getSqlSource(), mappedStatement.getConfiguration());
+        LegoSqlSource surveySqlSource = new LegoSqlSource(mappedStatement.getSqlSource(), mappedStatement.getConfiguration());
         MappedStatement.Builder builder = new MappedStatement.Builder(mappedStatement.getConfiguration(), mappedStatement.getId(),
                 surveySqlSource,
                 mappedStatement.getSqlCommandType());
