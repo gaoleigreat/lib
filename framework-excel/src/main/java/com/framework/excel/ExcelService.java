@@ -27,6 +27,47 @@ import java.util.List;
 @Component
 public class ExcelService {
 
+
+    /**
+     * write  excel
+     *
+     * @param headers
+     * @param excelName excel name
+     */
+    public void writeExcel(List<Object> headers,
+                           String excelName,
+                           String sheetName,
+                           HttpServletResponse response) {
+        OutputStream out = null;
+        try {
+            if (response != null) {
+                response.setContentType("application/force-download");
+                response.setCharacterEncoding("utf-8");
+                response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName, "UTF-8"));
+                out = response.getOutputStream();
+            } else {
+                out = new FileOutputStream(excelName + ".xlsx");
+            }
+            ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX, true);
+            Sheet sheet = new Sheet(1, 1);
+            sheet.setSheetName(sheetName);
+            excelWriter.write1(DataUtil.createListObject(headers), sheet);
+            excelWriter.finish();
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
     /**
      * write  excel
      *
