@@ -43,7 +43,7 @@ public class ExcelService {
             if (response != null) {
                 response.setContentType("application/force-download");
                 response.setCharacterEncoding("utf-8");
-                response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName, "UTF-8"));
+                response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName+".xlsx", "UTF-8"));
                 out = response.getOutputStream();
             } else {
                 out = new FileOutputStream(excelName + ".xlsx");
