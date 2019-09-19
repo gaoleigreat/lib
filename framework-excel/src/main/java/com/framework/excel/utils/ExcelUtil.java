@@ -1,15 +1,13 @@
 package com.framework.excel.utils;
 
 import com.alibaba.excel.support.ExcelTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,16 +16,15 @@ import org.springframework.util.CollectionUtils;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+@Slf4j
 public class ExcelUtil {
 
     /*正则匹配${}*/
@@ -134,38 +131,57 @@ public class ExcelUtil {
         return res;
     }
 
-
     /**
      * excel 读取
      *
-     * @param filePath excel文件路径
+     * @param fis  InputStream
+     * @param type excel类型  0-xlsx 1-xls
      * @return
      * @throws Exception
      */
-    public List<Map<Integer, Object>> reader(String filePath) throws Exception {
-        List<Map<Integer, Object>> list = new ArrayList<>();
-        FileInputStream fis = new FileInputStream(filePath);
-        String type = filePath.lastIndexOf(".") > 0 ? filePath.substring(filePath.lastIndexOf(".") + 1) : "";
+    public static List<Map<String, Object>> excelReader(InputStream fis, int type) throws Exception {
+        List<Map<String, Object>> list = new ArrayList<>();
         Workbook workbook;
-        if ("xlsx".equals(type)) {
+        if (type == 0) {
             workbook = new XSSFWorkbook(fis);
-        } else {
+        } else if (type == 1) {
             workbook = new HSSFWorkbook(fis);
+        } else {
+            throw new Exception("文件类型错误");
         }
         Sheet sheet = workbook.getSheetAt(0);
+        List<String> headers = excelHeaderReader(sheet);
+
         int lastRowNum = sheet.getLastRowNum();
         for (int i = 1; i <= lastRowNum; i++) {
             Row row = sheet.getRow(i);
             Iterator<Cell> cellIterator = row.cellIterator();
-            Map<Integer, Object> map = new HashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             while (cellIterator.hasNext()) {
-                Cell next = cellIterator.next();
-                int columnIndex = next.getColumnIndex();
-                map.put(columnIndex, next.toString());
+                Cell cell = cellIterator.next();
+                int columnIndex = cell.getColumnIndex();
+                map.put(headers.get(columnIndex), cell.toString());
             }
             list.add(map);
         }
         return list;
+    }
+
+
+    /**
+     * @param sheet
+     * @return
+     */
+    private static List<String> excelHeaderReader(Sheet sheet) {
+        List<String> headers = new ArrayList<>();
+        Row row = sheet.getRow(0);
+        Iterator<Cell> cellIterator = row.cellIterator();
+        while (cellIterator.hasNext()) {
+            Cell cell = cellIterator.next();
+            CellType cellTypeEnum = cell.getCellTypeEnum();
+            headers.add(cell.toString());
+        }
+        return headers;
     }
 
 
