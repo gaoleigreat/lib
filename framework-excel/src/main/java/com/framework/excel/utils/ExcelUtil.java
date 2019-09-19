@@ -139,7 +139,10 @@ public class ExcelUtil {
      * @return
      * @throws Exception
      */
-    public static List<Map<String, Object>> excelReader(InputStream fis, int type) throws Exception {
+    public static List<Map<String, Object>> excelReader(InputStream fis,
+                                                        int type,
+                                                        Integer startRowIndex,
+                                                        Integer endRowIndex) throws Exception {
         List<Map<String, Object>> list = new ArrayList<>();
         Workbook workbook;
         if (type == 0) {
@@ -151,9 +154,11 @@ public class ExcelUtil {
         }
         Sheet sheet = workbook.getSheetAt(0);
         List<String> headers = excelHeaderReader(sheet);
-
         int lastRowNum = sheet.getLastRowNum();
-        for (int i = 1; i <= lastRowNum; i++) {
+        startRowIndex = startRowIndex == null || startRowIndex < 1 ? 1 : startRowIndex;
+        endRowIndex = endRowIndex == null ? lastRowNum : endRowIndex;
+
+        for (int i = startRowIndex; i <= (endRowIndex > lastRowNum ? lastRowNum : endRowIndex); i++) {
             Row row = sheet.getRow(i);
             Iterator<Cell> cellIterator = row.cellIterator();
             Map<String, Object> map = new LinkedHashMap<>();
