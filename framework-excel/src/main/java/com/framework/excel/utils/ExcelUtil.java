@@ -1,5 +1,6 @@
 package com.framework.excel.utils;
 
+import com.alibaba.excel.support.ExcelTypeEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -134,6 +135,13 @@ public class ExcelUtil {
     }
 
 
+    /**
+     * excel 读取
+     *
+     * @param filePath excel文件路径
+     * @return
+     * @throws Exception
+     */
     public List<Map<Integer, Object>> reader(String filePath) throws Exception {
         List<Map<Integer, Object>> list = new ArrayList<>();
         FileInputStream fis = new FileInputStream(filePath);
@@ -162,12 +170,14 @@ public class ExcelUtil {
 
 
     /**
-     * @param data
-     * @param sheetName
-     * @param excelName
-     * @param type      0-xlsx 1-xls
-     * @param response
-     * @throws IOException
+     * 写入excel
+     *
+     * @param data      data
+     * @param sheetName sheet 名称
+     * @param excelName excel 名称
+     * @param type      excel类型  0-xlsx 1-xls
+     * @param response  response
+     * @throws IOException exception
      */
     public static void excelWriter(List<List<String>> data,
                                    String sheetName,
@@ -190,6 +200,11 @@ public class ExcelUtil {
         workbook.write(out);
     }
 
+    /**
+     * @param data      data
+     * @param sheetName sheet name
+     * @return xls excel
+     */
     private static Workbook getXlsExcel(List<List<String>> data, String sheetName) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet(sheetName);
@@ -206,6 +221,11 @@ public class ExcelUtil {
     }
 
 
+    /**
+     * @param data      excel  data
+     * @param sheetName sheet name
+     * @return xlsx excel
+     */
     private static Workbook getXlsxExcel(List<List<String>> data, String sheetName) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet(sheetName);
