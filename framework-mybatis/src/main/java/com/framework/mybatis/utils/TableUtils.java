@@ -99,7 +99,7 @@ public class TableUtils {
         if (isRequired != null && isRequired == 2) {
             return "NOT NULL";
         }
-        return "";
+        return "NULL";
     }
 
     /**
@@ -110,7 +110,7 @@ public class TableUtils {
      */
     public static String getDefaultValue(String defaultValue) {
         if (StringUtils.isEmpty(defaultValue)) {
-            return "";
+            return null;
         }
         return "DEFAULT " + defaultValue;
     }
