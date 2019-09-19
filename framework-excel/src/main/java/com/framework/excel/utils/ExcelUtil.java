@@ -1,14 +1,26 @@
 package com.framework.excel.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.util.CollectionUtils;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -116,5 +128,59 @@ public class ExcelUtil {
         }
         return res;
     }
+
+
+
+    public List<Map<Integer, Object>> reader(String filePath) throws Exception {
+        List<Map<Integer, Object>> list = new ArrayList<>();
+        FileInputStream fis = new FileInputStream(filePath);
+        String type = filePath.lastIndexOf(".") > 0 ? filePath.substring(filePath.lastIndexOf(".") + 1) : "";
+        Workbook workbook;
+        if ("xlsx".equals(type)) {
+            workbook = new XSSFWorkbook(fis);
+        } else {
+            workbook = new HSSFWorkbook(fis);
+        }
+        Sheet sheet = workbook.getSheetAt(0);
+        int lastRowNum = sheet.getLastRowNum();
+        for (int i = 1; i <= lastRowNum; i++) {
+            Row row = sheet.getRow(i);
+            Iterator<Cell> cellIterator = row.cellIterator();
+            Map<Integer, Object> map = new HashMap<>();
+            while (cellIterator.hasNext()) {
+                Cell next = cellIterator.next();
+                int columnIndex = next.getColumnIndex();
+                map.put(columnIndex, next.toString());
+            }
+            list.add(map);
+        }
+        return list;
+    }
+
+
+    public static void excelWriter(List<List<String>> data,
+                                   String sheetName,
+                                   String excelName,
+                                   HttpServletResponse response) throws IOException {
+        response.setContentType("application/force-download");
+        response.setCharacterEncoding("utf-8");
+        response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
+        ServletOutputStream out = response.getOutputStream();
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet(sheetName);
+        if (!CollectionUtils.isEmpty(data)) {
+            for (int i = 0; i < data.size(); i++) {
+                HSSFRow row = sheet.createRow(i);
+                for (int j = 0; j < data.get(i).size(); j++) {
+                    HSSFCell cell = row.createCell(j);
+                    cell.setCellValue(data.get(i).get(j));
+                }
+            }
+        }
+        workbook.write(out);
+    }
+
+
+
 
 }
