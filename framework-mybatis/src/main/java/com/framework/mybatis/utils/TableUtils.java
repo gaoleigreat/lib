@@ -99,7 +99,7 @@ public class TableUtils {
         if (isRequired != null && isRequired == 2) {
             return "NOT NULL";
         }
-        return "NULL";
+        return null;
     }
 
     /**
@@ -123,7 +123,7 @@ public class TableUtils {
      */
     public static String getComment(String desc) {
         if (StringUtils.isEmpty(desc)) {
-            return "";
+            return "COMMENT ''";
         }
         return "COMMENT '" + desc + "'";
     }
