@@ -1,6 +1,9 @@
 package com.framework.mybatis.utils;
 
+import com.framework.common.utils.DateUtils;
 import org.springframework.util.StringUtils;
+
+import java.time.LocalDateTime;
 
 /**
  * @author : yanglf
@@ -46,6 +49,45 @@ public class TableUtils {
         }
         return null;
     }
+
+
+    /**
+     * 类型转换
+     *
+     * @param category
+     * @return
+     */
+    public static Object getColumnValue(Integer category, String value) {
+        switch (category) {
+            case 1:
+                // input
+            case 2:
+                // textarea
+            case 4:
+                // 图片
+            case 5:
+                // 附件
+            case 7:
+                // 多选
+                return value;
+            case 3:
+                // date
+                LocalDateTime localDateTime = DateUtils.parseStringToDateTime(value, "yyyy-MM-dd HH:mm:ss");
+                return DateUtils.localDateTimeToDate(localDateTime);
+            case 9:
+                // 整数
+            case 6:
+                // 单选
+                return Long.valueOf(value);
+            case 14:
+                // 小数
+                return Double.valueOf(value);
+            default:
+                break;
+        }
+        return null;
+    }
+
 
     /**
      * 是否为空
