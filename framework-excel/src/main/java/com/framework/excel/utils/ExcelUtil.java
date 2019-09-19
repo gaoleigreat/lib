@@ -9,6 +9,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.util.CollectionUtils;
 
@@ -77,6 +80,7 @@ public class ExcelUtil {
 
     /**
      * 关闭输入流
+     *
      * @param is
      */
     public static void close(InputStream is) {
@@ -130,7 +134,6 @@ public class ExcelUtil {
     }
 
 
-
     public List<Map<Integer, Object>> reader(String filePath) throws Exception {
         List<Map<Integer, Object>> list = new ArrayList<>();
         FileInputStream fis = new FileInputStream(filePath);
@@ -158,14 +161,36 @@ public class ExcelUtil {
     }
 
 
+    /**
+     * @param data
+     * @param sheetName
+     * @param excelName
+     * @param type      0-xlsx 1-xls
+     * @param response
+     * @throws IOException
+     */
     public static void excelWriter(List<List<String>> data,
                                    String sheetName,
                                    String excelName,
-                                   HttpServletResponse response) throws IOException {
+                                   Integer type,
+                                   HttpServletResponse response) throws Exception {
         response.setContentType("application/force-download");
         response.setCharacterEncoding("utf-8");
-        response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
+        Workbook workbook;
+        if (type == 0) {
+            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
+            workbook = getXlsxExcel(data, sheetName);
+        } else if (type == 1) {
+            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xls", "UTF-8"));
+            workbook = getXlsExcel(data, sheetName);
+        } else {
+            throw new Exception("excel类型错误");
+        }
         ServletOutputStream out = response.getOutputStream();
+        workbook.write(out);
+    }
+
+    private static Workbook getXlsExcel(List<List<String>> data, String sheetName) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet(sheetName);
         if (!CollectionUtils.isEmpty(data)) {
@@ -177,10 +202,24 @@ public class ExcelUtil {
                 }
             }
         }
-        workbook.write(out);
+        return workbook;
     }
 
 
+    private static Workbook getXlsxExcel(List<List<String>> data, String sheetName) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet(sheetName);
+        if (!CollectionUtils.isEmpty(data)) {
+            for (int i = 0; i < data.size(); i++) {
+                XSSFRow row = sheet.createRow(i);
+                for (int j = 0; j < data.get(i).size(); j++) {
+                    XSSFCell cell = row.createCell(j);
+                    cell.setCellValue(data.get(i).get(j));
+                }
+            }
+        }
+        return workbook;
+    }
 
 
 }
