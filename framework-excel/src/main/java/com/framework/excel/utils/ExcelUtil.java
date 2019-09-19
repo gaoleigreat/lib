@@ -164,8 +164,10 @@ public class ExcelUtil {
             Map<String, Object> map = new LinkedHashMap<>();
             while (cellIterator.hasNext()) {
                 Cell cell = cellIterator.next();
+                cell.setCellType(CellType.STRING);
                 int columnIndex = cell.getColumnIndex();
                 map.put(headers.get(columnIndex), cell.toString());
+
             }
             list.add(map);
         }
