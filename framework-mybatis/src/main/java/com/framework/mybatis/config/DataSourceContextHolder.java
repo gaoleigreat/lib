@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2019/1/4
  **/
 @Slf4j
-class DataSourceContextHolder {
+public class DataSourceContextHolder {
 
     static final String DEFAULT_DB = DataSourceType.read.getName();
 
@@ -33,7 +33,7 @@ class DataSourceContextHolder {
     }
 
 
-    static String getJdbcType() {
+    public static String getJdbcType() {
         return LOCAL.get();
     }
 
