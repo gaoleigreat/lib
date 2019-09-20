@@ -45,6 +45,9 @@ public class MybatisConfig {
     private Class<? extends DataSource> dataSourceType;
     @Resource(name = "writeDataSource")
     private DataSource writeDataSource;
+    @Resource(name = "shareDataSource")
+    private DataSource shareDataSource;
+
     @Resource(name = "readDataSources")
     private List<DataSource> readDataSources;
 
@@ -166,7 +169,10 @@ public class MybatisConfig {
     public AbstractRoutingDataSource roundRobinDataSouceProxy() {
         DynamicDataSource proxy = new DynamicDataSource(readDataSources.size());
         Map<Object, Object> targetDataSources = new HashMap<>();
+
         targetDataSources.put(DataSourceType.write.getType(), writeDataSource);
+        targetDataSources.put(DataSourceType.share.getType(),shareDataSource);
+
         //多个读数据库
         for (int i = 0; i < readDataSources.size(); i++) {
             targetDataSources.put(DataSourceType.read.getType() + i, readDataSources.get(i));

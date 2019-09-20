@@ -1,4 +1,5 @@
 package com.framework.mybatis.config;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,8 +10,21 @@ import lombok.Getter;
  **/
 @AllArgsConstructor
 @Getter
-public enum  DataSourceType {
-    read("read", "从库"), write("write", "主库");
+public enum DataSourceType {
+    /**
+     * 读库
+     */
+    read("read", "从库"),
+    /**
+     * 写库
+     */
+    write("write", "主库"),
+    /**
+     * 共享库
+     */
+    share("share","共享数据");
+
     private String type;
     private String name;
+
 }

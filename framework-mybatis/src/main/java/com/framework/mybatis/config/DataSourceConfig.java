@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * @author yanglf
  * @description
@@ -20,6 +21,7 @@ public class DataSourceConfig {
 
     @Value("${define.datasource.type}")
     private Class<? extends DataSource> dataSourceType;
+
 
     /**
      * 主数据源
@@ -32,6 +34,19 @@ public class DataSourceConfig {
     public DataSource writeDataSource() {
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
+
+
+    /**
+     * 共享数据源
+     *
+     * @return
+     */
+    @Bean(name = "shareDataSource", destroyMethod = "close", initMethod = "init")
+    @ConfigurationProperties(prefix = "define.share.datasource")
+    public DataSource shareDataSource() {
+        return DataSourceBuilder.create().type(dataSourceType).build();
+    }
+
 
     /**
      * 从数据源1
