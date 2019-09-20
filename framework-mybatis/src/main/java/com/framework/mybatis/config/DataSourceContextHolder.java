@@ -13,7 +13,10 @@ public class DataSourceContextHolder {
 
     static final String DEFAULT_DB = DataSourceType.read.getName();
 
-    @Getter
+
+    /*@Getter*/
+    /**
+     */
     private static final ThreadLocal<String> LOCAL = new ThreadLocal<>();
 
     static void read() {
