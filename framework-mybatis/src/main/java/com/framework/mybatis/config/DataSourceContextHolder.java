@@ -16,6 +16,7 @@ public class DataSourceContextHolder {
 
     /*@Getter*/
     /**
+     *
      */
     private static final ThreadLocal<String> LOCAL = new ThreadLocal<>();
 
@@ -36,7 +37,7 @@ public class DataSourceContextHolder {
     }
 
 
-    public static String getJdbcType() {
+    static String getJdbcType() {
         return LOCAL.get();
     }
 
