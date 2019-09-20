@@ -185,7 +185,7 @@ public class ExcelUtil {
         Iterator<Cell> cellIterator = row.cellIterator();
         while (cellIterator.hasNext()) {
             Cell cell = cellIterator.next();
-            CellType cellTypeEnum = cell.getCellTypeEnum();
+            cell.setCellType(CellType.STRING);
             headers.add(cell.toString());
         }
         return headers;
