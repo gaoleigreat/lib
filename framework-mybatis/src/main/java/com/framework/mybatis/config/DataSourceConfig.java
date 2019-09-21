@@ -1,12 +1,10 @@
 package com.framework.mybatis.config;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +16,7 @@ import java.util.List;
  **/
 @Configuration
 public class DataSourceConfig {
+
 
     @Value("${define.datasource.type}")
     private Class<? extends DataSource> dataSourceType;
@@ -34,7 +33,6 @@ public class DataSourceConfig {
     public DataSource writeDataSource() {
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
-
 
     /**
      * 共享数据源
