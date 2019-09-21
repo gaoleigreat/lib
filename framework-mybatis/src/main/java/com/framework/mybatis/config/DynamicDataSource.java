@@ -3,6 +3,8 @@ package com.framework.mybatis.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -33,6 +35,10 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         if (DataSourceType.write.getType().equals(typeKey)) {
             log.debug("负载至数据源 -> 主");
             return DataSourceType.write.getType();
+        }
+        if(DataSourceType.share.getType().equals(typeKey)){
+            log.debug("切换到共享数据源 -->>");
+            return DataSourceType.share.getType();
         }
         return lookupKey();
     }

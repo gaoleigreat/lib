@@ -52,6 +52,34 @@ public class TableUtils {
     }
 
 
+    public static boolean isColumnType(Integer category) {
+        switch (category) {
+            case 1:
+                // input
+            case 2:
+                // textarea
+            case 4:
+                // 图片
+            case 5:
+                // 附件
+            case 7:
+                // 多选
+            case 3:
+                // date
+            case 9:
+                // 整数
+            case 6:
+                // 单选
+            case 14:
+                // 小数
+                return true;
+            default:
+                break;
+        }
+        return false;
+    }
+
+
     /**
      * 类型转换
      *
@@ -109,7 +137,7 @@ public class TableUtils {
         if (isRequired != null && isRequired == 2) {
             return "NOT NULL";
         }
-        return "";
+        return null;
     }
 
     /**
@@ -120,7 +148,7 @@ public class TableUtils {
      */
     public static String getDefaultValue(String defaultValue) {
         if (StringUtils.isEmpty(defaultValue)) {
-            return "";
+            return null;
         }
         return "DEFAULT " + defaultValue;
     }
@@ -133,7 +161,7 @@ public class TableUtils {
      */
     public static String getComment(String desc) {
         if (StringUtils.isEmpty(desc)) {
-            return "";
+            return "COMMENT ''";
         }
         return "COMMENT '" + desc + "'";
     }
