@@ -1,5 +1,6 @@
 package com.framework.mybatis.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.framework.common.utils.DateUtils;
 import org.springframework.util.StringUtils;
 
@@ -75,13 +76,22 @@ public class TableUtils {
                 LocalDateTime localDateTime = DateUtils.parseStringToDateTime(value, "yyyy-MM-dd HH:mm:ss");
                 return DateUtils.localDateTimeToDate(localDateTime);
             case 9:
-                // 整数
+                return Integer.parseInt(value);
             case 6:
                 // 单选
                 return Long.valueOf(value);
             case 14:
                 // 小数
                 return Double.valueOf(value);
+            case 10:
+                // 小数
+                return JSONObject.parseObject(value);
+            case 11:
+                // 小数
+                return JSONObject.parseArray(value);
+            case 13:
+                // 小数
+                return Boolean.valueOf(value);
             default:
                 break;
         }
