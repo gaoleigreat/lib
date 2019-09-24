@@ -223,6 +223,100 @@ public class ExcelUtil {
         workbook.write(out);
     }
 
+
+    /**
+     * 写入excel
+     *
+     * @param data      data
+     * @param sheetName sheet 名称
+     * @param excelName excel 名称
+     * @param type      excel类型  0-xlsx 1-xls
+     * @param response  response
+     * @throws IOException exception
+     */
+    public static void excelWriter(List<Map<String, String>> data,
+                                   Map<String, String> headersMap,
+                                   String sheetName,
+                                   String excelName,
+                                   Integer type,
+                                   HttpServletResponse response) throws Exception {
+        response.setContentType("application/force-download");
+        response.setCharacterEncoding("utf-8");
+        List<String> headers = getHeaders(headersMap);
+        if (type == 0) {
+            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet sheet = workbook.createSheet(sheetName);
+            excelXlsHeaderWriter(headers, sheet);
+            excelXlsWriterMapData(sheet, headersMap, data);
+            ServletOutputStream out = response.getOutputStream();
+            workbook.write(out);
+        } else if (type == 1) {
+            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xls", "UTF-8"));
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet(sheetName);
+            excelXlsxHeaderWriter(headers, sheet);
+            ServletOutputStream out = response.getOutputStream();
+            workbook.write(out);
+        } else {
+            throw new Exception("excel类型错误");
+        }
+    }
+
+    private static void excelXlsWriterMapData(HSSFSheet sheet, Map<String, String> headersMap, List<Map<String, String>> data) {
+        if (!CollectionUtils.isEmpty(data)) {
+            for (int i = 0; i < data.size(); i++) {
+                HSSFRow row = sheet.createRow(i);
+                Map<String, String> map = data.get(i);
+                int j = 0;
+                for (Map.Entry<String, String> headers : headersMap.entrySet()) {
+                    j++;
+                    String key = headers.getKey();
+                    HSSFCell cell = row.createCell(j);
+                    cell.setCellValue(map.get(key));
+                }
+
+            }
+        }
+
+
+    }
+
+    private static List<String> getHeaders(Map<String, String> headersMap) {
+        List<String> headers = new ArrayList<>();
+        if (CollectionUtils.isEmpty(headersMap)) {
+            for (Map.Entry<String, String> map : headersMap.entrySet()) {
+                headers.add(map.getValue());
+            }
+        }
+        return headers;
+    }
+
+
+    /**
+     * @return
+     */
+    private static void excelXlsHeaderWriter(List<String> headers, HSSFSheet sheet) {
+        HSSFRow row = sheet.createRow(0);
+        for (int i = 0; i < headers.size(); i++) {
+            HSSFCell cell = row.createCell(i);
+            cell.setCellValue(headers.get(i));
+        }
+    }
+
+
+    /**
+     * @return
+     */
+    private static void excelXlsxHeaderWriter(List<String> headers, XSSFSheet sheet) {
+        XSSFRow row = sheet.createRow(0);
+        for (int i = 0; i < headers.size(); i++) {
+            XSSFCell cell = row.createCell(i);
+            cell.setCellValue(headers.get(i));
+        }
+    }
+
+
     /**
      * @param data      data
      * @param sheetName sheet name
