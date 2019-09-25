@@ -1,5 +1,6 @@
 package com.framework.common.utils;
 
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -10,6 +11,21 @@ import java.util.Date;
  * @since 2019/1/21
  **/
 public class DateUtils {
+
+    /**
+     * 导出文件时间格式
+     */
+    public static final String EXCEL_DATETIME_PATTERN = "yyyy/MM/dd HH:mm:ss";
+    public static final String EXCEL_DATE_PATTERN = "yyyy/MM/dd";
+    public static final String EXCEL_TIME_PATTERN = "HH:mm:ss";
+
+
+    /**
+     * 前端显示时间格式
+     */
+    public static final String HTML_DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static final String HTML_DATE_PATTERN = "yyyy-MM-dd";
+    public static final String HTML_TIME_PATTERN = "HH:mm:ss";
 
 
     /**
@@ -82,6 +98,12 @@ public class DateUtils {
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zdt = localDateTime.atZone(zoneId);
         return Date.from(zdt.toInstant());
+    }
+
+
+    public static String date2String(Date date, String format) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        return getDateTimeAsString(localDateTime, format);
     }
 
 
