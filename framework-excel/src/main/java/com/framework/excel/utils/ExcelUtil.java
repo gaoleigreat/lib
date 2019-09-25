@@ -227,11 +227,12 @@ public class ExcelUtil {
     /**
      * 写入excel
      *
-     * @param data      data
-     * @param sheetName sheet 名称
-     * @param excelName excel 名称
-     * @param type      excel类型  0-xlsx 1-xls
-     * @param response  response
+     * @param data       data
+     * @param headersMap headersMap 头信息
+     * @param sheetName  sheet 名称
+     * @param excelName  excel 名称
+     * @param type       excel类型  0-xlsx 1-xls
+     * @param response   response
      * @throws IOException exception
      */
     public static void excelWriter(List<Map<String, String>> data,
