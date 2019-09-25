@@ -3,8 +3,8 @@ package com.framework.mybatis.utils;
 import com.alibaba.fastjson.JSONObject;
 import com.framework.common.utils.DateUtils;
 import org.springframework.util.StringUtils;
-
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author : yanglf
@@ -81,7 +81,7 @@ public class TableUtils {
 
 
     /**
-     * 类型转换
+     * 类型转换   string  转换   object
      *
      * @param category
      * @return
@@ -101,7 +101,7 @@ public class TableUtils {
                 return value;
             case 3:
                 // date
-                LocalDateTime localDateTime = DateUtils.parseStringToDateTime(value, "yyyy-MM-dd HH:mm:ss");
+                LocalDateTime localDateTime = DateUtils.parseStringToDateTime(value, DateUtils.HTML_DATETIME_PATTERN);
                 return DateUtils.localDateTimeToDate(localDateTime);
             case 9:
                 return Integer.parseInt(value);
@@ -120,6 +120,44 @@ public class TableUtils {
             case 13:
                 // 小数
                 return Boolean.valueOf(value);
+            default:
+                break;
+        }
+        return null;
+    }
+
+
+    /**
+     * 类型转换  object 转换   string
+     *
+     * @param category
+     * @return
+     */
+    public static String getColumnValueStr(Integer category, Object value) {
+        switch (category) {
+            case 1:
+                // input
+            case 2:
+                // textarea
+            case 4:
+                // 图片
+            case 5:
+                // 附件
+            case 7:
+                // 多选
+                return String.valueOf(value);
+            case 3:
+                // date
+                Date data = (Date) value;
+                return DateUtils.date2String(data, DateUtils.EXCEL_DATETIME_PATTERN);
+            case 9:
+                // 整数
+            case 6:
+                // 单选
+                return String.valueOf(value);
+            case 14:
+                // 小数
+                return String.valueOf(value);
             default:
                 break;
         }
