@@ -273,16 +273,16 @@ public class ExcelUtil {
 
     private static void excelXlsxWriterMapData(XSSFSheet sheet, Map<String, String> headersMap, List<Map<String, String>> data) {
         if (!CollectionUtils.isEmpty(data)) {
-            for (int i = 0; i < data.size(); i++) {
+            for (int i = 1; i < data.size(); i++) {
                 XSSFRow row = sheet.createRow(i);
                 Map<String, String> map = data.get(i);
-                int j = 1;
+                int j = 0;
                 for (Map.Entry<String, String> headers : headersMap.entrySet()) {
                     j++;
                     String key = headers.getKey();
                     XSSFCell cell = row.createCell(j);
                     String s = map.get(key);
-                    if(!StringUtils.isBlank(s)){
+                    if (!StringUtils.isBlank(s)) {
                         cell.setCellValue(s);
                     }
                 }
@@ -292,10 +292,10 @@ public class ExcelUtil {
 
     private static void excelXlsWriterMapData(HSSFSheet sheet, Map<String, String> headersMap, List<Map<String, String>> data) {
         if (!CollectionUtils.isEmpty(data)) {
-            for (int i = 0; i < data.size(); i++) {
+            for (int i = 1; i < data.size(); i++) {
                 HSSFRow row = sheet.createRow(i);
                 Map<String, String> map = data.get(i);
-                int j = 1;
+                int j = 0;
                 for (Map.Entry<String, String> headers : headersMap.entrySet()) {
                     j++;
                     String key = headers.getKey();
