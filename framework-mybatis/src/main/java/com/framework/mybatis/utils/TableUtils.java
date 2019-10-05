@@ -2,6 +2,7 @@ package com.framework.mybatis.utils;
 
 import com.framework.common.utils.DateUtils;
 import org.springframework.util.StringUtils;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -86,6 +87,9 @@ public class TableUtils {
      * @return
      */
     public static Object getColumnValue(Integer category, String value) {
+        if (StringUtils.isEmpty(value)) {
+            return null;
+        }
         switch (category) {
             case 1:
                 // input
@@ -124,6 +128,9 @@ public class TableUtils {
      * @return
      */
     public static String getColumnValueStr(Integer category, Object value) {
+        if (value == null) {
+            return null;
+        }
         switch (category) {
             case 1:
                 // input
