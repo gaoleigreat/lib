@@ -221,6 +221,8 @@ public class ExcelUtil {
         }
         ServletOutputStream out = response.getOutputStream();
         workbook.write(out);
+        out.flush();
+        out.close();
     }
 
 
@@ -252,6 +254,8 @@ public class ExcelUtil {
             excelXlsWriterMapData(sheet, headersMap, data);
             ServletOutputStream out = response.getOutputStream();
             workbook.write(out);
+            out.flush();
+            out.close();
         } else if (type == 0) {
             response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
             XSSFWorkbook workbook = new XSSFWorkbook();
@@ -260,6 +264,8 @@ public class ExcelUtil {
             excelXlsxWriterMapData(sheet, headersMap, data);
             ServletOutputStream out = response.getOutputStream();
             workbook.write(out);
+            out.flush();
+            out.close();
         } else {
             throw new Exception("excel类型错误");
         }
