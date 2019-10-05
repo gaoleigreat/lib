@@ -276,12 +276,15 @@ public class ExcelUtil {
             for (int i = 0; i < data.size(); i++) {
                 XSSFRow row = sheet.createRow(i);
                 Map<String, String> map = data.get(i);
-                int j = 0;
+                int j = 1;
                 for (Map.Entry<String, String> headers : headersMap.entrySet()) {
                     j++;
                     String key = headers.getKey();
                     XSSFCell cell = row.createCell(j);
-                    cell.setCellValue(map.get(key));
+                    String s = map.get(key);
+                    if(!StringUtils.isBlank(s)){
+                        cell.setCellValue(s);
+                    }
                 }
             }
         }
@@ -292,12 +295,15 @@ public class ExcelUtil {
             for (int i = 0; i < data.size(); i++) {
                 HSSFRow row = sheet.createRow(i);
                 Map<String, String> map = data.get(i);
-                int j = 0;
+                int j = 1;
                 for (Map.Entry<String, String> headers : headersMap.entrySet()) {
                     j++;
                     String key = headers.getKey();
                     HSSFCell cell = row.createCell(j);
-                    cell.setCellValue(map.get(key));
+                    String s = map.get(key);
+                    if (!StringUtils.isBlank(s)) {
+                        cell.setCellValue(s);
+                    }
                 }
 
             }
