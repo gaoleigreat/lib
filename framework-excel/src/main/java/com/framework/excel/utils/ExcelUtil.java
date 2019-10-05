@@ -300,7 +300,7 @@ public class ExcelUtil {
 
     private static List<String> getHeaders(Map<String, String> headersMap) {
         List<String> headers = new ArrayList<>();
-        if (CollectionUtils.isEmpty(headersMap)) {
+        if (!CollectionUtils.isEmpty(headersMap)) {
             for (Map.Entry<String, String> map : headersMap.entrySet()) {
                 headers.add(map.getValue());
             }
