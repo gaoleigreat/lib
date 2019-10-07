@@ -90,11 +90,7 @@ public class ExcelService {
                 out = new FileOutputStream(excelFileName + ".xlsx");
             }
             ExcelWriter excelWriter = new ExcelWriter(out, ExcelTypeEnum.XLSX, true);
-           /* ExcelWriter writer = EasyExcelFactory.getWriterWithTempAndHandler(inputStream,out,ExcelTypeEnum.XLSX,true,
-                    new AfterWriteHandlerImpl());*/
             Sheet sheet = new Sheet(1, 1);
-            //sheet.setAutoWidth(Boolean.TRUE);
-            //sheet.setTableStyle(DataUtil.createTableStyle());
             sheet.setClazz(baseRowModels.get(0).getClass());
             sheet.setSheetName(sheetName);
             if (!CollectionUtils.isEmpty(headers)) {
@@ -137,6 +133,24 @@ public class ExcelService {
                           Class<? extends BaseRowModel> baseRowModel,
                           int sheetNo) throws Exception {
         BufferedInputStream stream = new BufferedInputStream(new FileInputStream(new File(excelFileName)));
+        ExcelReader excelReader;
+        if (excelFileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
+            excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
+        } else if (excelFileName.endsWith(ExcelTypeEnum.XLS.getValue())) {
+            excelReader = new ExcelReader(stream, ExcelTypeEnum.XLS, null, eventListener);
+        } else {
+            throw new Exception();
+        }
+        excelReader.read(new Sheet(sheetNo, 1, baseRowModel));
+    }
+
+
+
+    public void readExcel(String excelFileName,
+                          ExcelReadListener eventListener,
+                          InputStream stream,
+                          Class<? extends BaseRowModel> baseRowModel,
+                          int sheetNo) throws Exception {
         ExcelReader excelReader;
         if (excelFileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
             excelReader = new ExcelReader(stream, ExcelTypeEnum.XLSX, null, eventListener);
