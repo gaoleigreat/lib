@@ -221,6 +221,8 @@ public class ExcelUtil {
         }
         ServletOutputStream out = response.getOutputStream();
         workbook.write(out);
+        out.flush();
+        out.close();
     }
 
 
@@ -244,48 +246,73 @@ public class ExcelUtil {
         response.setContentType("application/force-download");
         response.setCharacterEncoding("utf-8");
         List<String> headers = getHeaders(headersMap);
-        if (type == 0) {
-            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
+        if (type == 1) {
+            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xls", "UTF-8"));
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet(sheetName);
             excelXlsHeaderWriter(headers, sheet);
             excelXlsWriterMapData(sheet, headersMap, data);
             ServletOutputStream out = response.getOutputStream();
             workbook.write(out);
-        } else if (type == 1) {
-            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xls", "UTF-8"));
+            out.flush();
+            out.close();
+        } else if (type == 0) {
+            response.addHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(excelName + ".xlsx", "UTF-8"));
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet sheet = workbook.createSheet(sheetName);
             excelXlsxHeaderWriter(headers, sheet);
+            excelXlsxWriterMapData(sheet, headersMap, data);
             ServletOutputStream out = response.getOutputStream();
             workbook.write(out);
+            out.flush();
+            out.close();
         } else {
             throw new Exception("excel类型错误");
+        }
+    }
+
+    private static void excelXlsxWriterMapData(XSSFSheet sheet, Map<String, String> headersMap, List<Map<String, String>> data) {
+        if (!CollectionUtils.isEmpty(data)) {
+            for (int i = 0; i < data.size(); i++) {
+                XSSFRow row = sheet.createRow(i + 1);
+                Map<String, String> map = data.get(i);
+                int j = 0;
+                for (Map.Entry<String, String> headers : headersMap.entrySet()) {
+                    String key = headers.getKey();
+                    XSSFCell cell = row.createCell(j);
+                    String s = map.get(key);
+                    if (!StringUtils.isBlank(s)) {
+                        cell.setCellValue(s);
+                    }
+                    j++;
+                }
+            }
         }
     }
 
     private static void excelXlsWriterMapData(HSSFSheet sheet, Map<String, String> headersMap, List<Map<String, String>> data) {
         if (!CollectionUtils.isEmpty(data)) {
             for (int i = 0; i < data.size(); i++) {
-                HSSFRow row = sheet.createRow(i);
+                HSSFRow row = sheet.createRow(i + 1);
                 Map<String, String> map = data.get(i);
                 int j = 0;
                 for (Map.Entry<String, String> headers : headersMap.entrySet()) {
-                    j++;
                     String key = headers.getKey();
                     HSSFCell cell = row.createCell(j);
-                    cell.setCellValue(map.get(key));
+                    String s = map.get(key);
+                    if (!StringUtils.isBlank(s)) {
+                        cell.setCellValue(s);
+                    }
+                    j++;
                 }
 
             }
         }
-
-
     }
 
     private static List<String> getHeaders(Map<String, String> headersMap) {
         List<String> headers = new ArrayList<>();
-        if (CollectionUtils.isEmpty(headersMap)) {
+        if (!CollectionUtils.isEmpty(headersMap)) {
             for (Map.Entry<String, String> map : headersMap.entrySet()) {
                 headers.add(map.getValue());
             }
