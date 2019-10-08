@@ -132,7 +132,7 @@ public class ExcelUtil {
     }
 
     /**
-     * excel 读取
+     * excel 读取 包含表头  单  sheet
      *
      * @param fis  InputStream
      * @param type excel类型  0-xlsx 1-xls
@@ -175,6 +175,8 @@ public class ExcelUtil {
     }
 
 
+
+
     /**
      * @param sheet
      * @return
@@ -193,7 +195,7 @@ public class ExcelUtil {
 
 
     /**
-     * 写入excel
+     * 写入excel 表头
      *
      * @param data      data
      * @param sheetName sheet 名称
@@ -227,7 +229,7 @@ public class ExcelUtil {
 
 
     /**
-     * 写入excel
+     * 写入excel  包含表头
      *
      * @param data       data
      * @param headersMap headersMap 头信息
