@@ -48,6 +48,11 @@ public class CurrentVo {
      * 工程角色信息
      */
     private List<ProjectRole> projectRoles;
+
+    /**
+     * 用户身份证号
+     */
+    private String idCardNumber;
     /**
      * 权限点
      */
