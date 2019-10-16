@@ -17,10 +17,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class HeaderVo {
     private String token;
-    private String time;
-    private String deviceType;
-    private String osVersion;
-    private String sn;
     private String fromName;
 
     private String userId;
