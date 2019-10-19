@@ -1,5 +1,6 @@
 package com.framework.mybatis.tool;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang.StringUtils;
@@ -83,8 +84,23 @@ public class WhereEntityTool {
     public static void excute(Object t, QueryWrapper wrapper) {
         //反射获取属性
         Field[] fields = t.getClass().getDeclaredFields();
+        for (Field f : fields) {
+            // 判断字段注解是否存在
+
+        }
+
+
         for (Field field : fields) {
             try {
+                boolean annotationPresent2 = field.isAnnotationPresent(TableField.class);
+                if (annotationPresent2) {
+                    TableField name = field.getAnnotation(TableField.class);
+                    // 获取注解值
+                    boolean exist = name.exist();
+                    if (!exist){
+                        continue;
+                    }
+                }
                 field.setAccessible(true);
                 Object val = field.get(t);
                 String colum = "";
